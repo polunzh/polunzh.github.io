@@ -1,0 +1,439 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Polunzh">
+    <title>Node.js中module.exports和exports - Polunzh</title>
+    <meta name="author" content="polunzh">
+    
+    
+    
+        
+            <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+        
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"polunzh","sameAs":["https://github.com/polunzh","http://stackoverflow.com/users/4160154/polunzh","mailto:polunzh@qq.com"],"image":"https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d"},"articleBody":"在Node.js中，导出一个对象可以用exports，也可以用module.exports，但是这两者是有些区别的。先看一个例子:\n1234567891011//snippet-1:// foo1.jsexports.foo = &quot;foo1&quot;;// foo2.jsmodule.exports.foo = &quot;foo2&quot;;// bar.jsconsole.log(require(&#x27;./foo1&#x27;).foo); // Output: foo1console.log(require(&#x27;./foo2&#x27;).foo); // Output: foo2\n\n\n\n可以看到，这种情况下，module.exports和exports的效果是一样的。再看另外一个例子：\n1234567891011//snippet-2:// foo1.jsexports = &quot;foo1&quot;;// foo2.jsmodule.exports = &quot;foo2&quot;;// bar.jsconsole.log(require(&#x27;./foo1&#x27;)); // Output: &#123;&#125;console.log(require(&#x27;./foo2&#x27;)); // Output: foo2\n\n在这个代码段中，foo1.js并没有导出想要的对象，为什么呢？在Node.js中，exports是module.exports的一个引用，Node.js的官方文档中，给出了一个require()的简单的实现:\n1234567891011121314function require(/* ... */) &#123;  const module = &#123; exports: &#123;&#125; &#125;;  ((module, exports) =&gt; &#123;    // Module code here. In this example, define a function.    function someFunc() &#123;&#125;    exports = someFunc;    // At this point, exports is no longer a shortcut to module.exports, and    // this module will still export an empty default object.    module.exports = someFunc;    // At this point, the module will now export someFunc, instead of the    // default object.  &#125;)(module, module.exports);  return module.exports;&#125;\n\n这就不难理解了，如果这样导出对象:\n1exports = &#x27;xxx&#x27;;\n\n其实是修改了exports的指向：不再是之前的module.export的指向；而在Node.js中是通过module.exports导出对象的，所以在snippets-2中，并不能正确的导出结果。\n","dateCreated":"2019-02-24T10:15:01+00:00","dateModified":"2021-02-16T06:25:15+00:00","datePublished":"2019-02-24T10:15:01+00:00","description":"在Node.js中，导出一个对象可以用exports，也可以用module.exports，但是这两者是有些区别的。先看一个例子:\n1234567891011//snippet-1:// foo1.jsexports.foo = &quot;foo1&quot;;// foo2.jsmodule.exports.foo = &quot;foo2&quot;;// bar.jsconsole.log(require(&#x27;./foo1&#x27;).foo); // Output: foo1console.log(require(&#x27;./foo2&#x27;).foo); // Output: foo2","headline":"Node.js中module.exports和exports","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://polunzh.com/post/node-module-exports/"},"publisher":{"@type":"Organization","name":"polunzh","sameAs":["https://github.com/polunzh","http://stackoverflow.com/users/4160154/polunzh","mailto:polunzh@qq.com"],"image":"https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d"}},"url":"http://polunzh.com/post/node-module-exports/","keywords":"Node.js"}</script>
+    <meta name="description" content="在Node.js中，导出一个对象可以用exports，也可以用module.exports，但是这两者是有些区别的。先看一个例子: 1234567891011&#x2F;&#x2F;snippet-1:&#x2F;&#x2F; foo1.jsexports.foo &#x3D; &quot;foo1&quot;;&#x2F;&#x2F; foo2.jsmodule.exports.foo &#x3D; &quot;foo2&quot;;&#x2F;&#x2F; bar.jsconsole.log">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Node.js中module.exports和exports">
+<meta property="og:url" content="http://polunzh.com/post/node-module-exports/index.html">
+<meta property="og:site_name" content="Polunzh">
+<meta property="og:description" content="在Node.js中，导出一个对象可以用exports，也可以用module.exports，但是这两者是有些区别的。先看一个例子: 1234567891011&#x2F;&#x2F;snippet-1:&#x2F;&#x2F; foo1.jsexports.foo &#x3D; &quot;foo1&quot;;&#x2F;&#x2F; foo2.jsmodule.exports.foo &#x3D; &quot;foo2&quot;;&#x2F;&#x2F; bar.jsconsole.log">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-02-24T10:15:01.000Z">
+<meta property="article:modified_time" content="2021-02-16T06:25:15.610Z">
+<meta property="article:author" content="polunzh">
+<meta property="article:tag" content="Node.js">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/style-oscmcdpy9wvhclc9ysewhrgol5jrpd63hs3cgvvf4uiaovxttt6c5wtg4sem.min.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            Polunzh
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="/about"
+                aria-label="打开链接: /about"
+            >
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+        
+        
+        <ul class="sidebar-buttons">
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/"
+                    
+                    rel="noopener" title="首页">
+                    <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/tags"
+                    
+                    rel="noopener" title="标签">
+                    <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/archives"
+                    
+                    rel="noopener" title="归档">
+                    <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/about"
+                    
+                    rel="noopener" title="关于">
+                    <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+            </li>
+            
+        </ul>
+        
+        <ul class="sidebar-buttons">
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="https://github.com/polunzh"
+                     target="_blank" 
+                    rel="noopener" title="GitHub">
+                    <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="http://stackoverflow.com/users/4160154/polunzh"
+                     target="_blank" 
+                    rel="noopener" title="Stack Overflow">
+                    <i class="sidebar-button-icon fab fa-stack-overflow" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">Stack Overflow</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="mailto:polunzh@qq.com"
+                     target="_blank" 
+                    rel="noopener" title="邮箱">
+                    <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">邮箱</span>
+                </a>
+            </li>
+            
+        </ul>
+        
+        <ul class="sidebar-buttons">
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/atom.xml"
+                    
+                    rel="noopener" title="RSS">
+                    <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+            </li>
+            
+        </ul>
+        
+        
+        <ul class="sidebar-buttons">
+            <li class="sidebar-button">
+                <span class="sidebar-button-link">
+                    <i class="sidebar-button-icon fab fa-google" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc"><form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><input type="hidden" name="sitesearch" value="http://polunzh.com"></form></span>
+                </span>
+            </li>
+        </ul>
+        
+    </div>
+</nav>
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            Node.js中module.exports和exports
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2019-02-24T10:15:01+00:00">
+	
+		    2月 24, 2019
+    	
+    </time>
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <p>在<code>Node.js</code>中，导出一个对象可以用<code>exports</code>，也可以用<code>module.exports</code>，但是这两者是有些区别的。<br>先看一个例子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//snippet-1:</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// foo1.js</span></span><br><span class="line"><span class="built_in">exports</span>.foo = <span class="string">&quot;foo1&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// foo2.js</span></span><br><span class="line"><span class="built_in">module</span>.exports.foo = <span class="string">&quot;foo2&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// bar.js</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">require</span>(<span class="string">&#x27;./foo1&#x27;</span>).foo); <span class="comment">// Output: foo1</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">require</span>(<span class="string">&#x27;./foo2&#x27;</span>).foo); <span class="comment">// Output: foo2</span></span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<p>可以看到，这种情况下，<code>module.exports</code>和<code>exports</code>的效果是一样的。再看另外一个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//snippet-2:</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// foo1.js</span></span><br><span class="line"><span class="built_in">exports</span> = <span class="string">&quot;foo1&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// foo2.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="string">&quot;foo2&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// bar.js</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">require</span>(<span class="string">&#x27;./foo1&#x27;</span>)); <span class="comment">// Output: &#123;&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">require</span>(<span class="string">&#x27;./foo2&#x27;</span>)); <span class="comment">// Output: foo2</span></span><br></pre></td></tr></table></figure>
+
+<p>在这个代码段中，<code>foo1.js</code>并没有导出想要的对象，为什么呢？<br>在<code>Node.js</code>中，<code>exports</code>是<code>module.exports</code>的一个引用，<code>Node.js</code>的官方文档中，给出了一个<code>require()</code>的简单的实现:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">require</span>(<span class="params"><span class="regexp">/* ... */</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> <span class="built_in">module</span> = &#123; <span class="attr">exports</span>: &#123;&#125; &#125;;</span><br><span class="line">  (<span class="function">(<span class="params"><span class="built_in">module</span>, <span class="built_in">exports</span></span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// Module code here. In this example, define a function.</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">someFunc</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">    <span class="built_in">exports</span> = someFunc;</span><br><span class="line">    <span class="comment">// At this point, exports is no longer a shortcut to module.exports, and</span></span><br><span class="line">    <span class="comment">// this module will still export an empty default object.</span></span><br><span class="line">    <span class="built_in">module</span>.exports = someFunc;</span><br><span class="line">    <span class="comment">// At this point, the module will now export someFunc, instead of the</span></span><br><span class="line">    <span class="comment">// default object.</span></span><br><span class="line">  &#125;)(<span class="built_in">module</span>, <span class="built_in">module</span>.exports);</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">module</span>.exports;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这就不难理解了，如果这样导出对象:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exports</span> = <span class="string">&#x27;xxx&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>其实是修改了<code>exports</code>的指向：不再是之前的<code>module.export</code>的指向；而在<code>Node.js</code>中是通过<code>module.exports</code>导出对象的，<br>所以在<code>snippets-2</code>中，并不能正确的导出结果。</p>
+
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/Node-js/" rel="tag">Node.js</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/life-driving-license/"
+                    data-tooltip="考驾照"
+                    aria-label="上一篇: 考驾照"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/js-trycatch/"
+                    data-tooltip="JavaScript中的Try...catch...finally"
+                    aria-label="下一篇: JavaScript中的Try...catch...finally"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Diesen Beitrag teilen"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2021 polunzh. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/life-driving-license/"
+                    data-tooltip="考驾照"
+                    aria-label="上一篇: 考驾照"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/js-trycatch/"
+                    data-tooltip="JavaScript中的Try...catch...finally"
+                    aria-label="下一篇: JavaScript中的Try...catch...finally"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Diesen Beitrag teilen"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <h4 id="about-card-name">polunzh</h4>
+        
+            <div id="about-card-bio"><p>author.bio</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>author.job</p>
+
+            </div>
+        
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/script-khotipjlsohvedevjloi7dhx9gq3fsfo1ybooimzvo1or94jjj5up9aizu0j.min.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+
+    </body>
+</html>

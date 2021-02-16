@@ -1,0 +1,446 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Polunzh">
+    <title>isNaN 函数 - Polunzh</title>
+    <meta name="author" content="polunzh">
+    
+    
+    
+        
+            <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+        
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"polunzh","sameAs":["https://github.com/polunzh","http://stackoverflow.com/users/4160154/polunzh","mailto:polunzh@qq.com"],"image":"https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d"},"articleBody":"在 JavaScript 中 NaN 不能通过 ==, !=, ===, !== 等操作符来比较是否相等. JavaScript 提供了一个全局的函数 isNaN(), 用来确定一个值是不是 NaN; 同时, ES2015 中添加了一个函数 Number.isNaN(), 功能和全局的 isNaN() 类似, 这两个函数有一些区别.\n\n\nisNaN()isNaN() 会首先将参数强制转换为 Number, 如果不能转换为 Number, isNaN() 函数会返回 true. 也就是说，如果这个值不能被转换(如果需要)为一个有效的 Number, 那么这个值就是一个 NaN, isNaN 就会返回true.\n所以, 对于字符串来说, isNaN() 函数显得比较奇怪. 比如说, 字符串 ‘123’ 是字符串，理论上来说不是字符串, 但是 isNaN() 却返回 false.\n例子:\n1234567isNaN(undefined): trueisNaN(null): falseisNaN(&#39;&#39;): falseisNaN(&#39;12&#39;): falseisNaN(true): falseisNaN(false): falseisNaN(&#123;&#125;): true\n\nNumber.isNaN()这个函数是在 ES2015 里添加的，用来判断一个 Number 类型的值是不是 NaN. 它和全局的 isNaN() 函数的重要区别是, Number.isNaN() 不对传入的参数做强制类型转换.\n所以对于非 Number 类型的值， 都会返回 false:\n1234567Number.isNaN(undefined): falseNumber.isNaN(null): falseNumber.isNaN(&#39;&#39;): falseNumber.isNaN(&#39;12&#39;): falseNumber.isNaN(true): falseNumber.isNaN(false): falseNumber.isNaN(&#123;&#125;): false\n\n返回 true:\n123Number.isNaN(NaN)Number.isNaN(Number.NaN)Number.isNaN(0&#x2F;0)\n\n注意:\nNumber.isNaN(0/0) 返回 true, 其它除以 0 情况都返回 false.\n参考:\n\nMDN Number.isNaN(): https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Number/isNaN\nMDN isNaN(): https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/isNaN\n\n","dateCreated":"2020-02-15T13:43:06+00:00","dateModified":"2021-02-16T06:25:15+00:00","datePublished":"2020-02-15T13:43:06+00:00","description":"在 JavaScript 中 NaN 不能通过 ==, !=, ===, !== 等操作符来比较是否相等. JavaScript 提供了一个全局的函数 isNaN(), 用来确定一个值是不是 NaN; 同时, ES2015 中添加了一个函数 Number.isNaN(), 功能和全局的 isNaN() 类似, 这两个函数有一些区别.","headline":"isNaN 函数","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://polunzh.com/post/js-isnan/"},"publisher":{"@type":"Organization","name":"polunzh","sameAs":["https://github.com/polunzh","http://stackoverflow.com/users/4160154/polunzh","mailto:polunzh@qq.com"],"image":"https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d"}},"url":"http://polunzh.com/post/js-isnan/","keywords":"JavaScript"}</script>
+    <meta name="description" content="在 JavaScript 中 NaN 不能通过 &#x3D;&#x3D;, !&#x3D;, &#x3D;&#x3D;&#x3D;, !&#x3D;&#x3D; 等操作符来比较是否相等. JavaScript 提供了一个全局的函数 isNaN(), 用来确定一个值是不是 NaN; 同时, ES2015 中添加了一个函数 Number.isNaN(), 功能和全局的 isNaN() 类似, 这两个函数有一些区别.">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="isNaN 函数">
+<meta property="og:url" content="http://polunzh.com/post/js-isnan/index.html">
+<meta property="og:site_name" content="Polunzh">
+<meta property="og:description" content="在 JavaScript 中 NaN 不能通过 &#x3D;&#x3D;, !&#x3D;, &#x3D;&#x3D;&#x3D;, !&#x3D;&#x3D; 等操作符来比较是否相等. JavaScript 提供了一个全局的函数 isNaN(), 用来确定一个值是不是 NaN; 同时, ES2015 中添加了一个函数 Number.isNaN(), 功能和全局的 isNaN() 类似, 这两个函数有一些区别.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-02-15T13:43:06.000Z">
+<meta property="article:modified_time" content="2021-02-16T06:25:15.610Z">
+<meta property="article:author" content="polunzh">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/style-oscmcdpy9wvhclc9ysewhrgol5jrpd63hs3cgvvf4uiaovxttt6c5wtg4sem.min.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            Polunzh
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="/about"
+                aria-label="打开链接: /about"
+            >
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+        
+        
+        <ul class="sidebar-buttons">
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/"
+                    
+                    rel="noopener" title="首页">
+                    <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/tags"
+                    
+                    rel="noopener" title="标签">
+                    <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/archives"
+                    
+                    rel="noopener" title="归档">
+                    <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/about"
+                    
+                    rel="noopener" title="关于">
+                    <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+            </li>
+            
+        </ul>
+        
+        <ul class="sidebar-buttons">
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="https://github.com/polunzh"
+                     target="_blank" 
+                    rel="noopener" title="GitHub">
+                    <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="http://stackoverflow.com/users/4160154/polunzh"
+                     target="_blank" 
+                    rel="noopener" title="Stack Overflow">
+                    <i class="sidebar-button-icon fab fa-stack-overflow" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">Stack Overflow</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="mailto:polunzh@qq.com"
+                     target="_blank" 
+                    rel="noopener" title="邮箱">
+                    <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">邮箱</span>
+                </a>
+            </li>
+            
+        </ul>
+        
+        <ul class="sidebar-buttons">
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/atom.xml"
+                    
+                    rel="noopener" title="RSS">
+                    <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+            </li>
+            
+        </ul>
+        
+        
+        <ul class="sidebar-buttons">
+            <li class="sidebar-button">
+                <span class="sidebar-button-link">
+                    <i class="sidebar-button-icon fab fa-google" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc"><form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><input type="hidden" name="sitesearch" value="http://polunzh.com"></form></span>
+                </span>
+            </li>
+        </ul>
+        
+    </div>
+</nav>
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            isNaN 函数
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2020-02-15T13:43:06+00:00">
+	
+		    2月 15, 2020
+    	
+    </time>
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <p>在 JavaScript 中 NaN 不能通过 <code>==</code>, <code>!=</code>, <code>===</code>, <code>!==</code> 等操作符来比较是否相等. JavaScript 提供了一个全局的函数 <code>isNaN()</code>, 用来确定一个值是不是 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/NaN">NaN</a>; 同时, ES2015 中添加了一个函数 <code>Number.isNaN()</code>, 功能和全局的 <code>isNaN()</code> 类似, 这两个函数有一些区别.</p>
+<a id="more"></a>
+
+<h2 id="isNaN"><a href="#isNaN" class="headerlink" title="isNaN()"></a>isNaN()</h2><p>isNaN() 会首先将参数强制转换为 Number, 如果不能转换为 Number, isNaN() 函数会返回 true. 也就是说，如果这个值不能被转换(如果需要)为一个有效的 Number, 那么这个值就是一个 NaN, isNaN 就会返回true.</p>
+<p>所以, 对于字符串来说, isNaN() 函数显得比较奇怪. 比如说, 字符串 ‘123’ 是字符串，理论上来说不是字符串, 但是 isNaN() 却返回 false.</p>
+<p>例子:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">isNaN(undefined): true</span><br><span class="line">isNaN(null): false</span><br><span class="line">isNaN(&#39;&#39;): false</span><br><span class="line">isNaN(&#39;12&#39;): false</span><br><span class="line">isNaN(true): false</span><br><span class="line">isNaN(false): false</span><br><span class="line">isNaN(&#123;&#125;): true</span><br></pre></td></tr></table></figure>
+
+<h2 id="Number-isNaN"><a href="#Number-isNaN" class="headerlink" title="Number.isNaN()"></a>Number.isNaN()</h2><p>这个函数是在 ES2015 里添加的，用来判断一个 Number 类型的值是不是 NaN. 它和全局的 isNaN() 函数的重要区别是, Number.isNaN() 不对传入的参数做强制类型转换.</p>
+<p>所以对于非 Number 类型的值， 都会返回 false:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Number.isNaN(undefined): false</span><br><span class="line">Number.isNaN(null): false</span><br><span class="line">Number.isNaN(&#39;&#39;): false</span><br><span class="line">Number.isNaN(&#39;12&#39;): false</span><br><span class="line">Number.isNaN(true): false</span><br><span class="line">Number.isNaN(false): false</span><br><span class="line">Number.isNaN(&#123;&#125;): false</span><br></pre></td></tr></table></figure>
+
+<p>返回 true:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Number.isNaN(NaN)</span><br><span class="line">Number.isNaN(Number.NaN)</span><br><span class="line">Number.isNaN(0&#x2F;0)</span><br></pre></td></tr></table></figure>
+
+<p>注意:</p>
+<p><code>Number.isNaN(0/0)</code> 返回 true, 其它除以 0 情况都返回 false.</p>
+<p>参考:</p>
+<ul>
+<li>MDN Number.isNaN(): <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Number/isNaN">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Number/isNaN</a></li>
+<li>MDN isNaN(): <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/isNaN">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/isNaN</a></li>
+</ul>
+
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/JavaScript/" rel="tag">JavaScript</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/life-2020-spring/"
+                    data-tooltip="春天"
+                    aria-label="上一篇: 春天"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/life-hero/"
+                    data-tooltip="英雄"
+                    aria-label="下一篇: 英雄"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Diesen Beitrag teilen"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2021 polunzh. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/life-2020-spring/"
+                    data-tooltip="春天"
+                    aria-label="上一篇: 春天"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/life-hero/"
+                    data-tooltip="英雄"
+                    aria-label="下一篇: 英雄"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Diesen Beitrag teilen"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <h4 id="about-card-name">polunzh</h4>
+        
+            <div id="about-card-bio"><p>author.bio</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>author.job</p>
+
+            </div>
+        
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/script-khotipjlsohvedevjloi7dhx9gq3fsfo1ybooimzvo1or94jjj5up9aizu0j.min.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+
+    </body>
+</html>

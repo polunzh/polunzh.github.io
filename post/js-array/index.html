@@ -1,0 +1,509 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Polunzh">
+    <title>JavaScript常用数组迭代方法 - Polunzh</title>
+    <meta name="author" content="polunzh">
+    
+    
+    
+        
+            <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+        
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"polunzh","sameAs":["https://github.com/polunzh","http://stackoverflow.com/users/4160154/polunzh","mailto:polunzh@qq.com"],"image":"https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d"},"articleBody":"JavaScript 数组操作\n原文: https://gist.github.com/ljharb/58faf1cfcb4e6808f74aae4ef7944cff\n\nforEach\n\ncallback回答: 给你一个值, 随便你对它做什么, 我不管\ncallback参数: item, index, list\n最终返回值: 啥也没有, undefined\n代码示例:\n\n\n\n1234[&#x27;zhang&#x27;, &#x27;zhen&#x27;, &#x27;qiang&#x27;].forEach((val, index, thisArg) =&gt; &#123;    console.log(index, val);    console.log(thisArg);&#125;);\n\nmap:\n\ncallback回答: here’s an item. what should i put in the new list in its place(翻译不好)？\ncallback 有这些参数: item, index, list\n最终的返回值: 新项的列表\n代码示例1234567const objects = [&#123; id: &#x27;a&#x27;, name: &#x27;chengyaojin&#x27; &#125;, &#123; id: &#x27;b&#x27;, name: &#x27;zhangjunhui&#x27; &#125;, &#123; id: &#x27;c&#x27;, name: &#x27;zhangzhenqiang&#x27; &#125;];const res = objects.map((item, index, list) =&gt; &#123;    item[&#x27;ctime&#x27;] = Date.now();    return item;&#125;);console.log(res);\n\n\n\nfilter:\n\ncallback是个谓词 - 应该返回真值或假值\ncallback回答: 我应该保留这个值吗？\ncallback有这些参数: item, index, list\n最终返回值: 保留下来的值\n代码示例:\n\n123456const ints = [1, 2];const events = ints.filter(item =&gt; &#123;    return item % 2 === 0;&#125;);console.log(ints === events, events);\n\nreduce:\n\ncallback 回答(answers): 这是前一次迭代的返回结果，我应该继续下去吗？\ncallback的参数: result, item, index, list\n最后的返回结果：上一次的迭代结果\n代码示例：\n\n12345678// 注意：`reduce`和`reduceRight`在`callback`参数后都一个可选的`initalValue`参数,// 如果忽略不填，则默认是第一项的值const sum = [1, 2, 3].reduce((result, item) =&gt; &#123;    return result += item;&#125;, 0);console.log(sum);\n\nreduceRight: 和reduce相同，只不过遍历的方向是相反的方向\nsome:\n\ncallback是个谓词(predicate) - 应该返回真值或假值\ncallback回答(answers): 这个值满足需求吗？\ncallback的参数: item, index, list\n最终返回值: 如果找到满足需求的值则返回true,否则返回false\n注意: 如果callback返回true则会停止迭代\n代码示例:\n\n12345const hasNegativeNumbers = [1, 2, 3, -1, 4].some((item, index) =&gt; &#123;    return item &lt; 0;&#125;);console.log(hasNegativeNumbers);\n\nevery:\n\ncallback 是个谓词 - 返回真值(truthy)或假值(falsy)\ncallback回答(answers): 这个值满足需求吗？\ncallback的参数: item, index, list\n最终返回值: 如果找到满足需求的值则返回true,否则返回false\n注意: 如果callback返回false则会停止迭代\n代码示例:\n\n12345const allPositiveNumbers = [1, 2, 3, -1, 4].every((item, index) =&gt; &#123;    return item &gt; 0;&#125;);console.log(allPositiveNumbers);\n\nfind:\n\ncallback 是个谓词 - 返回真值(truthy)或假值(falsy)\ncallback 回答：这是你要找的值吗？\ncallback的参数: item, index, list\n最终返回值：如果能找到，则返回该项，否则返回undefined\n注意: 一旦callback函数返回真值，迭代就会停止\n代码示例:\n\n123456const objects = [&#123; id: &#x27;a&#x27;, name: &#x27;chengyaojin&#x27; &#125;, &#123; id: &#x27;b&#x27;, name: &#x27;zhangjunhui&#x27; &#125;, &#123; id: &#x27;c&#x27;, name: &#x27;zhangzhenqiang&#x27; &#125;];const res = objects.find((item, index, list) =&gt; &#123;    return item.id === &#x27;c&#x27;;&#125;);console.log(res);\n\nfindIndex:\n\ncallback 是个谓词 - 返回真值(truthy)或假值(falsy)\ncallback 回答：这是你要找的值吗？\ncallback的参数: item, index, list\n最终返回值：如果能找到，则返回该项的索引，否则返回-1\n注意: 一旦callback函数返回真值，迭代就会停止\n代码示例:\n\n123456const objects = [&#123; id: &#x27;a&#x27;, name: &#x27;chengyaojin&#x27; &#125;, &#123; id: &#x27;b&#x27;, name: &#x27;zhangjunhui&#x27; &#125;, &#123; id: &#x27;c&#x27;, name: &#x27;zhangzhenqiang&#x27; &#125;];const res = objects.findIndex((item, index, list) =&gt; &#123;    return item.id === &#x27;c&#x27;;&#125;);console.log(res);","dateCreated":"2017-02-08T07:17:30+00:00","dateModified":"2021-02-16T06:25:15+00:00","datePublished":"2017-02-08T07:17:30+00:00","description":"JavaScript 数组操作\n原文: https://gist.github.com/ljharb/58faf1cfcb4e6808f74aae4ef7944cff\n\nforEach\n\ncallback回答: 给你一个值, 随便你对它做什么, 我不管\ncallback参数: item, index, list\n最终返回值: 啥也没有, undefined\n代码示例:\n","headline":"JavaScript常用数组迭代方法","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://polunzh.com/post/js-array/"},"publisher":{"@type":"Organization","name":"polunzh","sameAs":["https://github.com/polunzh","http://stackoverflow.com/users/4160154/polunzh","mailto:polunzh@qq.com"],"image":"https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d"}},"url":"http://polunzh.com/post/js-array/","keywords":"JavaScript"}</script>
+    <meta name="description" content="JavaScript 数组操作 原文: https:&#x2F;&#x2F;gist.github.com&#x2F;ljharb&#x2F;58faf1cfcb4e6808f74aae4ef7944cff  forEach  callback回答: 给你一个值, 随便你对它做什么, 我不管 callback参数: item, index, list 最终返回值: 啥也没有, undefined 代码示例:">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="JavaScript常用数组迭代方法">
+<meta property="og:url" content="http://polunzh.com/post/js-array/index.html">
+<meta property="og:site_name" content="Polunzh">
+<meta property="og:description" content="JavaScript 数组操作 原文: https:&#x2F;&#x2F;gist.github.com&#x2F;ljharb&#x2F;58faf1cfcb4e6808f74aae4ef7944cff  forEach  callback回答: 给你一个值, 随便你对它做什么, 我不管 callback参数: item, index, list 最终返回值: 啥也没有, undefined 代码示例:">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-02-08T07:17:30.000Z">
+<meta property="article:modified_time" content="2021-02-16T06:25:15.610Z">
+<meta property="article:author" content="polunzh">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/style-oscmcdpy9wvhclc9ysewhrgol5jrpd63hs3cgvvf4uiaovxttt6c5wtg4sem.min.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            Polunzh
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="/about"
+                aria-label="打开链接: /about"
+            >
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+        
+        
+        <ul class="sidebar-buttons">
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/"
+                    
+                    rel="noopener" title="首页">
+                    <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/tags"
+                    
+                    rel="noopener" title="标签">
+                    <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/archives"
+                    
+                    rel="noopener" title="归档">
+                    <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/about"
+                    
+                    rel="noopener" title="关于">
+                    <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+            </li>
+            
+        </ul>
+        
+        <ul class="sidebar-buttons">
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="https://github.com/polunzh"
+                     target="_blank" 
+                    rel="noopener" title="GitHub">
+                    <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="http://stackoverflow.com/users/4160154/polunzh"
+                     target="_blank" 
+                    rel="noopener" title="Stack Overflow">
+                    <i class="sidebar-button-icon fab fa-stack-overflow" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">Stack Overflow</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="mailto:polunzh@qq.com"
+                     target="_blank" 
+                    rel="noopener" title="邮箱">
+                    <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">邮箱</span>
+                </a>
+            </li>
+            
+        </ul>
+        
+        <ul class="sidebar-buttons">
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/atom.xml"
+                    
+                    rel="noopener" title="RSS">
+                    <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+            </li>
+            
+        </ul>
+        
+        
+        <ul class="sidebar-buttons">
+            <li class="sidebar-button">
+                <span class="sidebar-button-link">
+                    <i class="sidebar-button-icon fab fa-google" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc"><form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><input type="hidden" name="sitesearch" value="http://polunzh.com"></form></span>
+                </span>
+            </li>
+        </ul>
+        
+    </div>
+</nav>
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            JavaScript常用数组迭代方法
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2017-02-08T07:17:30+00:00">
+	
+		    2月 08, 2017
+    	
+    </time>
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h1 id="JavaScript-数组操作"><a href="#JavaScript-数组操作" class="headerlink" title="JavaScript 数组操作"></a>JavaScript 数组操作</h1><blockquote>
+<p>原文: <a target="_blank" rel="noopener" href="https://gist.github.com/ljharb/58faf1cfcb4e6808f74aae4ef7944cff">https://gist.github.com/ljharb/58faf1cfcb4e6808f74aae4ef7944cff</a></p>
+</blockquote>
+<p><code>forEach</code></p>
+<ul>
+<li><code>callback</code>回答: 给你一个值, 随便你对它做什么, 我不管</li>
+<li><code>callback</code>参数: <code>item</code>, <code>index</code>, <code>list</code></li>
+<li>最终返回值: 啥也没有, <code>undefined</code></li>
+<li>代码示例:</li>
+</ul>
+<a id="more"></a>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">&#x27;zhang&#x27;</span>, <span class="string">&#x27;zhen&#x27;</span>, <span class="string">&#x27;qiang&#x27;</span>].forEach(<span class="function">(<span class="params">val, index, thisArg</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(index, val);</span><br><span class="line">    <span class="built_in">console</span>.log(thisArg);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><code>map</code>:</p>
+<ul>
+<li><em>callback回答</em>: here’s an item. what should i put in the new list in its place(翻译不好)？</li>
+<li><em>callback 有这些参数</em>: <code>item</code>, <code>index</code>, <code>list</code></li>
+<li><em>最终的返回值</em>: 新项的列表</li>
+<li><em>代码示例</em><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> objects = [&#123; <span class="attr">id</span>: <span class="string">&#x27;a&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;chengyaojin&#x27;</span> &#125;, &#123; <span class="attr">id</span>: <span class="string">&#x27;b&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;zhangjunhui&#x27;</span> &#125;, &#123; <span class="attr">id</span>: <span class="string">&#x27;c&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;zhangzhenqiang&#x27;</span> &#125;];</span><br><span class="line"><span class="keyword">const</span> res = objects.map(<span class="function">(<span class="params">item, index, list</span>) =&gt;</span> &#123;</span><br><span class="line">    item[<span class="string">&#x27;ctime&#x27;</span>] = <span class="built_in">Date</span>.now();</span><br><span class="line">    <span class="keyword">return</span> item;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(res);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><code>filter</code>:</p>
+<ul>
+<li><em>callback是个谓词</em> - 应该返回真值或假值</li>
+<li><em>callback回答</em>: 我应该保留这个值吗？</li>
+<li><em>callback有这些参数</em>: <code>item</code>, <code>index</code>, <code>list</code></li>
+<li><em>最终返回值</em>: 保留下来的值</li>
+<li><em>代码示例</em>:</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ints = [<span class="number">1</span>, <span class="number">2</span>];</span><br><span class="line"><span class="keyword">const</span> events = ints.filter(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> item % <span class="number">2</span> === <span class="number">0</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(ints === events, events);</span><br></pre></td></tr></table></figure>
+
+<p><code>reduce</code>:</p>
+<ul>
+<li><code>callback</code> 回答(answers): 这是前一次迭代的返回结果，我应该继续下去吗？</li>
+<li><code>callback</code>的参数: <code>result</code>, <code>item</code>, <code>index</code>, <code>list</code></li>
+<li>最后的返回结果：上一次的迭代结果</li>
+<li>代码示例：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 注意：`reduce`和`reduceRight`在`callback`参数后都一个可选的`initalValue`参数,</span></span><br><span class="line"><span class="comment">// 如果忽略不填，则默认是第一项的值</span></span><br><span class="line"><span class="keyword">const</span> sum = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].reduce(<span class="function">(<span class="params">result, item</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> result += item;</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(sum);</span><br></pre></td></tr></table></figure>
+
+<p><code>reduceRight</code>: 和<code>reduce</code>相同，只不过遍历的方向是相反的方向</p>
+<p><code>some</code>:</p>
+<ul>
+<li><code>callback</code>是个谓词(<code>predicate</code>) - 应该返回真值或假值</li>
+<li><code>callback</code>回答(<code>answers</code>): 这个值满足需求吗？</li>
+<li><code>callback</code>的参数: <code>item</code>, <code>index</code>, <code>list</code></li>
+<li>最终返回值: 如果找到满足需求的值则返回<code>true</code>,否则返回<code>false</code></li>
+<li><code>注意</code>: 如果<code>callback</code>返回<code>true</code>则会停止迭代</li>
+<li>代码示例:</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> hasNegativeNumbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">-1</span>, <span class="number">4</span>].some(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> item &lt; <span class="number">0</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(hasNegativeNumbers);</span><br></pre></td></tr></table></figure>
+
+<p><code>every</code>:</p>
+<ul>
+<li><code>callback</code> 是个谓词 - 返回真值(truthy)或假值(falsy)</li>
+<li><code>callback</code>回答(<code>answers</code>): 这个值满足需求吗？</li>
+<li><code>callback</code>的参数: <code>item</code>, <code>index</code>, <code>list</code></li>
+<li>最终返回值: 如果找到满足需求的值则返回<code>true</code>,否则返回<code>false</code></li>
+<li><code>注意</code>: 如果<code>callback</code>返回<code>false</code>则会停止迭代</li>
+<li>代码示例:</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> allPositiveNumbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">-1</span>, <span class="number">4</span>].every(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> item &gt; <span class="number">0</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(allPositiveNumbers);</span><br></pre></td></tr></table></figure>
+
+<p><code>find</code>:</p>
+<ul>
+<li><code>callback</code> 是个谓词 - 返回真值(truthy)或假值(falsy)</li>
+<li><code>callback</code> 回答：这是你要找的值吗？</li>
+<li><code>callback</code>的参数: <code>item</code>, <code>index</code>, <code>list</code></li>
+<li>最终返回值：如果能找到，则返回该项，否则返回<code>undefined</code></li>
+<li><strong>注意</strong>: 一旦<code>callback</code>函数返回真值，迭代就会停止</li>
+<li>代码示例:</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> objects = [&#123; <span class="attr">id</span>: <span class="string">&#x27;a&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;chengyaojin&#x27;</span> &#125;, &#123; <span class="attr">id</span>: <span class="string">&#x27;b&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;zhangjunhui&#x27;</span> &#125;, &#123; <span class="attr">id</span>: <span class="string">&#x27;c&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;zhangzhenqiang&#x27;</span> &#125;];</span><br><span class="line"><span class="keyword">const</span> res = objects.find(<span class="function">(<span class="params">item, index, list</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> item.id === <span class="string">&#x27;c&#x27;</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(res);</span><br></pre></td></tr></table></figure>
+
+<p><code>findIndex</code>:</p>
+<ul>
+<li><code>callback</code> 是个谓词 - 返回真值(truthy)或假值(falsy)</li>
+<li><code>callback</code> 回答：这是你要找的值吗？</li>
+<li><code>callback</code>的参数: <code>item</code>, <code>index</code>, <code>list</code></li>
+<li>最终返回值：如果能找到，则返回该项的索引，否则返回<code>-1</code></li>
+<li><strong>注意</strong>: 一旦<code>callback</code>函数返回真值，迭代就会停止</li>
+<li>代码示例:</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> objects = [&#123; <span class="attr">id</span>: <span class="string">&#x27;a&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;chengyaojin&#x27;</span> &#125;, &#123; <span class="attr">id</span>: <span class="string">&#x27;b&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;zhangjunhui&#x27;</span> &#125;, &#123; <span class="attr">id</span>: <span class="string">&#x27;c&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;zhangzhenqiang&#x27;</span> &#125;];</span><br><span class="line"><span class="keyword">const</span> res = objects.findIndex(<span class="function">(<span class="params">item, index, list</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> item.id === <span class="string">&#x27;c&#x27;</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(res);</span><br></pre></td></tr></table></figure>
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/JavaScript/" rel="tag">JavaScript</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/git-note/"
+                    data-tooltip="Git备忘"
+                    aria-label="上一篇: Git备忘"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/fu-npm-package/"
+                    data-tooltip="常用npm包"
+                    aria-label="下一篇: 常用npm包"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Diesen Beitrag teilen"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2021 polunzh. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/git-note/"
+                    data-tooltip="Git备忘"
+                    aria-label="上一篇: Git备忘"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/fu-npm-package/"
+                    data-tooltip="常用npm包"
+                    aria-label="下一篇: 常用npm包"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Diesen Beitrag teilen"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <h4 id="about-card-name">polunzh</h4>
+        
+            <div id="about-card-bio"><p>author.bio</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>author.job</p>
+
+            </div>
+        
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/script-khotipjlsohvedevjloi7dhx9gq3fsfo1ybooimzvo1or94jjj5up9aizu0j.min.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+
+    </body>
+</html>

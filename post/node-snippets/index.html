@@ -1,0 +1,443 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Polunzh">
+    <title>Node.js 代码段 - Polunzh</title>
+    <meta name="author" content="polunzh">
+    
+    
+    
+        
+            <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+        
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"polunzh","sameAs":["https://github.com/polunzh","http://stackoverflow.com/users/4160154/polunzh","mailto:polunzh@qq.com"],"image":"https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d"},"articleBody":"一些常用或有用的代码段，积少成多。\nhttp\nserver1234567const http = require(&#x27;http&#x27;);http.createServer((request, response) =&gt; &#123;    response.writeHead(200, &#123; &#x27;Content-Type&#x27;: &#x27;text/plain;charset=utf-8&#x27;&#125;);    response.end(&#x27;你好，跳跳&#x27;);&#125;).listen(8080);\n\n\n\n\n\n\nrequest123456789101112131415161718const http = require(&#x27;http&#x27;);const option = &#123;    hostname: &#x27;127.0.0.1&#x27;,    port: 8080,    path: &#x27;/&#x27;,    method: &#x27;GET&#x27;&#125;;const req = http.request(option, (res) =&gt; &#123;    console.log(&#x27;STATUS: &#x27; + res.statusCode);    console.log(&#x27;HEADERS: &#x27; + JSON.stringify(res.headers));    res.setEncoding(&#x27;utf8&#x27;);    res.on(&#x27;data&#x27;, (chunk) =&gt; &#123;        console.log(chunk);    &#125;);&#125;);req.end();\n\n\n\n\nStream\nReadStream/WriteStream\n\n12345678910111213const fs &#x3D; require(&#39;fs&#39;);function copyFile(source, dist) &#123;   const readStream &#x3D; fs.createReadStream(source);   const writeStream &#x3D; fs.createWriteStream(dist);   readStream.on(&#39;data&#39;, (chunk) &#x3D;&gt; &#123;           writeStream.write(chunk);   &#125;);   &#x2F;&#x2F; 或者   fs.createReadStream(source).pipe(fs.createWriteStream(dist));&#125;\n","dateCreated":"2017-10-04T01:31:40+00:00","dateModified":"2021-02-16T06:25:15+00:00","datePublished":"2017-10-04T01:31:40+00:00","description":"一些常用或有用的代码段，积少成多。\nhttp\nserver1234567const http = require(&#x27;http&#x27;);http.createServer((request, response) =&gt; &#123;    response.writeHead(200, &#123; &#x27;Content-Type&#x27;: &#x27;text/plain;charset=utf-8&#x27;&#125;);    response.end(&#x27;你好，跳跳&#x27;);&#125;).listen(8080);\n\n\n","headline":"Node.js 代码段","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://polunzh.com/post/node-snippets/"},"publisher":{"@type":"Organization","name":"polunzh","sameAs":["https://github.com/polunzh","http://stackoverflow.com/users/4160154/polunzh","mailto:polunzh@qq.com"],"image":"https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d"}},"url":"http://polunzh.com/post/node-snippets/","keywords":"Node.js, Snippets"}</script>
+    <meta name="description" content="一些常用或有用的代码段，积少成多。 http server1234567const http &#x3D; require(&amp;#x27;http&amp;#x27;);http.createServer((request, response) &#x3D;&gt; &amp;#123;    response.writeHead(200, &amp;#123; &amp;#x27;Content-Type&amp;#x27;: &amp;#x27;text&#x2F;pla">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Node.js 代码段">
+<meta property="og:url" content="http://polunzh.com/post/node-snippets/index.html">
+<meta property="og:site_name" content="Polunzh">
+<meta property="og:description" content="一些常用或有用的代码段，积少成多。 http server1234567const http &#x3D; require(&amp;#x27;http&amp;#x27;);http.createServer((request, response) &#x3D;&gt; &amp;#123;    response.writeHead(200, &amp;#123; &amp;#x27;Content-Type&amp;#x27;: &amp;#x27;text&#x2F;pla">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-10-04T01:31:40.000Z">
+<meta property="article:modified_time" content="2021-02-16T06:25:15.610Z">
+<meta property="article:author" content="polunzh">
+<meta property="article:tag" content="Node.js">
+<meta property="article:tag" content="Snippets">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/style-oscmcdpy9wvhclc9ysewhrgol5jrpd63hs3cgvvf4uiaovxttt6c5wtg4sem.min.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            Polunzh
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="/about"
+                aria-label="打开链接: /about"
+            >
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+        
+        
+        <ul class="sidebar-buttons">
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/"
+                    
+                    rel="noopener" title="首页">
+                    <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/tags"
+                    
+                    rel="noopener" title="标签">
+                    <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/archives"
+                    
+                    rel="noopener" title="归档">
+                    <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/about"
+                    
+                    rel="noopener" title="关于">
+                    <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+            </li>
+            
+        </ul>
+        
+        <ul class="sidebar-buttons">
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="https://github.com/polunzh"
+                     target="_blank" 
+                    rel="noopener" title="GitHub">
+                    <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="http://stackoverflow.com/users/4160154/polunzh"
+                     target="_blank" 
+                    rel="noopener" title="Stack Overflow">
+                    <i class="sidebar-button-icon fab fa-stack-overflow" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">Stack Overflow</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="mailto:polunzh@qq.com"
+                     target="_blank" 
+                    rel="noopener" title="邮箱">
+                    <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">邮箱</span>
+                </a>
+            </li>
+            
+        </ul>
+        
+        <ul class="sidebar-buttons">
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/atom.xml"
+                    
+                    rel="noopener" title="RSS">
+                    <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+            </li>
+            
+        </ul>
+        
+        
+        <ul class="sidebar-buttons">
+            <li class="sidebar-button">
+                <span class="sidebar-button-link">
+                    <i class="sidebar-button-icon fab fa-google" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc"><form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><input type="hidden" name="sitesearch" value="http://polunzh.com"></form></span>
+                </span>
+            </li>
+        </ul>
+        
+    </div>
+</nav>
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            Node.js 代码段
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2017-10-04T01:31:40+00:00">
+	
+		    10月 04, 2017
+    	
+    </time>
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <p>一些常用或有用的代码段，积少成多。</p>
+<h2 id="http"><a href="#http" class="headerlink" title="http"></a>http</h2><ul>
+<li>server<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">&#x27;http&#x27;</span>);</span><br><span class="line"></span><br><span class="line">http.createServer(<span class="function">(<span class="params">request, response</span>) =&gt;</span> &#123;</span><br><span class="line">    response.writeHead(<span class="number">200</span>, &#123; <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;text/plain;charset=utf-8&#x27;</span>&#125;);</span><br><span class="line"></span><br><span class="line">    response.end(<span class="string">&#x27;你好，跳跳&#x27;</span>);</span><br><span class="line">&#125;).listen(<span class="number">8080</span>);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<a id="more"></a>
+
+<ul>
+<li>request<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">&#x27;http&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> option = &#123;</span><br><span class="line">    hostname: <span class="string">&#x27;127.0.0.1&#x27;</span>,</span><br><span class="line">    port: <span class="number">8080</span>,</span><br><span class="line">    path: <span class="string">&#x27;/&#x27;</span>,</span><br><span class="line">    method: <span class="string">&#x27;GET&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> req = http.request(option, <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;STATUS: &#x27;</span> + res.statusCode);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;HEADERS: &#x27;</span> + <span class="built_in">JSON</span>.stringify(res.headers));</span><br><span class="line">    res.setEncoding(<span class="string">&#x27;utf8&#x27;</span>);</span><br><span class="line">    res.on(<span class="string">&#x27;data&#x27;</span>, <span class="function">(<span class="params">chunk</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(chunk);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">req.end();</span><br></pre></td></tr></table></figure>
+<!-- more -->
+
+</li>
+</ul>
+<h2 id="Stream"><a href="#Stream" class="headerlink" title="Stream"></a>Stream</h2><ul>
+<li>ReadStream/WriteStream</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">const fs &#x3D; require(&#39;fs&#39;);</span><br><span class="line"></span><br><span class="line">function copyFile(source, dist) &#123;</span><br><span class="line">   const readStream &#x3D; fs.createReadStream(source);</span><br><span class="line">   const writeStream &#x3D; fs.createWriteStream(dist);</span><br><span class="line"></span><br><span class="line">   readStream.on(&#39;data&#39;, (chunk) &#x3D;&gt; &#123;</span><br><span class="line">           writeStream.write(chunk);</span><br><span class="line">   &#125;);</span><br><span class="line"></span><br><span class="line">   &#x2F;&#x2F; 或者</span><br><span class="line">   fs.createReadStream(source).pipe(fs.createWriteStream(dist));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/Node-js/" rel="tag">Node.js</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/Snippets/" rel="tag">Snippets</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/gitlab-ci/"
+                    data-tooltip="GitLab CI 持续集成"
+                    aria-label="上一篇: GitLab CI 持续集成"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/note-shellscript/"
+                    data-tooltip="Shell脚本笔记"
+                    aria-label="下一篇: Shell脚本笔记"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Diesen Beitrag teilen"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2021 polunzh. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/gitlab-ci/"
+                    data-tooltip="GitLab CI 持续集成"
+                    aria-label="上一篇: GitLab CI 持续集成"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/note-shellscript/"
+                    data-tooltip="Shell脚本笔记"
+                    aria-label="下一篇: Shell脚本笔记"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Diesen Beitrag teilen"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <h4 id="about-card-name">polunzh</h4>
+        
+            <div id="about-card-bio"><p>author.bio</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>author.job</p>
+
+            </div>
+        
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/script-khotipjlsohvedevjloi7dhx9gq3fsfo1ybooimzvo1or94jjj5up9aizu0j.min.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+
+    </body>
+</html>

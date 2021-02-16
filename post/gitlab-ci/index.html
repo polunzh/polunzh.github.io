@@ -1,0 +1,477 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Polunzh">
+    <title>GitLab CI 持续集成 - Polunzh</title>
+    <meta name="author" content="polunzh">
+    
+    
+    
+        
+            <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+        
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"polunzh","sameAs":["https://github.com/polunzh","http://stackoverflow.com/users/4160154/polunzh","mailto:polunzh@qq.com"],"image":"https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d"},"articleBody":"GitLab CI 能做什么比如,\n\n项目的单元测试覆盖率检查\n项目中每次合并到 master 分支时都生成一个 tag\n\n使用\n必备条件: 有一个8.0+版本的 Gitlab, 或者使用 gitlab.com, gitlab.com 有免费的共享 Runner\n\n\n在项目中的根目录添加.gitlab-ci.yml文件\n配置GitLab Runner\n\n\n\n概念几个关键的概念\n.gitlab-ci.yml几乎所有的工作都是在 .gitlab-ci.yml 文件中做的, .gitlab-ci.yml文件定义了GitLab CI要对项目的事情, 比如跑单元测试/自动构建/发布…\n每次有代码 push 到仓库, GitLab Runner 都会去检查 .gitlab-ci.yml 文件, 然后开始执行 .gitlab-ci.yml 文件中的定义 jobs.\n一个简单的.gitlab-ci.yml\n12345678910111213141516before_script:  - echo build started# jobsrun_test:  stage: test  script:    - npm run test:coverage  only:    - branches    - pushes  coverage: &#x27;/Branches.*?(\\d+(?:\\.\\d+)?)%/&#x27; # 测试覆盖率收集stages:  - test  - release\n\njobs具体的构建工作\n.gitlab-ci.yml中可以定义无数个jobs:\n12345678910run_test:  stage: test  variables:    REQUIRED_COVERAGE: 10  script:    - echo &quot;test stage&quot;  only:    - branches    - pushes  coverage: &#x27;/Branches.*?(\\d+(?:\\.\\d+)?)%/&#x27;\n\njobs 中的关键词有很多关键词, 将近20个: script stage type variables 等等, 简单介绍几个:\n\nscript: 是由 Runner 执行的 shell 脚本\nstage: 将jobs分成不同阶段, 相同阶段的jobs以并行的方式执行\nonly and except: 限制jobs什么时候执行 如: pushes branches tags等等\nJob variables: 自定义的 job 变量\n\nstages定义了 jobs 中执行的阶段, 阶段的名字可以自定义, stages 中阶段定义的顺序就是 jobs 的执行顺序\n如果没有定义 stages 结点， 则只能在 jobs 中使用 build test deploy 三个阶段, 而 stages 中的阶段名名称可以自定义:\n\n12345# test1 和 test2 会先于 build 执行stages:  - test1  - test2  - build\n\npiplinepipline 可以简单的理解为一次构建, 一次构建中可以包含 test build production 等阶段.\n它是一组按 stages 执行的 jobs, 同一个阶段(stage)的 jobs 都是按照并发执行的方式进行的, 一般情况下, 只有当前阶段的所有jobs都成功执行了,pipline才能进行下一个阶段的执行,如果有一个失败了,后续阶段的 jobs 都不会执行.\n图示\n\n\n更多\n安装配置 Gitlab Runner\n文档\n.gitlab-ci.yml Reference\n用 lint 校验 yml 语法, 可以节省时间\nGitLab CI/CD Variables\n\n","dateCreated":"2018-01-11T06:28:47+00:00","dateModified":"2021-02-16T06:25:15+00:00","datePublished":"2018-01-11T06:28:47+00:00","description":"GitLab CI 能做什么比如,\n\n项目的单元测试覆盖率检查\n项目中每次合并到 master 分支时都生成一个 tag\n\n使用\n必备条件: 有一个8.0+版本的 Gitlab, 或者使用 gitlab.com, gitlab.com 有免费的共享 Runner\n\n\n在项目中的根目录添加.gitlab-ci.yml文件\n配置GitLab Runner\n","headline":"GitLab CI 持续集成","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://polunzh.com/post/gitlab-ci/"},"publisher":{"@type":"Organization","name":"polunzh","sameAs":["https://github.com/polunzh","http://stackoverflow.com/users/4160154/polunzh","mailto:polunzh@qq.com"],"image":"https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d"}},"url":"http://polunzh.com/post/gitlab-ci/","keywords":"CI, GitLab"}</script>
+    <meta name="description" content="GitLab CI 能做什么比如,  项目的单元测试覆盖率检查 项目中每次合并到 master 分支时都生成一个 tag  使用 必备条件: 有一个8.0+版本的 Gitlab, 或者使用 gitlab.com, gitlab.com 有免费的共享 Runner   在项目中的根目录添加.gitlab-ci.yml文件 配置GitLab Runner">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="GitLab CI 持续集成">
+<meta property="og:url" content="http://polunzh.com/post/gitlab-ci/index.html">
+<meta property="og:site_name" content="Polunzh">
+<meta property="og:description" content="GitLab CI 能做什么比如,  项目的单元测试覆盖率检查 项目中每次合并到 master 分支时都生成一个 tag  使用 必备条件: 有一个8.0+版本的 Gitlab, 或者使用 gitlab.com, gitlab.com 有免费的共享 Runner   在项目中的根目录添加.gitlab-ci.yml文件 配置GitLab Runner">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://polunzh.com/images/gitlabci-stages.png">
+<meta property="og:image" content="http://polunzh.com/images/gitlabci-pipline-stages.png">
+<meta property="og:image" content="http://polunzh.com/images/gitlabci-pipline-jobs.png">
+<meta property="article:published_time" content="2018-01-11T06:28:47.000Z">
+<meta property="article:modified_time" content="2021-02-16T06:25:15.610Z">
+<meta property="article:author" content="polunzh">
+<meta property="article:tag" content="CI">
+<meta property="article:tag" content="GitLab">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://polunzh.com/images/gitlabci-stages.png">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/style-oscmcdpy9wvhclc9ysewhrgol5jrpd63hs3cgvvf4uiaovxttt6c5wtg4sem.min.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            Polunzh
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="/about"
+                aria-label="打开链接: /about"
+            >
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+        
+        
+        <ul class="sidebar-buttons">
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/"
+                    
+                    rel="noopener" title="首页">
+                    <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/tags"
+                    
+                    rel="noopener" title="标签">
+                    <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/archives"
+                    
+                    rel="noopener" title="归档">
+                    <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/about"
+                    
+                    rel="noopener" title="关于">
+                    <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+            </li>
+            
+        </ul>
+        
+        <ul class="sidebar-buttons">
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="https://github.com/polunzh"
+                     target="_blank" 
+                    rel="noopener" title="GitHub">
+                    <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="http://stackoverflow.com/users/4160154/polunzh"
+                     target="_blank" 
+                    rel="noopener" title="Stack Overflow">
+                    <i class="sidebar-button-icon fab fa-stack-overflow" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">Stack Overflow</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="mailto:polunzh@qq.com"
+                     target="_blank" 
+                    rel="noopener" title="邮箱">
+                    <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">邮箱</span>
+                </a>
+            </li>
+            
+        </ul>
+        
+        <ul class="sidebar-buttons">
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/atom.xml"
+                    
+                    rel="noopener" title="RSS">
+                    <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+            </li>
+            
+        </ul>
+        
+        
+        <ul class="sidebar-buttons">
+            <li class="sidebar-button">
+                <span class="sidebar-button-link">
+                    <i class="sidebar-button-icon fab fa-google" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc"><form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><input type="hidden" name="sitesearch" value="http://polunzh.com"></form></span>
+                </span>
+            </li>
+        </ul>
+        
+    </div>
+</nav>
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            GitLab CI 持续集成
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2018-01-11T06:28:47+00:00">
+	
+		    1月 11, 2018
+    	
+    </time>
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h2 id="GitLab-CI-能做什么"><a href="#GitLab-CI-能做什么" class="headerlink" title="GitLab CI 能做什么"></a>GitLab CI 能做什么</h2><p>比如,</p>
+<ul>
+<li>项目的单元测试覆盖率检查</li>
+<li>项目中每次合并到 <code>master</code> 分支时都生成一个 <code>tag</code></li>
+</ul>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><blockquote>
+<p>必备条件: 有一个8.0+版本的 <code>Gitlab</code>, 或者使用 <code>gitlab.com</code>, <code>gitlab.com</code> 有免费的共享 <code>Runner</code></p>
+</blockquote>
+<ol>
+<li>在项目中的根目录添加<code>.gitlab-ci.yml</code>文件</li>
+<li>配置<code>GitLab Runner</code></li>
+</ol>
+<a id="more"></a>
+
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>几个关键的概念</p>
+<h3 id="gitlab-ci-yml"><a href="#gitlab-ci-yml" class="headerlink" title=".gitlab-ci.yml"></a>.gitlab-ci.yml</h3><p>几乎所有的工作都是在 <code>.gitlab-ci.yml</code> 文件中做的, <code>.gitlab-ci.yml</code>文件定义了<code>GitLab CI</code>要对项目的事情, 比如跑单元测试/自动构建/发布…</p>
+<p>每次有代码 <code>push</code> 到仓库, <code>GitLab Runner</code> 都会去检查 <code>.gitlab-ci.yml</code> 文件, 然后开始执行 <code>.gitlab-ci.yml</code> 文件中的定义 <code>jobs</code>.</p>
+<p>一个简单的<code>.gitlab-ci.yml</code></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">before_script:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">echo</span> <span class="string">build</span> <span class="string">started</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># jobs</span></span><br><span class="line"><span class="attr">run_test:</span></span><br><span class="line">  <span class="attr">stage:</span> <span class="string">test</span></span><br><span class="line">  <span class="attr">script:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">test:coverage</span></span><br><span class="line">  <span class="attr">only:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">branches</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">pushes</span></span><br><span class="line">  <span class="attr">coverage:</span> <span class="string">&#x27;/Branches.*?(\d+(?:\.\d+)?)%/&#x27;</span> <span class="comment"># 测试覆盖率收集</span></span><br><span class="line"></span><br><span class="line"><span class="attr">stages:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">test</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">release</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="jobs"><a href="#jobs" class="headerlink" title="jobs"></a>jobs</h3><p>具体的构建工作</p>
+<p><code>.gitlab-ci.yml</code>中可以定义无数个<code>jobs</code>:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">run_test:</span></span><br><span class="line">  <span class="attr">stage:</span> <span class="string">test</span></span><br><span class="line">  <span class="attr">variables:</span></span><br><span class="line">    <span class="attr">REQUIRED_COVERAGE:</span> <span class="number">10</span></span><br><span class="line">  <span class="attr">script:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">echo</span> <span class="string">&quot;test stage&quot;</span></span><br><span class="line">  <span class="attr">only:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">branches</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">pushes</span></span><br><span class="line">  <span class="attr">coverage:</span> <span class="string">&#x27;/Branches.*?(\d+(?:\.\d+)?)%/&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="jobs-中的关键词"><a href="#jobs-中的关键词" class="headerlink" title="jobs 中的关键词"></a>jobs 中的<code>关键词</code></h4><p>有很多关键词, 将近20个: <code>script</code> <code>stage</code> <code>type</code> <code>variables</code> 等等, 简单介绍几个:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.gitlab.com/ee/ci/yaml/README.html#script">script</a>: 是由 <code>Runner</code> 执行的 <code>shell</code> 脚本</li>
+<li><a target="_blank" rel="noopener" href="https://docs.gitlab.com/ee/ci/yaml/README.html#stage">stage</a>: 将<code>jobs</code>分成不同阶段, 相同阶段的<code>jobs</code>以并行的方式执行</li>
+<li><a href="'https://docs.gitlab.com/ee/ci/yaml/README.html#only-and-except-simplified">only and except</a>: 限制<code>jobs</code>什么时候执行 如: <code>pushes</code> <code>branches</code> <code>tags</code>等等</li>
+<li><a target="_blank" rel="noopener" href="https://docs.gitlab.com/ee/ci/yaml/README.html#job-variables">Job variables</a>: 自定义的 <code>job</code> 变量</li>
+</ul>
+<h3 id="stages"><a href="#stages" class="headerlink" title="stages"></a><a target="_blank" rel="noopener" href="https://docs.gitlab.com/ee/ci/yaml/README.html#stages">stages</a></h3><p>定义了 <code>jobs</code> 中执行的阶段, <em>阶段的名字可以自定义</em>, <code>stages</code> 中阶段定义的顺序就是 <code>jobs</code> 的执行顺序</p>
+<p>如果没有定义 <code>stages</code> 结点， 则只能在 <code>jobs</code> 中使用 <code>build</code> <code>test</code> <code>deploy</code> 三个阶段, 而 <code>stages</code> 中的阶段名名称可以自定义:</p>
+<p><img src="/images/gitlabci-stages.png" alt="stages"></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># test1 和 test2 会先于 build 执行</span></span><br><span class="line"><span class="attr">stages:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">test1</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">test2</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">build</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="pipline"><a href="#pipline" class="headerlink" title="pipline"></a><a target="_blank" rel="noopener" href="https://docs.gitlab.com/ee/ci/pipelines.html">pipline</a></h3><p><code>pipline</code> 可以简单的理解为一次构建, 一次构建中可以包含 <code>test</code> <code>build</code> <code>production</code> 等阶段.</p>
+<p>它是一组按 <code>stages</code> 执行的 <code>jobs</code>, 同一个阶段(<code>stage</code>)的 <code>jobs</code> 都是按照并发执行的方式进行的, 一般情况下, 只有当前阶段的所有<code>jobs</code>都成功执行了,<code>pipline</code>才能进行下一个阶段的执行,如果有一个失败了,后续阶段的 <code>jobs</code> 都不会执行.</p>
+<p>图示</p>
+<p><img src="/images/gitlabci-pipline-stages.png" alt="pipline-stages"></p>
+<p><img src="/images/gitlabci-pipline-jobs.png" alt="pipline-jobs"></p>
+<h2 id="更多"><a href="#更多" class="headerlink" title="更多"></a>更多</h2><ul>
+<li>安装配置 <code>Gitlab Runner</code></li>
+<li><a target="_blank" rel="noopener" href="https://docs.gitlab.com/ee/ci/">文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.gitlab.com/ee/ci/yaml/README.html">.gitlab-ci.yml Reference</a></li>
+<li>用 <a target="_blank" rel="noopener" href="https://gitlab.com/ci/lint">lint</a> 校验 <code>yml</code> 语法, 可以节省时间</li>
+<li><a target="_blank" rel="noopener" href="https://docs.gitlab.com/ee/ci/variables/README.html">GitLab CI/CD Variables</a></li>
+</ul>
+
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/CI/" rel="tag">CI</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/GitLab/" rel="tag">GitLab</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/ssh-config/"
+                    data-tooltip="SSH 配置"
+                    aria-label="上一篇: SSH 配置"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/node-snippets/"
+                    data-tooltip="Node.js 代码段"
+                    aria-label="下一篇: Node.js 代码段"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Diesen Beitrag teilen"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2021 polunzh. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/ssh-config/"
+                    data-tooltip="SSH 配置"
+                    aria-label="上一篇: SSH 配置"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/node-snippets/"
+                    data-tooltip="Node.js 代码段"
+                    aria-label="下一篇: Node.js 代码段"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Diesen Beitrag teilen"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <h4 id="about-card-name">polunzh</h4>
+        
+            <div id="about-card-bio"><p>author.bio</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>author.job</p>
+
+            </div>
+        
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/script-khotipjlsohvedevjloi7dhx9gq3fsfo1ybooimzvo1or94jjj5up9aizu0j.min.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+
+    </body>
+</html>

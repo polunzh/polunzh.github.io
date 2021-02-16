@@ -1,0 +1,527 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Polunzh">
+    <title>Rust 笔记 - 通用编程概念 - Polunzh</title>
+    <meta name="author" content="polunzh">
+    
+    
+    
+        
+            <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+        
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"polunzh","sameAs":["https://github.com/polunzh","http://stackoverflow.com/users/4160154/polunzh","mailto:polunzh@qq.com"],"image":"https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d"},"articleBody":"《Rust编程语言》笔记之一\n关于cargo\ncargo run\ncargo build\ncargo check\ncargo new &#123;project name&#125;\ncargo doc --open: 构建本地及其依赖的文档\n\n通用编程概念如果需要使用关键字作为变量名称，在变量前加r#，比如r#match\n\n\n变量与可变性变量默认是不变的，可以使用mut关键字声明可变的变量:\n1let mut x = 10;\n\n使用const声明常量，常量有几个特征：\n\n不能使用mut关键字\n必须声明类型\n习惯用大写字母加下划线命名\n\n可以使用let关键字对一个变量多次声明，这样后面声明的变量会将第一个声明的变量隐藏，这种行为叫做隐藏(shadowing):\n123let x = 10;let x = 20;let x = &quot;zhang&quot;\n\n数据类型标量类型整型\n\n\n长度\n有符号\n无符号\n\n\n\n8-bit\ni8\nu8\n\n\n16-bit\ni16\nu16\n\n\n32-bit\ni32\nu32\n\n\n64-bit\ni64\nu64\n\n\narch\nisize\nusize\n\n\narch依赖计算机的架构，如果是 64 位的架构上，是 64 位，如果是 32 架构，是 32 位。\n浮点数有两种类型: f32,f64\n复合类型Rust中有两种复合类型: 元组(tuple)和数组(array)\n元组\n元组是一个将多个类型的值组合进一个复合类型的主要方式。\n\n\n元组中的数据类型不必相同\n元组可以使用解构(destructing)对元组赋值\n使用点号(.)和下标识访问元组成员\n\n12345fn main() &#123;  let tup: (i32, f32, i8) = (32, 12.3, 8);  let (foo, bar, zoo) = tup;  println!(&quot;foo: &#123;&#125;, bar: &#123;&#125;, zoo: &#123;&#125;&quot;, foo, bar, zoo)&#125;\n\n数组\n数组是定长的，声明后不能再改变数组的长度\n数组中的元素的数据类型必须相同\n如果越界访问数组，编译会报错\n\n1let arr: [i32, 5] = [1, 2, 3, 4, 5];\n\n函数在rust中，使用snake case规范风格: 小写字母加下划线。\n123fn say_something() &#123;  // expressions&#125;\n\n\nRust 是一门基于表达式(expression-based)的语言。 // 注: 不理解\n\n在 Rust 中，语句不返回值，因此不能把let语句复制给另外一个变量，如:\n1let x = (let y = 10); // 报错: error: expected expression, found statement (`let`)\n\n\n函数调用是一个表达式，宏调用也是，&#123;&#125;(代码块)也是\n如果表达式后加分号，则是一个语句，如果不加，就是一个表达式，表达式是有返回值的\n函数签名中必须声明每个变量的类型\n()用来声明不返回值的函数\n\n控制流if\nif中代码的条件必须是bool值\nif是一个表达式，所以可以在let语句的右侧使用if，但是，各个分支中的表达式的结果必须相同的数据类型\n\n循环Rust中有三种循环: loop, while, for\n\nloop可以重复执行一段代码，直到遇到Ctrl + C或者break才会结束循环\n\n小结Rust中的控制流和其它语言中的比较类似，唯一比较特殊的是表达式的概念，比如，if是一个表达式语句，可以直接赋值给let，这一点挺有意思的。\n练习代码\n","dateCreated":"2019-06-07T04:04:33+00:00","dateModified":"2021-02-16T06:25:15+00:00","datePublished":"2019-06-07T04:04:33+00:00","description":"《Rust编程语言》笔记之一\n关于cargo\ncargo run\ncargo build\ncargo check\ncargo new &#123;project name&#125;\ncargo doc --open: 构建本地及其依赖的文档\n\n通用编程概念如果需要使用关键字作为变量名称，在变量前加r#，比如r#match","headline":"Rust 笔记 - 通用编程概念","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://polunzh.com/post/note-rust-general/"},"publisher":{"@type":"Organization","name":"polunzh","sameAs":["https://github.com/polunzh","http://stackoverflow.com/users/4160154/polunzh","mailto:polunzh@qq.com"],"image":"https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d"}},"url":"http://polunzh.com/post/note-rust-general/","keywords":"笔记, Rust"}</script>
+    <meta name="description" content="《Rust编程语言》笔记之一 关于cargo cargo run cargo build cargo check cargo new &amp;#123;project name&amp;#125; cargo doc --open: 构建本地及其依赖的文档  通用编程概念如果需要使用关键字作为变量名称，在变量前加r#，比如r#match">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Rust 笔记 - 通用编程概念">
+<meta property="og:url" content="http://polunzh.com/post/note-rust-general/index.html">
+<meta property="og:site_name" content="Polunzh">
+<meta property="og:description" content="《Rust编程语言》笔记之一 关于cargo cargo run cargo build cargo check cargo new &amp;#123;project name&amp;#125; cargo doc --open: 构建本地及其依赖的文档  通用编程概念如果需要使用关键字作为变量名称，在变量前加r#，比如r#match">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-06-07T04:04:33.000Z">
+<meta property="article:modified_time" content="2021-02-16T06:25:15.610Z">
+<meta property="article:author" content="polunzh">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="Rust">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/style-oscmcdpy9wvhclc9ysewhrgol5jrpd63hs3cgvvf4uiaovxttt6c5wtg4sem.min.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            Polunzh
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="/about"
+                aria-label="打开链接: /about"
+            >
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+        
+        
+        <ul class="sidebar-buttons">
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/"
+                    
+                    rel="noopener" title="首页">
+                    <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/tags"
+                    
+                    rel="noopener" title="标签">
+                    <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/archives"
+                    
+                    rel="noopener" title="归档">
+                    <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/about"
+                    
+                    rel="noopener" title="关于">
+                    <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+            </li>
+            
+        </ul>
+        
+        <ul class="sidebar-buttons">
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="https://github.com/polunzh"
+                     target="_blank" 
+                    rel="noopener" title="GitHub">
+                    <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="http://stackoverflow.com/users/4160154/polunzh"
+                     target="_blank" 
+                    rel="noopener" title="Stack Overflow">
+                    <i class="sidebar-button-icon fab fa-stack-overflow" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">Stack Overflow</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="mailto:polunzh@qq.com"
+                     target="_blank" 
+                    rel="noopener" title="邮箱">
+                    <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">邮箱</span>
+                </a>
+            </li>
+            
+        </ul>
+        
+        <ul class="sidebar-buttons">
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/atom.xml"
+                    
+                    rel="noopener" title="RSS">
+                    <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+            </li>
+            
+        </ul>
+        
+        
+        <ul class="sidebar-buttons">
+            <li class="sidebar-button">
+                <span class="sidebar-button-link">
+                    <i class="sidebar-button-icon fab fa-google" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc"><form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><input type="hidden" name="sitesearch" value="http://polunzh.com"></form></span>
+                </span>
+            </li>
+        </ul>
+        
+    </div>
+</nav>
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            Rust 笔记 - 通用编程概念
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2019-06-07T04:04:33+00:00">
+	
+		    6月 07, 2019
+    	
+    </time>
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <p><em><a target="_blank" rel="noopener" href="https://rustlang-cn.org/office/rust/book/">《Rust编程语言》</a>笔记之一</em></p>
+<h2 id="关于cargo"><a href="#关于cargo" class="headerlink" title="关于cargo"></a>关于cargo</h2><ul>
+<li><code>cargo run</code></li>
+<li><code>cargo build</code></li>
+<li><code>cargo check</code></li>
+<li><code>cargo new &#123;project name&#125;</code></li>
+<li><code>cargo doc --open</code>: 构建本地及其依赖的文档</li>
+</ul>
+<h2 id="通用编程概念"><a href="#通用编程概念" class="headerlink" title="通用编程概念"></a>通用编程概念</h2><p>如果需要使用关键字作为变量名称，在变量前加<code>r#</code>，比如<code>r#match</code></p>
+<a id="more"></a>
+
+<h3 id="变量与可变性"><a href="#变量与可变性" class="headerlink" title="变量与可变性"></a>变量与可变性</h3><p>变量默认是不变的，可以使用<code>mut</code>关键字声明可变的变量:</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="keyword">mut</span> x = <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>const</code>声明常量，常量有几个特征：</p>
+<ol>
+<li>不能使用<code>mut</code>关键字</li>
+<li>必须声明类型</li>
+<li>习惯用大写字母加下划线命名</li>
+</ol>
+<p>可以使用<code>let</code>关键字对一个变量多次声明，这样后面声明的变量会将第一个声明的变量隐藏，这种行为叫做<code>隐藏(shadowing)</code>:</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> x = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">let</span> x = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">let</span> x = <span class="string">&quot;zhang&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><h4 id="标量类型"><a href="#标量类型" class="headerlink" title="标量类型"></a>标量类型</h4><h5 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h5><table>
+<thead>
+<tr>
+<th>长度</th>
+<th align="center">有符号</th>
+<th align="right">无符号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>8-bit</td>
+<td align="center">i8</td>
+<td align="right">u8</td>
+</tr>
+<tr>
+<td>16-bit</td>
+<td align="center">i16</td>
+<td align="right">u16</td>
+</tr>
+<tr>
+<td>32-bit</td>
+<td align="center">i32</td>
+<td align="right">u32</td>
+</tr>
+<tr>
+<td>64-bit</td>
+<td align="center">i64</td>
+<td align="right">u64</td>
+</tr>
+<tr>
+<td>arch</td>
+<td align="center">isize</td>
+<td align="right">usize</td>
+</tr>
+</tbody></table>
+<p><code>arch</code>依赖计算机的架构，如果是 64 位的架构上，是 64 位，如果是 32 架构，是 32 位。</p>
+<h5 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h5><p>有两种类型: <code>f32</code>,<code>f64</code></p>
+<h4 id="复合类型"><a href="#复合类型" class="headerlink" title="复合类型"></a>复合类型</h4><p><code>Rust</code>中有两种复合类型: <code>元组(tuple)</code>和<code>数组(array)</code></p>
+<h5 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h5><blockquote>
+<p>元组是一个将多个类型的值组合进一个复合类型的主要方式。</p>
+</blockquote>
+<ul>
+<li>元组中的数据类型不必相同</li>
+<li>元组可以使用<code>解构(destructing)</code>对元组赋值</li>
+<li>使用点号(<code>.</code>)和下标识访问元组成员</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">  <span class="keyword">let</span> tup: (<span class="built_in">i32</span>, <span class="built_in">f32</span>, <span class="built_in">i8</span>) = (<span class="number">32</span>, <span class="number">12.3</span>, <span class="number">8</span>);</span><br><span class="line">  <span class="keyword">let</span> (foo, bar, zoo) = tup;</span><br><span class="line">  <span class="built_in">println!</span>(<span class="string">&quot;foo: &#123;&#125;, bar: &#123;&#125;, zoo: &#123;&#125;&quot;</span>, foo, bar, zoo)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h5><ul>
+<li>数组是定长的，声明后不能再改变数组的长度</li>
+<li>数组中的元素的数据类型必须相同</li>
+<li>如果越界访问数组，编译会报错</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr: [<span class="built_in">i32</span>, <span class="number">5</span>] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br></pre></td></tr></table></figure>
+
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>在<code>rust</code>中，使用<code>snake case</code>规范风格: 小写字母加下划线。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">say_something</span></span>() &#123;</span><br><span class="line">  <span class="comment">// expressions</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Rust 是一门基于表达式(expression-based)的语言。 // 注: 不理解</p>
+</blockquote>
+<p>在 Rust 中，语句不返回值，因此不能把<code>let</code>语句复制给另外一个变量，如:</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> x = (<span class="keyword">let</span> y = <span class="number">10</span>); <span class="comment">// 报错: error: expected expression, found statement (`let`)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>函数调用是一个表达式，宏调用也是，<code>&#123;&#125;(代码块)</code>也是</li>
+<li>如果表达式后加分号，则是一个语句，如果不加，就是一个表达式，<strong>表达式是有返回值的</strong></li>
+<li>函数签名中必须声明每个变量的类型</li>
+<li><code>()</code>用来声明不返回值的函数</li>
+</ul>
+<h3 id="控制流"><a href="#控制流" class="headerlink" title="控制流"></a>控制流</h3><h4 id="if"><a href="#if" class="headerlink" title="if"></a>if</h4><ul>
+<li><code>if</code>中代码的条件必须是<code>bool</code>值</li>
+<li><code>if</code>是一个表达式，所以可以在<code>let</code>语句的右侧使用<code>if</code>，但是，各个分支中的表达式的结果必须相同的数据类型</li>
+</ul>
+<h4 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h4><p><code>Rust</code>中有三种循环: <code>loop</code>, <code>while</code>, <code>for</code></p>
+<ul>
+<li><code>loop</code>可以重复执行一段代码，直到遇到<code>Ctrl + C</code>或者<code>break</code>才会结束循环</li>
+</ul>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p><code>Rust</code>中的控制流和其它语言中的比较类似，唯一比较特殊的是表达式的概念，比如，<code>if</code>是一个表达式语句，可以直接赋值给<code>let</code>，这一点挺有意思的。</p>
+<p><em><a target="_blank" rel="noopener" href="https://github.com/polunzh/rust-demo">练习代码</a></em></p>
+
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/Rust/" rel="tag">Rust</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/note-rust-enum-and-match/"
+                    data-tooltip="Rust 笔记 - 枚举与模式匹配"
+                    aria-label="上一篇: Rust 笔记 - 枚举与模式匹配"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/note-nodejs-event-loop/"
+                    data-tooltip="《Node.js事件循环》笔记"
+                    aria-label="下一篇: 《Node.js事件循环》笔记"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Diesen Beitrag teilen"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2021 polunzh. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/note-rust-enum-and-match/"
+                    data-tooltip="Rust 笔记 - 枚举与模式匹配"
+                    aria-label="上一篇: Rust 笔记 - 枚举与模式匹配"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/note-nodejs-event-loop/"
+                    data-tooltip="《Node.js事件循环》笔记"
+                    aria-label="下一篇: 《Node.js事件循环》笔记"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Diesen Beitrag teilen"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <h4 id="about-card-name">polunzh</h4>
+        
+            <div id="about-card-bio"><p>author.bio</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>author.job</p>
+
+            </div>
+        
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/script-khotipjlsohvedevjloi7dhx9gq3fsfo1ybooimzvo1or94jjj5up9aizu0j.min.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+
+    </body>
+</html>

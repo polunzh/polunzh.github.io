@@ -1,0 +1,526 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Polunzh">
+    <title>阅读JavaScript MDN Array - Polunzh</title>
+    <meta name="author" content="polunzh">
+    
+    
+    
+        
+            <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+        
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"polunzh","sameAs":["https://github.com/polunzh","http://stackoverflow.com/users/4160154/polunzh","mailto:polunzh@qq.com"],"image":"https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d"},"articleBody":"周末下午没有特别紧急的事情，所以在MDN上复习了一下JavaScript数组中方法的用法，还真有一些之前不了解的点。\n\n\nArray.fromArray.from的方法签名是这样的: Array.from(arrayLike[,mapFn[,tihsArg]])，所以还可以这样用:\n1Arrya.from([1, 2, 3], x =&gt; x &gt; 2); // [3]\n\nArray.isArray这个函数本身没有什么，但是MDN上举的一个例子还是第一次知道：\n1Array.isArray(Array.prototype) // true\n\n也就是说，Array.prototype的值是个数组。\nArray.of和只有一个数字参数时的Array构造函数的不同当使用Array构造函数时，如果只给构造函数传递一个数字参数N，则结果是返回一个长度为N的数组，数组里不包含任何元素。\n而相同条件下，Array.of是返回的是包含该数字的一个数字对象。\nconcat这个方法可以传递多个参数，第一次知道:\n12345var animals = [&#x27;dog&#x27;];var people = [&#x27;frank&#x27;];var coll = [&#x27;foo&#x27;];coll.concat(animals, people); // 返回: [&quot;foo&quot;, &quot;dog&quot;, &quot;frank&quot;]\n\n参数也可以是简单值类型:\n1[].concat(1, [&#x27;dog&#x27;]); // 返回: [1, &quot;dog&quot;]\n\n\n\ncopyWithin方法签名: arr.copyWithin(target[, start[, end]])\n如果start/end参数省略，则默认为0；\n如果target/start/end为负数，则取值为: length + target/start/end\n例：\n123456789const arr1 = [1, 2, 3, 4, 5, 6];const arr2 = [1, 2, 3, 4, 5, 6];console.log(arr1.copyWithin(0, 3, 5)); // 输出: [ 4, 5, 3, 4, 5, 6 ]console.log(arr2.copyWithin(0, 3)); // 输出: [ 4, 5, 6, 4, 5, 6 ]console.log([1, 2, 3].copyWithin(1)); // 输出: [ 1, 2 ]console.log([1, 2, 3].copyWithin(1, 2)); // 输出: [ 1, 3, 3 ]console.log([1, 2, 3].copyWithin(0, -2)); // 输出: [ 2, 3, 3 ]\n\n\n\nforEach跳出forEach循环的方法: return或者抛出一个异常。\nmap看到一个有点儿意思的关于map方法的一个坑:\n1[1, 2, 3].map(parseInt); // 输出 1, NaN, NaN\n\n之所以是这样的输出，是因为map有三个参数，第一个参数时当前遍历的元素，第二个是当前元素在数组中的索引，第三个是当前遍历的数组对象。而parseInt函数有两个参数，第一个是被转换的值，第二个是基数(radix)，基数为零，则为10。于是上面的例子等价于:\n123parseInt(1, 10);parseInt(2, 1);parseInt(3, 2);\n\ntoString该方法覆盖了Object.prototype.toString方法，返回由逗号分隔的字符串。\n常用的函数对原数组的修改情况\n\n\n#方法\n#是否修改原有数组\n\n\n\n\nArray.prototype.concat\n否\n\n\n\nArray.prototype.push\n是\n\n\n\nArray.prototype.pop\n是\n\n\n\nArray.prototype.map\n否\n\n\n\nArray.prototype.reverse\n是\n\n\n\nArray.prototype.shift\n是\n修改数组的长度\n\n\nArray.prototype.unshift\n是\n修改数组的长度\n\n\nArray.prototype.slice\n否\n浅拷贝\n\n\nArray.prototype.sort\n是\n\n\n\nArray.prototype.splice\n是\n\n\n\nArray.prototype.copyWithin\n是\n\n\n\n","dateCreated":"2019-03-10T05:41:51+00:00","dateModified":"2021-02-16T06:25:15+00:00","datePublished":"2019-03-10T05:41:51+00:00","description":"周末下午没有特别紧急的事情，所以在MDN上复习了一下JavaScript数组中方法的用法，还真有一些之前不了解的点。","headline":"阅读JavaScript MDN Array","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://polunzh.com/post/js-mdn-array-method/"},"publisher":{"@type":"Organization","name":"polunzh","sameAs":["https://github.com/polunzh","http://stackoverflow.com/users/4160154/polunzh","mailto:polunzh@qq.com"],"image":"https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d"}},"url":"http://polunzh.com/post/js-mdn-array-method/","keywords":"JavaScript, 数组, MDN"}</script>
+    <meta name="description" content="周末下午没有特别紧急的事情，所以在MDN上复习了一下JavaScript数组中方法的用法，还真有一些之前不了解的点。">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="阅读JavaScript MDN Array">
+<meta property="og:url" content="http://polunzh.com/post/js-mdn-array-method/index.html">
+<meta property="og:site_name" content="Polunzh">
+<meta property="og:description" content="周末下午没有特别紧急的事情，所以在MDN上复习了一下JavaScript数组中方法的用法，还真有一些之前不了解的点。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-03-10T05:41:51.000Z">
+<meta property="article:modified_time" content="2021-02-16T06:25:15.610Z">
+<meta property="article:author" content="polunzh">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="数组">
+<meta property="article:tag" content="MDN">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/style-oscmcdpy9wvhclc9ysewhrgol5jrpd63hs3cgvvf4uiaovxttt6c5wtg4sem.min.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            Polunzh
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="/about"
+                aria-label="打开链接: /about"
+            >
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+        
+        
+        <ul class="sidebar-buttons">
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/"
+                    
+                    rel="noopener" title="首页">
+                    <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/tags"
+                    
+                    rel="noopener" title="标签">
+                    <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/archives"
+                    
+                    rel="noopener" title="归档">
+                    <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/about"
+                    
+                    rel="noopener" title="关于">
+                    <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+            </li>
+            
+        </ul>
+        
+        <ul class="sidebar-buttons">
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="https://github.com/polunzh"
+                     target="_blank" 
+                    rel="noopener" title="GitHub">
+                    <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="http://stackoverflow.com/users/4160154/polunzh"
+                     target="_blank" 
+                    rel="noopener" title="Stack Overflow">
+                    <i class="sidebar-button-icon fab fa-stack-overflow" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">Stack Overflow</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="mailto:polunzh@qq.com"
+                     target="_blank" 
+                    rel="noopener" title="邮箱">
+                    <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">邮箱</span>
+                </a>
+            </li>
+            
+        </ul>
+        
+        <ul class="sidebar-buttons">
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/atom.xml"
+                    
+                    rel="noopener" title="RSS">
+                    <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+            </li>
+            
+        </ul>
+        
+        
+        <ul class="sidebar-buttons">
+            <li class="sidebar-button">
+                <span class="sidebar-button-link">
+                    <i class="sidebar-button-icon fab fa-google" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc"><form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><input type="hidden" name="sitesearch" value="http://polunzh.com"></form></span>
+                </span>
+            </li>
+        </ul>
+        
+    </div>
+</nav>
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            阅读JavaScript MDN Array
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2019-03-10T05:41:51+00:00">
+	
+		    3月 10, 2019
+    	
+    </time>
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <p>周末下午没有特别紧急的事情，所以在<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array">MDN</a>上复习了一下JavaScript数组中方法的用法，还真有一些之前不了解的点。</p>
+<a id="more"></a>
+
+<h2 id="Array-from"><a href="#Array-from" class="headerlink" title="Array.from"></a>Array.from</h2><p><code>Array.from</code>的方法签名是这样的: <code>Array.from(arrayLike[,mapFn[,tihsArg]])</code>，所以还可以这样用:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Arrya.from([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="function"><span class="params">x</span> =&gt;</span> x &gt; <span class="number">2</span>); <span class="comment">// [3]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Array-isArray"><a href="#Array-isArray" class="headerlink" title="Array.isArray"></a>Array.isArray</h2><p>这个函数本身没有什么，但是MDN上举的一个例子还是第一次知道：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.isArray(<span class="built_in">Array</span>.prototype) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>也就是说，<code>Array.prototype</code>的值是个数组。</p>
+<h2 id="Array-of和只有一个数字参数时的Array构造函数的不同"><a href="#Array-of和只有一个数字参数时的Array构造函数的不同" class="headerlink" title="Array.of和只有一个数字参数时的Array构造函数的不同"></a>Array.of和只有一个数字参数时的Array构造函数的不同</h2><p>当使用<code>Array</code>构造函数时，如果只给构造函数传递一个数字参数<code>N</code>，则结果是返回一个长度为N的数组，数组里不包含任何元素。</p>
+<p>而相同条件下，<code>Array.of</code>是返回的是包含该数字的一个数字对象。</p>
+<h2 id="concat"><a href="#concat" class="headerlink" title="concat"></a>concat</h2><p>这个方法可以传递多个参数，第一次知道:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> animals = [<span class="string">&#x27;dog&#x27;</span>];</span><br><span class="line"><span class="keyword">var</span> people = [<span class="string">&#x27;frank&#x27;</span>];</span><br><span class="line"><span class="keyword">var</span> coll = [<span class="string">&#x27;foo&#x27;</span>];</span><br><span class="line"></span><br><span class="line">coll.concat(animals, people); <span class="comment">// 返回: [&quot;foo&quot;, &quot;dog&quot;, &quot;frank&quot;]</span></span><br></pre></td></tr></table></figure>
+
+<p>参数也可以是简单值类型:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[].concat(<span class="number">1</span>, [<span class="string">&#x27;dog&#x27;</span>]); <span class="comment">// 返回: [1, &quot;dog&quot;]</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="copyWithin"><a href="#copyWithin" class="headerlink" title="copyWithin"></a>copyWithin</h2><p>方法签名: <code>arr.copyWithin(target[, start[, end]])</code></p>
+<p>如果<code>start/end</code>参数省略，则默认为0；</p>
+<p>如果<code>target/start/end</code>为负数，则取值为: <code>length + target/start/end</code></p>
+<p>例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr1 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>];</span><br><span class="line"><span class="keyword">const</span> arr2 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(arr1.copyWithin(<span class="number">0</span>, <span class="number">3</span>, <span class="number">5</span>)); <span class="comment">// 输出: [ 4, 5, 3, 4, 5, 6 ]</span></span><br><span class="line"><span class="built_in">console</span>.log(arr2.copyWithin(<span class="number">0</span>, <span class="number">3</span>)); <span class="comment">// 输出: [ 4, 5, 6, 4, 5, 6 ]</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].copyWithin(<span class="number">1</span>)); <span class="comment">// 输出: [ 1, 2 ]</span></span><br><span class="line"><span class="built_in">console</span>.log([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].copyWithin(<span class="number">1</span>, <span class="number">2</span>)); <span class="comment">// 输出: [ 1, 3, 3 ]</span></span><br><span class="line"><span class="built_in">console</span>.log([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].copyWithin(<span class="number">0</span>, <span class="number">-2</span>)); <span class="comment">// 输出: [ 2, 3, 3 ]</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="forEach"><a href="#forEach" class="headerlink" title="forEach"></a>forEach</h2><p>跳出<code>forEach</code>循环的方法: <code>return</code>或者抛出一个异常。</p>
+<h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><p>看到一个有点儿意思的关于<code>map</code>方法的一个<code>坑</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].map(<span class="built_in">parseInt</span>); <span class="comment">// 输出 1, NaN, NaN</span></span><br></pre></td></tr></table></figure>
+
+<p>之所以是这样的输出，是因为<code>map</code>有三个参数，第一个参数时当前遍历的元素，第二个是当前元素在数组中的索引，第三个是当前遍历的数组对象。而<code>parseInt</code>函数有两个参数，第一个是被转换的值，第二个是基数(radix)，<strong>基数为零，则为10</strong>。于是上面的例子等价于:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">parseInt</span>(<span class="number">1</span>, <span class="number">10</span>);</span><br><span class="line"><span class="built_in">parseInt</span>(<span class="number">2</span>, <span class="number">1</span>);</span><br><span class="line"><span class="built_in">parseInt</span>(<span class="number">3</span>, <span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="toString-NaN"><a href="#toString-NaN" class="headerlink" title="toString"></a>toString</h2><p>该方法覆盖了<code>Object.prototype.toString</code>方法，返回由逗号分隔的字符串。</p>
+<h2 id="常用的函数对原数组的修改情况"><a href="#常用的函数对原数组的修改情况" class="headerlink" title="常用的函数对原数组的修改情况"></a>常用的函数对原数组的修改情况</h2><table>
+<thead>
+<tr>
+<th align="left">#方法</th>
+<th align="center">#是否修改原有数组</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Array.prototype.concat</td>
+<td align="center">否</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">Array.prototype.push</td>
+<td align="center">是</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">Array.prototype.pop</td>
+<td align="center">是</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">Array.prototype.map</td>
+<td align="center">否</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">Array.prototype.reverse</td>
+<td align="center">是</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">Array.prototype.shift</td>
+<td align="center">是</td>
+<td>修改数组的长度</td>
+</tr>
+<tr>
+<td align="left">Array.prototype.unshift</td>
+<td align="center">是</td>
+<td>修改数组的长度</td>
+</tr>
+<tr>
+<td align="left">Array.prototype.slice</td>
+<td align="center">否</td>
+<td>浅拷贝</td>
+</tr>
+<tr>
+<td align="left">Array.prototype.sort</td>
+<td align="center">是</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">Array.prototype.splice</td>
+<td align="center">是</td>
+<td></td>
+</tr>
+<tr>
+<td align="left">Array.prototype.copyWithin</td>
+<td align="center">是</td>
+<td></td>
+</tr>
+</tbody></table>
+
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/JavaScript/" rel="tag">JavaScript</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/MDN/" rel="tag">MDN</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/nodejs-timers/"
+                    data-tooltip="Node.js中的Timers"
+                    aria-label="上一篇: Node.js中的Timers"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/life-driving-license/"
+                    data-tooltip="考驾照"
+                    aria-label="下一篇: 考驾照"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Diesen Beitrag teilen"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2021 polunzh. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/nodejs-timers/"
+                    data-tooltip="Node.js中的Timers"
+                    aria-label="上一篇: Node.js中的Timers"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/life-driving-license/"
+                    data-tooltip="考驾照"
+                    aria-label="下一篇: 考驾照"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Diesen Beitrag teilen"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <h4 id="about-card-name">polunzh</h4>
+        
+            <div id="about-card-bio"><p>author.bio</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>author.job</p>
+
+            </div>
+        
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/script-khotipjlsohvedevjloi7dhx9gq3fsfo1ybooimzvo1or94jjj5up9aizu0j.min.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+
+    </body>
+</html>

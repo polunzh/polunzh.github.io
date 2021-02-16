@@ -1,0 +1,465 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Polunzh">
+    <title>《Node.js事件循环》笔记 - Polunzh</title>
+    <meta name="author" content="polunzh">
+    
+    
+    
+        
+            <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+        
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"polunzh","sameAs":["https://github.com/polunzh","http://stackoverflow.com/users/4160154/polunzh","mailto:polunzh@qq.com"],"image":"https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d"},"articleBody":"在Node.js中，事件循环是实现异步I/O的关键，是必须要了解的知识。这篇笔记是我读官方文档里关于事件循环的文章得来的。\n事件循环的概念\n事件循环使单线程的JavaScript实现了异步I/O操作，通过将负载交给系统内核执行。由于大多数的现代操作系统都是多线程的，能在后台执行多任务的操作。当后台操作完成后，内核(kernel)通知Node.js，这样的话回调函数就可以添加到poll队列中，直到执行完成。\n\n\n\n事件循环的执行顺序\n图片中的每个阶段称为phase (图片来自libuv文档)\n每个阶段(phase)都有一个待执行的回调函数FIFO队列，每一个阶段都有所不同。事件循环每进行到一个阶段，就会执行当前阶段特有的操作，然后执行回调函数，直至将回调函数的队列清空或者达到设置的最大限制。\ntimers该阶段执行的是由*setTimeout()和setInterval()*设置的回调函数。\n从技术上来讲，poll阶段控制着timers阶段什么时候执行。比如下面的代码：\n1234567891011121314const fs = require(&#x27;fs&#x27;);console.time(&#x27;timeout&#x27;);setTimeout(() =&gt; &#123;  console.timeEnd(&#x27;timeout&#x27;);&#125;, 900);function readFile() &#123;  fs.readFile(&#x27;./timeout.js&#x27;, (err, data) =&gt; &#123;    console.log(JSON.parse(JSON.stringify(&#123;a: 1&#125;)));  &#125;);&#125;readFile();\n\n第一个setTimeout设置的时间是900ms，但是用console.timeEnd()的输出用时却是大于900ms的，在我的电脑上大约是902ms左右。这是因为当事件循环进行到poll阶段时，发现队列中没有任务，然后等待了一会儿(小于 900ms)，然后读文件操作执行完了，并且将回调函数添加到了poll队列中，然后执行完该回到函数后(大概用了2ms)发现setTimeout()设置的时间到了，然后执行了其回调函数。所以setTimeout()的回调函数的执行等待了大于900ms的时间。\n为了防止poll阶段饿死事件循环，libuv设置了poll阶段可以行的回调函数的最大数量限制，该限制在不同的的系统上不相同。\npending callbacks执行延迟到下一个阶段的I/O回调。\n该阶段执行一些系统操作的回调，比如TCP的链接错误。\nidle,prepare内部使用(不太明白内部使用是什么意思)。\npoll\n获取新的I/O事件；\n执行几乎所有I/O相关的回调函数，除了：close callback，由timers和*setImmediate()*设置的回调。\n\nNode.js可能会阻塞在该阶段。\n当事件循环进行到该阶段，并且没有设置timers时，有可能会发生下面的两件事情之一：\n\n如果poll队列不为空，事件循环会处理队列里的回调函数，直到处理完成或者达到系统的最大限制；\n如果poll队列为空，又会发生下面的两件事情之一：\n如果设置了setImmediate()，则事件循环会结束poll阶段，然后进入到check阶段，去执行setImmediate设置的回调函数；\n如果没有设置*setImmediate()*，则事件循环会等待回调函数添加到队列，然后立即执行它们。\n\n\n\n\n一旦poll队列为空，事件循环会去检查是否有timers到时间，如果有，就返回timers阶段执行到期的timers\n\ncheck执行*setImmediate()*设置的回调。\n该阶段主要是用来执行poll阶段后需要立即执行的操作的。如果poll阶段闲置了，并且setImmediate()设置了一些需要执行的脚本，循环就会直接进入check阶段。setImmediate()其实是一个特殊的timer.\nclose callback关闭事件的回调函数，比如socket.on(&#39;close&#39;, ...)。\n","dateCreated":"2019-03-28T08:23:01+00:00","dateModified":"2021-02-16T06:25:15+00:00","datePublished":"2019-03-28T08:23:01+00:00","description":"在Node.js中，事件循环是实现异步I/O的关键，是必须要了解的知识。这篇笔记是我读官方文档里关于事件循环的文章得来的。\n事件循环的概念\n事件循环使单线程的JavaScript实现了异步I/O操作，通过将负载交给系统内核执行。由于大多数的现代操作系统都是多线程的，能在后台执行多任务的操作。当后台操作完成后，内核(kernel)通知Node.js，这样的话回调函数就可以添加到poll队列中，直到执行完成。\n","headline":"《Node.js事件循环》笔记","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://polunzh.com/post/note-nodejs-event-loop/"},"publisher":{"@type":"Organization","name":"polunzh","sameAs":["https://github.com/polunzh","http://stackoverflow.com/users/4160154/polunzh","mailto:polunzh@qq.com"],"image":"https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d"}},"url":"http://polunzh.com/post/note-nodejs-event-loop/","keywords":"Node.js, 笔记"}</script>
+    <meta name="description" content="在Node.js中，事件循环是实现异步I&#x2F;O的关键，是必须要了解的知识。这篇笔记是我读官方文档里关于事件循环的文章得来的。 事件循环的概念 事件循环使单线程的JavaScript实现了异步I&#x2F;O操作，通过将负载交给系统内核执行。由于大多数的现代操作系统都是多线程的，能在后台执行多任务的操作。当后台操作完成后，内核(kernel)通知Node.js，这样的话回调函数就可以添加到poll队列中，直到执">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="《Node.js事件循环》笔记">
+<meta property="og:url" content="http://polunzh.com/post/note-nodejs-event-loop/index.html">
+<meta property="og:site_name" content="Polunzh">
+<meta property="og:description" content="在Node.js中，事件循环是实现异步I&#x2F;O的关键，是必须要了解的知识。这篇笔记是我读官方文档里关于事件循环的文章得来的。 事件循环的概念 事件循环使单线程的JavaScript实现了异步I&#x2F;O操作，通过将负载交给系统内核执行。由于大多数的现代操作系统都是多线程的，能在后台执行多任务的操作。当后台操作完成后，内核(kernel)通知Node.js，这样的话回调函数就可以添加到poll队列中，直到执">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2019/05/16/5cdd0d363247e58525.png">
+<meta property="article:published_time" content="2019-03-28T08:23:01.000Z">
+<meta property="article:modified_time" content="2021-02-16T06:25:15.610Z">
+<meta property="article:author" content="polunzh">
+<meta property="article:tag" content="Node.js">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2019/05/16/5cdd0d363247e58525.png">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/style-oscmcdpy9wvhclc9ysewhrgol5jrpd63hs3cgvvf4uiaovxttt6c5wtg4sem.min.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            Polunzh
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="/about"
+                aria-label="打开链接: /about"
+            >
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+        
+        
+        <ul class="sidebar-buttons">
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/"
+                    
+                    rel="noopener" title="首页">
+                    <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/tags"
+                    
+                    rel="noopener" title="标签">
+                    <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/archives"
+                    
+                    rel="noopener" title="归档">
+                    <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/about"
+                    
+                    rel="noopener" title="关于">
+                    <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+            </li>
+            
+        </ul>
+        
+        <ul class="sidebar-buttons">
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="https://github.com/polunzh"
+                     target="_blank" 
+                    rel="noopener" title="GitHub">
+                    <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="http://stackoverflow.com/users/4160154/polunzh"
+                     target="_blank" 
+                    rel="noopener" title="Stack Overflow">
+                    <i class="sidebar-button-icon fab fa-stack-overflow" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">Stack Overflow</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="mailto:polunzh@qq.com"
+                     target="_blank" 
+                    rel="noopener" title="邮箱">
+                    <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">邮箱</span>
+                </a>
+            </li>
+            
+        </ul>
+        
+        <ul class="sidebar-buttons">
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/atom.xml"
+                    
+                    rel="noopener" title="RSS">
+                    <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+            </li>
+            
+        </ul>
+        
+        
+        <ul class="sidebar-buttons">
+            <li class="sidebar-button">
+                <span class="sidebar-button-link">
+                    <i class="sidebar-button-icon fab fa-google" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc"><form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><input type="hidden" name="sitesearch" value="http://polunzh.com"></form></span>
+                </span>
+            </li>
+        </ul>
+        
+    </div>
+</nav>
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            《Node.js事件循环》笔记
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2019-03-28T08:23:01+00:00">
+	
+		    3月 28, 2019
+    	
+    </time>
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <p>在Node.js中，<em>事件循环</em>是实现<em>异步I/O</em>的关键，是必须要了解的知识。<br>这篇笔记是我读官方文档里关于<a target="_blank" rel="noopener" href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/">事件循环的文章</a>得来的。</p>
+<h2 id="事件循环的概念"><a href="#事件循环的概念" class="headerlink" title="事件循环的概念"></a>事件循环的概念</h2><blockquote>
+<p>事件循环使单线程的JavaScript实现了异步I/O操作，通过将负载交给系统内核执行。由于大多数的现代操作系统都是多线程的，能在后台执行多任务的操作。当后台操作完成后，内核(kernel)通知Node.js，这样的话回调函数就可以添加到poll队列中，直到执行完成。</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="事件循环的执行顺序"><a href="#事件循环的执行顺序" class="headerlink" title="事件循环的执行顺序"></a>事件循环的执行顺序</h2><p><img src="https://i.loli.net/2019/05/16/5cdd0d363247e58525.png" alt="事件循环"></p>
+<p><strong>图片中的每个阶段称为phase</strong> <em>(图片来自libuv文档)</em></p>
+<p>每个阶段(phase)都有一个待执行的回调函数<em>FIFO</em>队列，每一个阶段都有所不同。事件循环每进行到一个阶段，就会执行当前阶段特有的操作，然后执行回调函数，<strong>直至将回调函数的队列清空或者达到设置的最大限制</strong>。</p>
+<h3 id="timers"><a href="#timers" class="headerlink" title="timers"></a>timers</h3><p>该阶段执行的是由*setTimeout()<em>和</em>setInterval()*设置的回调函数。</p>
+<p>从技术上来讲，<em>poll</em>阶段控制着<em>timers</em>阶段什么时候执行。比如下面的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.time(<span class="string">&#x27;timeout&#x27;</span>);</span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.timeEnd(<span class="string">&#x27;timeout&#x27;</span>);</span><br><span class="line">&#125;, <span class="number">900</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">readFile</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  fs.readFile(<span class="string">&#x27;./timeout.js&#x27;</span>, <span class="function">(<span class="params">err, data</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(&#123;<span class="attr">a</span>: <span class="number">1</span>&#125;)));</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">readFile();</span><br></pre></td></tr></table></figure>
+
+<p>第一个<em>setTimeout</em>设置的时间是<em>900ms</em>，但是用<em>console.timeEnd()<em>的输出用时却是大于</em>900ms</em>的，在我的电脑上大约是<em>902ms</em>左右。这是因为当事件循环进行到<em>poll</em>阶段时，发现队列中没有任务，然后等待了一会儿(小于 <em>900ms</em>)，然后读文件操作执行完了，并且将回调函数添加到了<em>poll</em>队列中，然后执行完该回到函数后(大概用了<em>2ms</em>)发现<em>setTimeout()<em>设置的时间到了，然后执行了其回调函数。所以</em>setTimeout()<em>的回调函数的执行等待了大于</em>900ms</em>的时间。</p>
+<p>为了防止<em>poll</em>阶段<em>饿死</em>事件循环，<em>libuv</em>设置了<em>poll</em>阶段可以行的回调函数的最大数量限制，该限制在不同的的系统上不相同。</p>
+<h3 id="pending-callbacks"><a href="#pending-callbacks" class="headerlink" title="pending callbacks"></a>pending callbacks</h3><p>执行延迟到下一个阶段的<em>I/O</em>回调。</p>
+<p>该阶段执行一些系统操作的回调，比如<em>TCP</em>的链接错误。</p>
+<h3 id="idle-prepare"><a href="#idle-prepare" class="headerlink" title="idle,prepare"></a>idle,prepare</h3><p>内部使用(不太明白内部使用是什么意思)。</p>
+<h3 id="poll"><a href="#poll" class="headerlink" title="poll"></a>poll</h3><ul>
+<li>获取新的I/O事件；</li>
+<li>执行几乎所有I/O相关的回调函数，除了：<em>close callback</em>，由<em>timers</em>和*setImmediate()*设置的回调。</li>
+</ul>
+<p>Node.js可能会阻塞在该阶段。</p>
+<p>当事件循环进行到该阶段，并且没有设置<em>timers</em>时，有可能会发生下面的两件事情之一：</p>
+<ol>
+<li>如果<em>poll</em>队列不为空，事件循环会处理队列里的回调函数，直到处理完成或者达到系统的最大限制；</li>
+<li>如果<em>poll</em>队列为空，又会发生下面的两件事情之一：<ol>
+<li>如果设置了<em>setImmediate()<em>，则事件循环会结束</em>poll</em>阶段，然后进入到<em>check</em>阶段，去执行<em>setImmediate</em>设置的回调函数；</li>
+<li>如果没有设置*setImmediate()*，则事件循环会等待回调函数添加到队列，然后立即执行它们。</li>
+</ol>
+</li>
+</ol>
+<blockquote>
+<p>一旦poll队列为空，事件循环会去检查是否有timers到时间，如果有，就返回timers阶段执行到期的timers</p>
+</blockquote>
+<h3 id="check"><a href="#check" class="headerlink" title="check"></a>check</h3><p>执行*setImmediate()*设置的回调。</p>
+<p>该阶段主要是用来执行<em>poll</em>阶段后需要立即执行的操作的。如果<em>poll</em>阶段闲置了，并且<em>setImmediate()<em>设置了一些需要执行的脚本，循环就会直接进入</em>check</em>阶段。<em>setImmediate()<em>其实是一个特殊的</em>timer</em>.</p>
+<h3 id="close-callback"><a href="#close-callback" class="headerlink" title="close callback"></a>close callback</h3><p>关闭事件的回调函数，比如<code>socket.on(&#39;close&#39;, ...)</code>。</p>
+
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/Node-js/" rel="tag">Node.js</a> <a class="tag tag--primary tag--small t-none-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/note-rust-general/"
+                    data-tooltip="Rust 笔记 - 通用编程概念"
+                    aria-label="上一篇: Rust 笔记 - 通用编程概念"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/nodejs-timers/"
+                    data-tooltip="Node.js中的Timers"
+                    aria-label="下一篇: Node.js中的Timers"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Diesen Beitrag teilen"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2021 polunzh. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/note-rust-general/"
+                    data-tooltip="Rust 笔记 - 通用编程概念"
+                    aria-label="上一篇: Rust 笔记 - 通用编程概念"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/nodejs-timers/"
+                    data-tooltip="Node.js中的Timers"
+                    aria-label="下一篇: Node.js中的Timers"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Diesen Beitrag teilen"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <h4 id="about-card-name">polunzh</h4>
+        
+            <div id="about-card-bio"><p>author.bio</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>author.job</p>
+
+            </div>
+        
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/script-khotipjlsohvedevjloi7dhx9gq3fsfo1ybooimzvo1or94jjj5up9aizu0j.min.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+
+    </body>
+</html>

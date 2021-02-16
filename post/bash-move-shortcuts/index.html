@@ -1,0 +1,503 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Polunzh">
+    <title>Bash 移动快捷键 - Polunzh</title>
+    <meta name="author" content="polunzh">
+    
+    
+    
+        
+            <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+        
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"polunzh","sameAs":["https://github.com/polunzh","http://stackoverflow.com/users/4160154/polunzh","mailto:polunzh@qq.com"],"image":"https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d"},"articleBody":"Bash 移动快捷键备忘昨天（2017年4月4日）发现bash默认的快捷键是emacs的，可以设置成vi: set -o vi, zsh设置成vi是: bindkey -v\n下面是emacs的模式：\n\n总是在Windows上用git bash操作git的时候嫌用方向键移动麻烦，所以在这里简单的总结一下bash的移动命令\n\n\n\n\n\n\n快捷键\n说明\n\n\n\nCtrl + A\nGo to the beginning of the line you are currently typing on\n\n\nCtrl + E\nGo to the end of the line you are currently typing on\n\n\nCtrl + L\nClears the Screen, similar to the clear command\n\n\nCtrl + U\nClears the line before the cursor position. If you are at the end of the line, clears the entire line.\n\n\nCtrl + H\nSame as backspace\n\n\nCtrl + R\nLet’s you search through previously used commands\n\n\nCtrl + C\nKill whatever you are running\n\n\nCtrl + D\nExit the current shell\n\n\nCtrl + Z\nPuts whatever you are running into a suspended background process. fg restores it.\n\n\nCtrl + W\nDelete the word before the cursor\n\n\nCtrl + K\nClear the line after the cursor\n\n\nCtrl + T\nSwap the last two characters before the cursor\n\n\nEsc + T\nSwap the last two words before the cursor\n\n\nAlt + F\nMove cursor forward one word on the current line\n\n\nAlt + B\nMove cursor backward one word on the current line\n\n\nTab\nAuto-complete files and folder names\n\n\n","dateCreated":"2017-02-28T04:47:18+00:00","dateModified":"2021-02-16T06:25:15+00:00","datePublished":"2017-02-28T04:47:18+00:00","description":"Bash 移动快捷键备忘昨天（2017年4月4日）发现bash默认的快捷键是emacs的，可以设置成vi: set -o vi, zsh设置成vi是: bindkey -v\n下面是emacs的模式：\n\n总是在Windows上用git bash操作git的时候嫌用方向键移动麻烦，所以在这里简单的总结一下bash的移动命令\n","headline":"Bash 移动快捷键","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://polunzh.com/post/bash-move-shortcuts/"},"publisher":{"@type":"Organization","name":"polunzh","sameAs":["https://github.com/polunzh","http://stackoverflow.com/users/4160154/polunzh","mailto:polunzh@qq.com"],"image":"https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d"}},"url":"http://polunzh.com/post/bash-move-shortcuts/","keywords":"Bash"}</script>
+    <meta name="description" content="Bash 移动快捷键备忘昨天（2017年4月4日）发现bash默认的快捷键是emacs的，可以设置成vi: set -o vi, zsh设置成vi是: bindkey -v 下面是emacs的模式：  总是在Windows上用git bash操作git的时候嫌用方向键移动麻烦，所以在这里简单的总结一下bash的移动命令">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Bash 移动快捷键">
+<meta property="og:url" content="http://polunzh.com/post/bash-move-shortcuts/index.html">
+<meta property="og:site_name" content="Polunzh">
+<meta property="og:description" content="Bash 移动快捷键备忘昨天（2017年4月4日）发现bash默认的快捷键是emacs的，可以设置成vi: set -o vi, zsh设置成vi是: bindkey -v 下面是emacs的模式：  总是在Windows上用git bash操作git的时候嫌用方向键移动麻烦，所以在这里简单的总结一下bash的移动命令">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-02-28T04:47:18.000Z">
+<meta property="article:modified_time" content="2021-02-16T06:25:15.610Z">
+<meta property="article:author" content="polunzh">
+<meta property="article:tag" content="Bash">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+    
+    
+    
+    
+    
+    <!--STYLES-->
+    
+<link rel="stylesheet" href="/assets/css/style-oscmcdpy9wvhclc9ysewhrgol5jrpd63hs3cgvvf4uiaovxttt6c5wtg4sem.min.css">
+
+    <!--STYLES END-->
+    
+
+    
+
+    
+        
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a
+            class="header-title-link"
+            href="/"
+            aria-label=""
+        >
+            Polunzh
+        </a>
+    </div>
+    
+        
+            <a
+                class="header-right-picture "
+                href="/about"
+                aria-label="打开链接: /about"
+            >
+        
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+        
+        
+        <ul class="sidebar-buttons">
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/"
+                    
+                    rel="noopener" title="首页">
+                    <i class="sidebar-button-icon fa fa-home" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/tags"
+                    
+                    rel="noopener" title="标签">
+                    <i class="sidebar-button-icon fa fa-tags" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/archives"
+                    
+                    rel="noopener" title="归档">
+                    <i class="sidebar-button-icon fa fa-archive" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/about"
+                    
+                    rel="noopener" title="关于">
+                    <i class="sidebar-button-icon fa fa-question" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+            </li>
+            
+        </ul>
+        
+        <ul class="sidebar-buttons">
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="https://github.com/polunzh"
+                     target="_blank" 
+                    rel="noopener" title="GitHub">
+                    <i class="sidebar-button-icon fab fa-github" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="http://stackoverflow.com/users/4160154/polunzh"
+                     target="_blank" 
+                    rel="noopener" title="Stack Overflow">
+                    <i class="sidebar-button-icon fab fa-stack-overflow" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">Stack Overflow</span>
+                </a>
+            </li>
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="mailto:polunzh@qq.com"
+                     target="_blank" 
+                    rel="noopener" title="邮箱">
+                    <i class="sidebar-button-icon fa fa-envelope" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">邮箱</span>
+                </a>
+            </li>
+            
+        </ul>
+        
+        <ul class="sidebar-buttons">
+            
+            <li class="sidebar-button">
+                
+                <a class="sidebar-button-link " href="/atom.xml"
+                    
+                    rel="noopener" title="RSS">
+                    <i class="sidebar-button-icon fa fa-rss" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+            </li>
+            
+        </ul>
+        
+        
+        <ul class="sidebar-buttons">
+            <li class="sidebar-button">
+                <span class="sidebar-button-link">
+                    <i class="sidebar-button-icon fab fa-google" aria-hidden="true"></i>
+                    <span class="sidebar-button-desc"><form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><input type="hidden" name="sitesearch" value="http://polunzh.com"></form></span>
+                </span>
+            </li>
+        </ul>
+        
+    </div>
+</nav>
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title">
+            Bash 移动快捷键
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time datetime="2017-02-28T04:47:18+00:00">
+	
+		    2月 28, 2017
+    	
+    </time>
+    
+</div>
+
+    
+</div>
+
+    
+    <div class="post-content markdown">
+        <div class="main-content-wrap">
+            <h2 id="Bash-移动快捷键备忘"><a href="#Bash-移动快捷键备忘" class="headerlink" title="Bash 移动快捷键备忘"></a>Bash 移动快捷键备忘</h2><p><em>昨天（2017年4月4日）发现<code>bash</code>默认的快捷键是<code>emacs</code>的，可以设置成<code>vi</code>: <code>set -o vi</code>, <code>zsh</code>设置成<code>vi</code>是: <code>bindkey -v</code></em></p>
+<p><em>下面是emacs的模式：</em></p>
+<blockquote>
+<p>总是在<code>Windows</code>上用<code>git bash</code>操作<code>git</code>的时候嫌用方向键移动麻烦，所以在这里简单的总结一下<code>bash</code>的移动命令</p>
+</blockquote>
+<a id="more"></a>
+
+<table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ctrl + A</td>
+<td>Go to the beginning of the line you are currently typing on</td>
+</tr>
+<tr>
+<td>Ctrl + E</td>
+<td>Go to the end of the line you are currently typing on</td>
+</tr>
+<tr>
+<td>Ctrl + L</td>
+<td>Clears the Screen, similar to the clear command</td>
+</tr>
+<tr>
+<td>Ctrl + U</td>
+<td>Clears the line before the cursor position. If you are at the end of the line, clears the entire line.</td>
+</tr>
+<tr>
+<td>Ctrl + H</td>
+<td>Same as backspace</td>
+</tr>
+<tr>
+<td>Ctrl + R</td>
+<td>Let’s you search through previously used commands</td>
+</tr>
+<tr>
+<td>Ctrl + C</td>
+<td>Kill whatever you are running</td>
+</tr>
+<tr>
+<td>Ctrl + D</td>
+<td>Exit the current shell</td>
+</tr>
+<tr>
+<td>Ctrl + Z</td>
+<td>Puts whatever you are running into a suspended background process. fg restores it.</td>
+</tr>
+<tr>
+<td>Ctrl + W</td>
+<td>Delete the word before the cursor</td>
+</tr>
+<tr>
+<td>Ctrl + K</td>
+<td>Clear the line after the cursor</td>
+</tr>
+<tr>
+<td>Ctrl + T</td>
+<td>Swap the last two characters before the cursor</td>
+</tr>
+<tr>
+<td>Esc + T</td>
+<td>Swap the last two words before the cursor</td>
+</tr>
+<tr>
+<td>Alt + F</td>
+<td>Move cursor forward one word on the current line</td>
+</tr>
+<tr>
+<td>Alt + B</td>
+<td>Move cursor backward one word on the current line</td>
+</tr>
+<tr>
+<td>Tab</td>
+<td>Auto-complete files and folder names</td>
+</tr>
+</tbody></table>
+
+            
+
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-none-link" href="/tags/Bash/" rel="tag">Bash</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/nginx-proxy-inuse/"
+                    data-tooltip="利用Ngin配置二级域名"
+                    aria-label="上一篇: 利用Ngin配置二级域名"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/resource-blogwall/"
+                    data-tooltip="博客墙"
+                    aria-label="下一篇: 博客墙"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Diesen Beitrag teilen"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2021 polunzh. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/nginx-proxy-inuse/"
+                    data-tooltip="利用Ngin配置二级域名"
+                    aria-label="上一篇: 利用Ngin配置二级域名"
+                >
+                    
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                    </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                <a
+                    class="post-action-btn btn btn--default tooltip--top"
+                    href="/post/resource-blogwall/"
+                    data-tooltip="博客墙"
+                    aria-label="下一篇: 博客墙"
+                >
+                    
+                        <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a
+                class="post-action-btn btn btn--default btn-open-shareoptions"
+                href="#btn-open-shareoptions"
+                aria-label="Diesen Beitrag teilen"
+            >
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Nach oben">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                
+
+            
+        </div>
+        
+
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-times"></i>
+        </div>
+        
+            <h4 id="about-card-name">polunzh</h4>
+        
+            <div id="about-card-bio"><p>author.bio</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>author.job</p>
+
+            </div>
+        
+        
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+
+<script src="/assets/js/script-khotipjlsohvedevjloi7dhx9gq3fsfo1ybooimzvo1or94jjj5up9aizu0j.min.js"></script>
+
+<!--SCRIPTS END-->
+
+
+    
+
+
+
+
+    </body>
+</html>
