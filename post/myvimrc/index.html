@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="个人非常喜欢Vim的工作方式，所以有时间会研究一下，下面是我自己的一些配置，我暂时没有修改vim默认的vimrc文件。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我的VIM配置">
+<meta property="og:url" content="http://polunzh.com/post/myvimrc/index.html">
+<meta property="og:site_name" content="Polunzh">
+<meta property="og:description" content="个人非常喜欢Vim的工作方式，所以有时间会研究一下，下面是我自己的一些配置，我暂时没有修改vim默认的vimrc文件。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2015-11-19T03:13:29.000Z">
+<meta property="article:modified_time" content="2024-02-24T03:52:51.799Z">
+<meta property="article:author" content="polunzh">
+<meta property="article:tag" content="vim">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          
+            <link rel="shortcut icon" href="https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d?s=48">
+          
+        
+      
+      
+        
+          
+            <link rel="icon" type="image/png" href="https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d?s=192" sizes="192x192">
+          
+        
+      
+      
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d?s=180">
+          
+        
+      
+    
+    <!-- title -->
+    <title>我的VIM配置</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/atom.xml" title="Polunzh" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/post/fu-npm-package/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/post/common-tools/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://polunzh.com/post/myvimrc/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://polunzh.com/post/myvimrc/&text=我的VIM配置"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://polunzh.com/post/myvimrc/&title=我的VIM配置"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://polunzh.com/post/myvimrc/&is_video=false&description=我的VIM配置"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=我的VIM配置&body=Check out this article: http://polunzh.com/post/myvimrc/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://polunzh.com/post/myvimrc/&title=我的VIM配置"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://polunzh.com/post/myvimrc/&title=我的VIM配置"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://polunzh.com/post/myvimrc/&title=我的VIM配置"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://polunzh.com/post/myvimrc/&title=我的VIM配置"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://polunzh.com/post/myvimrc/&name=我的VIM配置&description=&lt;p&gt;个人非常喜欢&lt;code&gt;Vim&lt;/code&gt;的工作方式，所以有时间会研究一下，&lt;br&gt;下面是我自己的一些配置，我暂时没有修改&lt;code&gt;vim&lt;/code&gt;默认的&lt;code&gt;vimrc&lt;/code&gt;文件。&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://polunzh.com/post/myvimrc/&t=我的VIM配置"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        我的VIM配置
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">polunzh</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2015-11-19T03:13:29.000Z" class="dt-published" itemprop="datePublished">2015-11-19</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/vim/" rel="tag">vim</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>个人非常喜欢<code>Vim</code>的工作方式，所以有时间会研究一下，<br>下面是我自己的一些配置，我暂时没有修改<code>vim</code>默认的<code>vimrc</code>文件。</p>
+<a id="more"></a>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line">set relativenumber      &quot; Show relative numbers instead of absolute ones.</span><br><span class="line">set nocompatible        &quot; Disable vi compatibility.</span><br><span class="line">set undolevels=200      &quot; Number of undo levels.</span><br><span class="line">set scrolloff=10        &quot; Keep a context (rows) when scrolling vertically.</span><br><span class="line">set sidescroll=5        &quot; Keep a context (columns) when scrolling horizontally.</span><br><span class="line">set tabpagemax=1000     &quot; Maximum number of tabs to open by the -p argument.</span><br><span class="line">set esckeys             &quot; Cursor keys in insert mode.</span><br><span class="line">set incsearch</span><br><span class="line">set confirm             &quot; Ask to save file before operations like :q or :e fail.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">&quot; Allow backspacing over everything in insert mode.</span></span><br><span class="line"><span class="string">set backspace=indent,eol,start</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">&quot; Backup and swap files.</span><br><span class="line">set nobackup            &quot; Disable backup files.</span><br><span class="line">set noswapfile          &quot; Disable swap files.</span><br><span class="line">set nowritebackup       &quot; Disable auto backup before overwriting a file.</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; History</span></span><br><span class="line">set history=1000        &quot; Number of lines of command line history.</span><br><span class="line">set viminfo=&#x27;100,\&quot;500,r/mnt,r~/mnt,r/media &quot; Read/write a .viminfo file.</span><br><span class="line">set viminfo+=h          &quot; Do not store searches.</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; Splitting.</span></span><br><span class="line">set splitright          &quot; Open new vertical panes in the right rather than left.</span><br><span class="line">set splitbelow          &quot; Open new horizontal panes in the bottom rather than top.</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; Security.</span></span><br><span class="line">set secure              &quot; Forbid loading of .vimrc under $PWD.</span><br><span class="line">set nomodeline          &quot; Modelines have been a source of vulnerabilities.</span><br><span class="line"></span><br><span class="line">syntax on</span><br><span class="line">filetype indent on      &quot; Turn off indention by filetype.</span><br><span class="line"><span class="string">&quot; Override the previous settings for all file types (some filetype plugins set</span></span><br><span class="line">&quot; these options to different values, which is really annoying).</span><br><span class="line">au FileType * set autoindent nosmartindent nocindent fo+=q fo-=r fo-=o fo+=j</span><br><span class="line">set laststatus=2</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; Whitespace.</span></span><br><span class="line">set tabstop=4           &quot; Number of spaces a tab counts for.</span><br><span class="line">set shiftwidth=4        &quot; Number of spaces to use for each step of indent.</span><br><span class="line">set shiftround          &quot; Round indent to multiple of shiftwidth.</span><br><span class="line">set expandtab           &quot; Expand tab with spaces.</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; Wrapping.</span></span><br><span class="line">set wrap                &quot; Enable text wrapping.</span><br><span class="line">set linebreak           &quot; Break after words only.</span><br><span class="line">set display+=lastline   &quot; Show as much as possible from the last shown line.</span><br><span class="line">set textwidth=0         &quot; Don&#x27;t automatically wrap lines.</span><br><span class="line"><span class="string">&quot; Disable automatic wrapping for all files (some filetype plugins set this to</span></span><br><span class="line">&quot; a different value, which is really annoying).</span><br><span class="line">au FileType * set textwidth=0</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;------------------------------------------------------------------------------</span></span><br><span class="line">&quot; Typos correction.</span><br><span class="line"><span class="string">&quot;------------------------------------------------------------------------------</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">if has(&quot;multi_byte&quot;)</span><br><span class="line">    <span class="string">&quot; UTF-8 编码</span></span><br><span class="line"><span class="string">    set encoding=utf-8</span></span><br><span class="line"><span class="string">    set termencoding=utf-8</span></span><br><span class="line"><span class="string">    set formatoptions+=mM</span></span><br><span class="line"><span class="string">    set fencs=utf-8,gbk</span></span><br><span class="line"><span class="string">    if v:lang =~? &#x27;^/(zh/)/|/(ja/)/|/(ko/)&#x27;</span></span><br><span class="line"><span class="string">        set ambiwidth=double</span></span><br><span class="line"><span class="string">    endif</span></span><br><span class="line">    if has(&quot;win32&quot;)</span><br><span class="line">        source $VIMRUNTIME/delmenu.vim</span><br><span class="line">        source $VIMRUNTIME/menu.vim</span><br><span class="line">        language messages zh_CN.utf-8</span><br><span class="line">    endif</span><br><span class="line">else</span><br><span class="line">    echoerr &quot;Sorry, this version of (g)vim was not compiled with +multi_byte&quot;</span><br><span class="line">endif</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;---------------------------------------------</span></span><br><span class="line">&quot; 插件</span><br><span class="line"><span class="string">&quot;---------------------------------------------</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">&quot; NERDTree</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; 打开vim是自动打开NERDTree</span></span><br><span class="line">&quot; autocmd vimenter * NERDTree</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; 打开编辑器时鼠标默认在编辑区域</span></span><br><span class="line"><span class="string">autocmd vimenter * wincmd p</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">&quot;如果打开vim的时候没有指定文件，则自动打开NERDTree</span><br><span class="line"><span class="string">&quot; autocmd StdinReadPre * let s:std_in=1</span></span><br><span class="line">&quot; autocmd VimEnter * if argc() == 0 &amp;&amp; !exists(&quot;s:std_in&quot;) | NERDTree | endif</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;如果只剩下一个NERDTree窗口，则关闭vim</span></span><br><span class="line">autocmd bufenter * if (winnr(&quot;$&quot;) == 1 &amp;&amp; exists(&quot;b:NERDTree&quot;) &amp;&amp; b:NERDTree.isTabTree()) | q | endif</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; 快捷键设置</span></span><br><span class="line"><span class="string">map &lt;C-b&gt; :NERDTreeToggle&lt;CR&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">&quot;Powerline configuration</span><br><span class="line"><span class="string">&quot; set guifont=Consolas_for_Powerline_FixedD:h10:cANSI</span></span><br><span class="line">&quot; set guifont=Liberation_Mono_for_Powerline:h10</span><br><span class="line"><span class="string">&quot; set encoding=utf-8</span></span><br><span class="line"><span class="string">set t_Co=256</span></span><br><span class="line"><span class="string">let g:Powerline_symbols = &#x27;fancy&#x27;</span></span><br><span class="line"><span class="string">let Powerline_symbols = &#x27;compatible&#x27;</span></span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a href="/">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://polunzh.com/post/myvimrc/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://polunzh.com/post/myvimrc/&text=我的VIM配置"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://polunzh.com/post/myvimrc/&title=我的VIM配置"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://polunzh.com/post/myvimrc/&is_video=false&description=我的VIM配置"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=我的VIM配置&body=Check out this article: http://polunzh.com/post/myvimrc/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://polunzh.com/post/myvimrc/&title=我的VIM配置"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://polunzh.com/post/myvimrc/&title=我的VIM配置"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://polunzh.com/post/myvimrc/&title=我的VIM配置"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://polunzh.com/post/myvimrc/&title=我的VIM配置"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://polunzh.com/post/myvimrc/&name=我的VIM配置&description=&lt;p&gt;个人非常喜欢&lt;code&gt;Vim&lt;/code&gt;的工作方式，所以有时间会研究一下，&lt;br&gt;下面是我自己的一些配置，我暂时没有修改&lt;code&gt;vim&lt;/code&gt;默认的&lt;code&gt;vimrc&lt;/code&gt;文件。&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://polunzh.com/post/myvimrc/&t=我的VIM配置"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2015-2024
+    polunzh
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

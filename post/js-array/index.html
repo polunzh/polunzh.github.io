@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="JavaScript 数组操作 原文: https:&#x2F;&#x2F;gist.github.com&#x2F;ljharb&#x2F;58faf1cfcb4e6808f74aae4ef7944cff  forEach  callback回答: 给你一个值, 随便你对它做什么, 我不管 callback参数: item, index, list 最终返回值: 啥也没有, undefined 代码示例:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript常用数组迭代方法">
+<meta property="og:url" content="http://polunzh.com/post/js-array/index.html">
+<meta property="og:site_name" content="Polunzh">
+<meta property="og:description" content="JavaScript 数组操作 原文: https:&#x2F;&#x2F;gist.github.com&#x2F;ljharb&#x2F;58faf1cfcb4e6808f74aae4ef7944cff  forEach  callback回答: 给你一个值, 随便你对它做什么, 我不管 callback参数: item, index, list 最终返回值: 啥也没有, undefined 代码示例:">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-02-08T07:17:30.000Z">
+<meta property="article:modified_time" content="2024-02-24T03:52:51.795Z">
+<meta property="article:author" content="polunzh">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          
+            <link rel="shortcut icon" href="https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d?s=48">
+          
+        
+      
+      
+        
+          
+            <link rel="icon" type="image/png" href="https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d?s=192" sizes="192x192">
+          
+        
+      
+      
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d?s=180">
+          
+        
+      
+    
+    <!-- title -->
+    <title>JavaScript常用数组迭代方法</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/atom.xml" title="Polunzh" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/post/git-note/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/post/fu-npm-package/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://polunzh.com/post/js-array/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://polunzh.com/post/js-array/&text=JavaScript常用数组迭代方法"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://polunzh.com/post/js-array/&title=JavaScript常用数组迭代方法"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://polunzh.com/post/js-array/&is_video=false&description=JavaScript常用数组迭代方法"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JavaScript常用数组迭代方法&body=Check out this article: http://polunzh.com/post/js-array/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://polunzh.com/post/js-array/&title=JavaScript常用数组迭代方法"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://polunzh.com/post/js-array/&title=JavaScript常用数组迭代方法"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://polunzh.com/post/js-array/&title=JavaScript常用数组迭代方法"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://polunzh.com/post/js-array/&title=JavaScript常用数组迭代方法"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://polunzh.com/post/js-array/&name=JavaScript常用数组迭代方法&description=&lt;h1 id=&#34;JavaScript-数组操作&#34;&gt;&lt;a href=&#34;#JavaScript-数组操作&#34; class=&#34;headerlink&#34; title=&#34;JavaScript 数组操作&#34;&gt;&lt;/a&gt;JavaScript 数组操作&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;原文: &lt;a href=&#34;https://gist.github.com/ljharb/58faf1cfcb4e6808f74aae4ef7944cff&#34;&gt;https://gist.github.com/ljharb/58faf1cfcb4e6808f74aae4ef7944cff&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;forEach&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;callback&lt;/code&gt;回答: 给你一个值, 随便你对它做什么, 我不管&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;callback&lt;/code&gt;参数: &lt;code&gt;item&lt;/code&gt;, &lt;code&gt;index&lt;/code&gt;, &lt;code&gt;list&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;最终返回值: 啥也没有, &lt;code&gt;undefined&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;代码示例:&lt;/li&gt;
+&lt;/ul&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://polunzh.com/post/js-array/&t=JavaScript常用数组迭代方法"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaScript-%E6%95%B0%E7%BB%84%E6%93%8D%E4%BD%9C"><span class="toc-number">1.</span> <span class="toc-text">JavaScript 数组操作</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        JavaScript常用数组迭代方法
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">polunzh</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2017-02-08T07:17:30.000Z" class="dt-published" itemprop="datePublished">2017-02-08</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/JavaScript/" rel="tag">JavaScript</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="JavaScript-数组操作"><a href="#JavaScript-数组操作" class="headerlink" title="JavaScript 数组操作"></a>JavaScript 数组操作</h1><blockquote>
+<p>原文: <a target="_blank" rel="noopener" href="https://gist.github.com/ljharb/58faf1cfcb4e6808f74aae4ef7944cff">https://gist.github.com/ljharb/58faf1cfcb4e6808f74aae4ef7944cff</a></p>
+</blockquote>
+<p><code>forEach</code></p>
+<ul>
+<li><code>callback</code>回答: 给你一个值, 随便你对它做什么, 我不管</li>
+<li><code>callback</code>参数: <code>item</code>, <code>index</code>, <code>list</code></li>
+<li>最终返回值: 啥也没有, <code>undefined</code></li>
+<li>代码示例:</li>
+</ul>
+<a id="more"></a>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">&#x27;zhang&#x27;</span>, <span class="string">&#x27;zhen&#x27;</span>, <span class="string">&#x27;qiang&#x27;</span>].forEach(<span class="function">(<span class="params">val, index, thisArg</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(index, val);</span><br><span class="line">    <span class="built_in">console</span>.log(thisArg);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><code>map</code>:</p>
+<ul>
+<li><em>callback回答</em>: here’s an item. what should i put in the new list in its place(翻译不好)？</li>
+<li><em>callback 有这些参数</em>: <code>item</code>, <code>index</code>, <code>list</code></li>
+<li><em>最终的返回值</em>: 新项的列表</li>
+<li><em>代码示例</em><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> objects = [&#123; <span class="attr">id</span>: <span class="string">&#x27;a&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;chengyaojin&#x27;</span> &#125;, &#123; <span class="attr">id</span>: <span class="string">&#x27;b&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;zhangjunhui&#x27;</span> &#125;, &#123; <span class="attr">id</span>: <span class="string">&#x27;c&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;zhangzhenqiang&#x27;</span> &#125;];</span><br><span class="line"><span class="keyword">const</span> res = objects.map(<span class="function">(<span class="params">item, index, list</span>) =&gt;</span> &#123;</span><br><span class="line">    item[<span class="string">&#x27;ctime&#x27;</span>] = <span class="built_in">Date</span>.now();</span><br><span class="line">    <span class="keyword">return</span> item;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(res);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><code>filter</code>:</p>
+<ul>
+<li><em>callback是个谓词</em> - 应该返回真值或假值</li>
+<li><em>callback回答</em>: 我应该保留这个值吗？</li>
+<li><em>callback有这些参数</em>: <code>item</code>, <code>index</code>, <code>list</code></li>
+<li><em>最终返回值</em>: 保留下来的值</li>
+<li><em>代码示例</em>:</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ints = [<span class="number">1</span>, <span class="number">2</span>];</span><br><span class="line"><span class="keyword">const</span> events = ints.filter(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> item % <span class="number">2</span> === <span class="number">0</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(ints === events, events);</span><br></pre></td></tr></table></figure>
+
+<p><code>reduce</code>:</p>
+<ul>
+<li><code>callback</code> 回答(answers): 这是前一次迭代的返回结果，我应该继续下去吗？</li>
+<li><code>callback</code>的参数: <code>result</code>, <code>item</code>, <code>index</code>, <code>list</code></li>
+<li>最后的返回结果：上一次的迭代结果</li>
+<li>代码示例：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 注意：`reduce`和`reduceRight`在`callback`参数后都一个可选的`initalValue`参数,</span></span><br><span class="line"><span class="comment">// 如果忽略不填，则默认是第一项的值</span></span><br><span class="line"><span class="keyword">const</span> sum = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].reduce(<span class="function">(<span class="params">result, item</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> result += item;</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(sum);</span><br></pre></td></tr></table></figure>
+
+<p><code>reduceRight</code>: 和<code>reduce</code>相同，只不过遍历的方向是相反的方向</p>
+<p><code>some</code>:</p>
+<ul>
+<li><code>callback</code>是个谓词(<code>predicate</code>) - 应该返回真值或假值</li>
+<li><code>callback</code>回答(<code>answers</code>): 这个值满足需求吗？</li>
+<li><code>callback</code>的参数: <code>item</code>, <code>index</code>, <code>list</code></li>
+<li>最终返回值: 如果找到满足需求的值则返回<code>true</code>,否则返回<code>false</code></li>
+<li><code>注意</code>: 如果<code>callback</code>返回<code>true</code>则会停止迭代</li>
+<li>代码示例:</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> hasNegativeNumbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">-1</span>, <span class="number">4</span>].some(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> item &lt; <span class="number">0</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(hasNegativeNumbers);</span><br></pre></td></tr></table></figure>
+
+<p><code>every</code>:</p>
+<ul>
+<li><code>callback</code> 是个谓词 - 返回真值(truthy)或假值(falsy)</li>
+<li><code>callback</code>回答(<code>answers</code>): 这个值满足需求吗？</li>
+<li><code>callback</code>的参数: <code>item</code>, <code>index</code>, <code>list</code></li>
+<li>最终返回值: 如果找到满足需求的值则返回<code>true</code>,否则返回<code>false</code></li>
+<li><code>注意</code>: 如果<code>callback</code>返回<code>false</code>则会停止迭代</li>
+<li>代码示例:</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> allPositiveNumbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">-1</span>, <span class="number">4</span>].every(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> item &gt; <span class="number">0</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(allPositiveNumbers);</span><br></pre></td></tr></table></figure>
+
+<p><code>find</code>:</p>
+<ul>
+<li><code>callback</code> 是个谓词 - 返回真值(truthy)或假值(falsy)</li>
+<li><code>callback</code> 回答：这是你要找的值吗？</li>
+<li><code>callback</code>的参数: <code>item</code>, <code>index</code>, <code>list</code></li>
+<li>最终返回值：如果能找到，则返回该项，否则返回<code>undefined</code></li>
+<li><strong>注意</strong>: 一旦<code>callback</code>函数返回真值，迭代就会停止</li>
+<li>代码示例:</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> objects = [&#123; <span class="attr">id</span>: <span class="string">&#x27;a&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;chengyaojin&#x27;</span> &#125;, &#123; <span class="attr">id</span>: <span class="string">&#x27;b&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;zhangjunhui&#x27;</span> &#125;, &#123; <span class="attr">id</span>: <span class="string">&#x27;c&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;zhangzhenqiang&#x27;</span> &#125;];</span><br><span class="line"><span class="keyword">const</span> res = objects.find(<span class="function">(<span class="params">item, index, list</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> item.id === <span class="string">&#x27;c&#x27;</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(res);</span><br></pre></td></tr></table></figure>
+
+<p><code>findIndex</code>:</p>
+<ul>
+<li><code>callback</code> 是个谓词 - 返回真值(truthy)或假值(falsy)</li>
+<li><code>callback</code> 回答：这是你要找的值吗？</li>
+<li><code>callback</code>的参数: <code>item</code>, <code>index</code>, <code>list</code></li>
+<li>最终返回值：如果能找到，则返回该项的索引，否则返回<code>-1</code></li>
+<li><strong>注意</strong>: 一旦<code>callback</code>函数返回真值，迭代就会停止</li>
+<li>代码示例:</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> objects = [&#123; <span class="attr">id</span>: <span class="string">&#x27;a&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;chengyaojin&#x27;</span> &#125;, &#123; <span class="attr">id</span>: <span class="string">&#x27;b&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;zhangjunhui&#x27;</span> &#125;, &#123; <span class="attr">id</span>: <span class="string">&#x27;c&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;zhangzhenqiang&#x27;</span> &#125;];</span><br><span class="line"><span class="keyword">const</span> res = objects.findIndex(<span class="function">(<span class="params">item, index, list</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> item.id === <span class="string">&#x27;c&#x27;</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(res);</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a href="/">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaScript-%E6%95%B0%E7%BB%84%E6%93%8D%E4%BD%9C"><span class="toc-number">1.</span> <span class="toc-text">JavaScript 数组操作</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://polunzh.com/post/js-array/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://polunzh.com/post/js-array/&text=JavaScript常用数组迭代方法"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://polunzh.com/post/js-array/&title=JavaScript常用数组迭代方法"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://polunzh.com/post/js-array/&is_video=false&description=JavaScript常用数组迭代方法"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JavaScript常用数组迭代方法&body=Check out this article: http://polunzh.com/post/js-array/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://polunzh.com/post/js-array/&title=JavaScript常用数组迭代方法"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://polunzh.com/post/js-array/&title=JavaScript常用数组迭代方法"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://polunzh.com/post/js-array/&title=JavaScript常用数组迭代方法"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://polunzh.com/post/js-array/&title=JavaScript常用数组迭代方法"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://polunzh.com/post/js-array/&name=JavaScript常用数组迭代方法&description=&lt;h1 id=&#34;JavaScript-数组操作&#34;&gt;&lt;a href=&#34;#JavaScript-数组操作&#34; class=&#34;headerlink&#34; title=&#34;JavaScript 数组操作&#34;&gt;&lt;/a&gt;JavaScript 数组操作&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;原文: &lt;a href=&#34;https://gist.github.com/ljharb/58faf1cfcb4e6808f74aae4ef7944cff&#34;&gt;https://gist.github.com/ljharb/58faf1cfcb4e6808f74aae4ef7944cff&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;forEach&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;callback&lt;/code&gt;回答: 给你一个值, 随便你对它做什么, 我不管&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;callback&lt;/code&gt;参数: &lt;code&gt;item&lt;/code&gt;, &lt;code&gt;index&lt;/code&gt;, &lt;code&gt;list&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;最终返回值: 啥也没有, &lt;code&gt;undefined&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;代码示例:&lt;/li&gt;
+&lt;/ul&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://polunzh.com/post/js-array/&t=JavaScript常用数组迭代方法"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2015-2024
+    polunzh
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
