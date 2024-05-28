@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Core ES6 feature exploringjs笔记   var to let&#x2F;const   优先使用const, 只要值不再改变的变量就用const；否则用let；避免用var。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6 Exploring 笔记">
+<meta property="og:url" content="http://polunzh.com/post/es6exploring/index.html">
+<meta property="og:site_name" content="Polunzh">
+<meta property="og:description" content="Core ES6 feature exploringjs笔记   var to let&#x2F;const   优先使用const, 只要值不再改变的变量就用const；否则用let；避免用var。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-02-10T04:35:59.000Z">
+<meta property="article:modified_time" content="2024-05-28T14:45:41.899Z">
+<meta property="article:author" content="polunzh">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          
+            <link rel="shortcut icon" href="https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d?s=48">
+          
+        
+      
+      
+        
+          
+            <link rel="icon" type="image/png" href="https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d?s=192" sizes="192x192">
+          
+        
+      
+      
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d?s=180">
+          
+        
+      
+    
+    <!-- title -->
+    <title>ES6 Exploring 笔记</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/atom.xml" title="Polunzh" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/post/resource-blogwall/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/post/git-note/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://polunzh.com/post/es6exploring/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://polunzh.com/post/es6exploring/&text=ES6 Exploring 笔记"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://polunzh.com/post/es6exploring/&title=ES6 Exploring 笔记"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://polunzh.com/post/es6exploring/&is_video=false&description=ES6 Exploring 笔记"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=ES6 Exploring 笔记&body=Check out this article: http://polunzh.com/post/es6exploring/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://polunzh.com/post/es6exploring/&title=ES6 Exploring 笔记"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://polunzh.com/post/es6exploring/&title=ES6 Exploring 笔记"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://polunzh.com/post/es6exploring/&title=ES6 Exploring 笔记"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://polunzh.com/post/es6exploring/&title=ES6 Exploring 笔记"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://polunzh.com/post/es6exploring/&name=ES6 Exploring 笔记&description=&lt;h2 id=&#34;Core-ES6-feature&#34;&gt;&lt;a href=&#34;#Core-ES6-feature&#34; class=&#34;headerlink&#34; title=&#34;Core ES6 feature&#34;&gt;&lt;/a&gt;Core ES6 feature&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;http://exploringjs.com/es6/index.html&#34;&gt;exploringjs笔记&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;var to let/const&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;优先使用&lt;code&gt;const&lt;/code&gt;, 只要值不再改变的变量就用&lt;code&gt;const&lt;/code&gt;；否则用&lt;code&gt;let&lt;/code&gt;；避免用&lt;code&gt;var&lt;/code&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://polunzh.com/post/es6exploring/&t=ES6 Exploring 笔记"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Core-ES6-feature"><span class="toc-number">1.</span> <span class="toc-text">Core ES6 feature</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Modules"><span class="toc-number">2.</span> <span class="toc-text">Modules</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        ES6 Exploring 笔记
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">polunzh</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2017-02-10T04:35:59.000Z" class="dt-published" itemprop="datePublished">2017-02-10</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/JavaScript/" rel="tag">JavaScript</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="Core-ES6-feature"><a href="#Core-ES6-feature" class="headerlink" title="Core ES6 feature"></a>Core ES6 feature</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="http://exploringjs.com/es6/index.html">exploringjs笔记</a></p>
+</blockquote>
+<ol>
+<li>var to let/const</li>
+</ol>
+<blockquote>
+<p>优先使用<code>const</code>, 只要值不再改变的变量就用<code>const</code>；否则用<code>let</code>；避免用<code>var</code>。</p>
+</blockquote>
+<a id="more"></a>
+
+<ol start="2">
+<li>IIFEs to blocks</li>
+</ol>
+<p>如果在ES5中想限制变量在一个块作用域中，你需要使用一个叫做IIFE(Immediately-Invoked Function Expression)的模式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> tmp...</span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure>
+
+<p>在ES6中只需要使用一个块声明或者一个const声明就行了：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="keyword">let</span> tmp = ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>字符串插值</li>
+</ol>
+<p>避免字符串拼接, 以及多行字符串。</p>
+<ol start="4">
+<li>函数表达式 to 箭头函数</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">UiComponent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> button = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;mybutton&#x27;</span>);</span><br><span class="line">    button.on(<span class="string">&#x27;click&#x27;</span>, <span class="function">()=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;CLICK&#x27;</span>);</span><br><span class="line">        <span class="built_in">this</span>.handleClick(); <span class="comment">//  这里的this是UiComponent的this，还不知道为什么</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>处理多个返回值</li>
+</ol>
+<p>使用数组返回多个值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [, year, month, day] = <span class="regexp">/^(\d\d\d\d)-(\d\d)-(\d\d)$/</span>.exec(<span class="string">&#x27;2019-12-21&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>上面例子中数组的第一个逗号是为了跳过数组第一个元素，因为<code>/^(\d\d\d\d)-(\d\d)-(\d\d)$/.exec(&#39;2019-12-21&#39;)</code><br>返回的是<code>[&quot;2019-12-21&quot;, &quot;2019&quot;, &quot;12&quot;, &quot;21&quot;]</code></p>
+</blockquote>
+<p>使用<code>objects</code>返回多个值</p>
+<blockquote>
+<p>所谓的解构<code>Destructuring</code></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;writable, configurable&#125; = <span class="built_in">Object</span>.getOwnPropertyDescriptor(foo, <span class="string">&#x27;foo&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>使用<code>for-of</code>替换<code>for</code>和<code>forEach</code><blockquote>
+<p><code>for</code>循环的优势是可以被中断(break)，<code>forEach</code>简洁, 而<code>for-of</code>兼顾了<code>for</code>,<code>forEach</code>的优点</p>
+</blockquote>
+</li>
+</ol>
+<p>如果同时需要索引和值，可以使用<code>Array</code>的<code>entries</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">const</span> [index, elem] <span class="keyword">of</span> arr.entries()) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;index&#125;</span>, <span class="subst">$&#123;elem&#125;</span>`</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li><p>使用参数默认值</p>
+<blockquote>
+<p>ES6中只有<code>undefined</code>才能触发默认值</p>
+</blockquote>
+</li>
+<li><p>命名参数</p>
+</li>
+</ol>
+<p>通过字面对象实现（所谓的<code>可选对象模式</code>）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">selectEntries</span>(<span class="params"> &#123; start=<span class="number">0</span>, end=<span class="number">1</span>, step=<span class="number">1</span> &#125;</span>) </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="9">
+<li>剩余参数(Rest Parameters)<blockquote>
+<p>使用<code>...</code>操作符实现</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">logAllArguments</span>(<span class="params">...args</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> arg <span class="keyword">of</span> args) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;---&#x27;</span>);</span><br><span class="line">        <span class="built_in">console</span>.log(arg);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>可选参数:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">selectEntries</span>(<span class="params">&#123; start=<span class="number">0</span>, end=<span class="number">-1</span>, step=<span class="number">1</span> &#125; = &#123;&#125;</span>) </span>&#123;</span><br><span class="line">    ···</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="10">
+<li>展开操作符<code>...</code>替换<code>apply()</code></li>
+</ol>
+<blockquote>
+<p>在ES5中，将数组转换为参数使用<code>apply()</code>, ES6中可以使用<code>...</code></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.max(...[<span class="number">1</span>, <span class="number">21</span>, <span class="number">2</span>, <span class="number">-10</span>])</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> arr1 = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>];</span><br><span class="line"><span class="keyword">const</span> arr2 = [<span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;d&#x27;</span>];</span><br><span class="line"></span><br><span class="line">arr1.push.apply(arr1, arr2); <span class="comment">// arr1=[&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;, &#x27;d&#x27;] ES5</span></span><br><span class="line">arr1.push(...arr2); <span class="comment">// arr1=[&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;, &#x27;d&#x27;] ES6</span></span><br></pre></td></tr></table></figure>
+
+<ol start="11">
+<li>展开操作符<code>...</code>替换<code>concat()</code></li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ar1 = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>];</span><br><span class="line"><span class="keyword">const</span> ar2 = [<span class="string">&#x27;c&#x27;</span>];</span><br><span class="line"><span class="keyword">const</span> ar3 = [<span class="string">&#x27;d&#x27;</span>];</span><br><span class="line"><span class="built_in">console</span>.log([...ar1, ...ar2, ...ar3]);</span><br></pre></td></tr></table></figure>
+
+<ol start="12">
+<li><p>在字面对象中，用定义方法的方式替换函数表达式</p>
+</li>
+<li><p>类替换构造函数(From constructors to classes)</p>
+</li>
+</ol>
+<p>Base classes</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(name) &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    describe() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Person called&#x27;</span> + <span class="built_in">this</span>.name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Derived classes</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(name, title) &#123;</span><br><span class="line">        <span class="built_in">super</span>(name);</span><br><span class="line">        <span class="built_in">this</span>.title = title;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    describe() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">super</span>.describe() + <span class="string">&#x27;(&#x27;</span> + <span class="built_in">this</span>.title + <span class="string">&#x27;)&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="14">
+<li>使用继承<code>Error</code>类的方式的替换<code>自定义error构造函数</code></li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyError</span> <span class="keyword">extends</span> <span class="title">Error</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="15">
+<li>使用内置的Map数据结构</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">countWords</span>(<span class="params">word</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> count = map[word] || <span class="number">0</span>;</span><br><span class="line">    map.set(word, count + <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ES5:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> dict = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">countWords</span>(<span class="params">word</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> escapeKey = escapeKey(word);</span><br><span class="line">    <span class="keyword">if</span>(escapeKey <span class="keyword">in</span> dict) &#123;</span><br><span class="line">        dict[escapeKey]++;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        dict[escapeKey] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">escapeKey</span>(<span class="params">key</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(key.indexOf(<span class="string">&#x27;__proto__&#x27;</span>) === <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> key + <span class="string">&#x27;%&#x27;</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> key;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><em>而且Map的key可以不是字符串</em></p>
+<ol start="16">
+<li><p>新的字符串方法</p>
+<ul>
+<li>startsWith()</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">str.indexOf(s) === <span class="number">0</span>; <span class="comment">// ES5</span></span><br><span class="line">str.startsWith(s); <span class="comment">// ES6</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>endsWith()</p>
+</li>
+<li><p>includes()</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">str.indexOf(<span class="string">&#x27;s&#x27;</span>) &gt;=<span class="number">0</span>; <span class="comment">// ES5</span></span><br><span class="line">str.includes(<span class="string">&#x27;s&#x27;</span>); <span class="comment">// ES6</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>repeat()</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">3</span>+<span class="number">1</span>).join(<span class="string">&#x27;#&#x27;</span>); <span class="comment">// ES5, hack</span></span><br><span class="line"><span class="string">&#x27;#&#x27;</span>.repeat(<span class="number">3</span>); <span class="comment">// ES6</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>新的数组方法</p>
+<ul>
+<li>Array.prototype.indexOf -&gt; Array.prototype.findIndex<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>, <span class="literal">NaN</span>];</span><br><span class="line"></span><br><span class="line">arr.indexOf(<span class="literal">NaN</span>); <span class="comment">// -1</span></span><br><span class="line">arr.findIndex( <span class="function"><span class="params">x</span>=&gt;</span> <span class="built_in">Number</span>.isNan(x))); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>Number.isNaN() 是比 isNaN() 更安全的方法，因为isNaN会强制转型*<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">isNaN</span>(<span class="string">&#x27;a&#x27;</span>); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Number</span>.isNaN(<span class="string">&#x27;a&#x27;</span>); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>Array.prototype.slice() -&gt; Array.from(),或者使用展开操作符(<code>...</code>)</li>
+</ul>
+<blockquote>
+<p>在ES5中，<code>Array.prototype.slice</code>方法用来将类数组对象转换为数组;<br>如果一个值是可迭代的，也可以使用展开操作符来转换</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr1 = <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>); <span class="comment">// ES5</span></span><br><span class="line"><span class="keyword">const</span> arr2 = <span class="built_in">Array</span>.from(<span class="built_in">arguments</span>)</span><br><span class="line"><span class="keyword">const</span> arr3 = [...arguments]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>apply() -&gt; Array.fill()</li>
+</ul>
+<blockquote>
+<p>在<code>ES5</code>中可以是用<code>apply</code>的<code>hack</code>方式来创建任意长度的<code>undefined</code>数组</p>
+</blockquote>
+<p>ES5:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.apply(<span class="literal">undefined</span>, <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">2</span>));</span><br></pre></td></tr></table></figure>
+
+<p>ES5:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">2</span>).fill(<span class="literal">undefined</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>CommonJS modules -&gt; ES6 modules</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">from</span> <span class="string">&#x27;lib&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>Single exports</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Modules"><a href="#Modules" class="headerlink" title="Modules"></a>Modules</h2><ol>
+<li>Single export</li>
+</ol>
+<p>导出默认匿名对象不需要分号</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125; <span class="comment">// 没有分号</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> </span>&#123;...&#125; <span class="comment">// 没有分号</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><code>Modules</code>是单例</li>
+</ol>
+<p>即使被导入多次，只有一个实例存在</p>
+<ol start="3">
+<li><p>ECMAScript 5 modules systems</p>
+<ul>
+<li><p>CommonJS Modules</p>
+<blockquote>
+<p>主导该规范实现的是NodeJS</p>
+</blockquote>
+<p>  <em>特点</em></p>
+<ul>
+<li>紧凑语法(Compact syntax)</li>
+<li>服务器端同步加载</li>
+</ul>
+</li>
+<li><p>Asynchronous Module Definition(AMD)</p>
+<blockquote>
+<p><code>RequireJS</code>是该规范最流行的实现</p>
+</blockquote>
+<p>  <em>特点</em></p>
+<ul>
+<li>稍比较复杂的语法，在适使用<code>eval()</code>的情况下使<code>AMD</code>工作</li>
+<li>为服务器端和浏览器端异步加载设计</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>ECMAScript 6 modules</p>
+</li>
+</ol>
+<blockquote>
+<p>两种导出方法：命名导出（一个模块可以导出多个），<code>default exports</code>（每个模块导出一个），<br>可以混用，但是尽量分开。</p>
+</blockquote>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a href="/">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Core-ES6-feature"><span class="toc-number">1.</span> <span class="toc-text">Core ES6 feature</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Modules"><span class="toc-number">2.</span> <span class="toc-text">Modules</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://polunzh.com/post/es6exploring/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://polunzh.com/post/es6exploring/&text=ES6 Exploring 笔记"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://polunzh.com/post/es6exploring/&title=ES6 Exploring 笔记"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://polunzh.com/post/es6exploring/&is_video=false&description=ES6 Exploring 笔记"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=ES6 Exploring 笔记&body=Check out this article: http://polunzh.com/post/es6exploring/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://polunzh.com/post/es6exploring/&title=ES6 Exploring 笔记"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://polunzh.com/post/es6exploring/&title=ES6 Exploring 笔记"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://polunzh.com/post/es6exploring/&title=ES6 Exploring 笔记"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://polunzh.com/post/es6exploring/&title=ES6 Exploring 笔记"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://polunzh.com/post/es6exploring/&name=ES6 Exploring 笔记&description=&lt;h2 id=&#34;Core-ES6-feature&#34;&gt;&lt;a href=&#34;#Core-ES6-feature&#34; class=&#34;headerlink&#34; title=&#34;Core ES6 feature&#34;&gt;&lt;/a&gt;Core ES6 feature&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;http://exploringjs.com/es6/index.html&#34;&gt;exploringjs笔记&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;var to let/const&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;优先使用&lt;code&gt;const&lt;/code&gt;, 只要值不再改变的变量就用&lt;code&gt;const&lt;/code&gt;；否则用&lt;code&gt;let&lt;/code&gt;；避免用&lt;code&gt;var&lt;/code&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://polunzh.com/post/es6exploring/&t=ES6 Exploring 笔记"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2015-2024
+    polunzh
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="这里是收集的不错的资源，包括 github 上的 repository 和一个觉得不错的博客:  Sublime Text3 配置相关">
+<meta property="og:type" content="article">
+<meta property="og:title" content="资源">
+<meta property="og:url" content="http://polunzh.com/post/good-resources/index.html">
+<meta property="og:site_name" content="Polunzh">
+<meta property="og:description" content="这里是收集的不错的资源，包括 github 上的 repository 和一个觉得不错的博客:  Sublime Text3 配置相关">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2015-08-07T18:32:28.000Z">
+<meta property="article:modified_time" content="2024-05-28T14:45:41.899Z">
+<meta property="article:author" content="polunzh">
+<meta property="article:tag" content="积累">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          
+            <link rel="shortcut icon" href="https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d?s=48">
+          
+        
+      
+      
+        
+          
+            <link rel="icon" type="image/png" href="https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d?s=192" sizes="192x192">
+          
+        
+      
+      
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d?s=180">
+          
+        
+      
+    
+    <!-- title -->
+    <title>资源</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/atom.xml" title="Polunzh" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/post/st3settings/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://polunzh.com/post/good-resources/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://polunzh.com/post/good-resources/&text=资源"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://polunzh.com/post/good-resources/&title=资源"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://polunzh.com/post/good-resources/&is_video=false&description=资源"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=资源&body=Check out this article: http://polunzh.com/post/good-resources/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://polunzh.com/post/good-resources/&title=资源"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://polunzh.com/post/good-resources/&title=资源"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://polunzh.com/post/good-resources/&title=资源"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://polunzh.com/post/good-resources/&title=资源"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://polunzh.com/post/good-resources/&name=资源&description=&lt;p&gt;这里是收集的不错的资源，包括 github 上的 repository 和一个觉得不错的博客:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://blog.polunzh.com/post/st3settings/&#34;&gt;Sublime Text3 配置相关&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://polunzh.com/post/good-resources/&t=资源"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%83%E7%BA%A7"><span class="toc-number">1.</span> <span class="toc-text">练级</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-Sharp"><span class="toc-number">2.</span> <span class="toc-text">C Sharp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaScript"><span class="toc-number">3.</span> <span class="toc-text">JavaScript</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS"><span class="toc-number">4.</span> <span class="toc-text">CSS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nginx"><span class="toc-number">5.</span> <span class="toc-text">Nginx</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AngularJS"><span class="toc-number">6.</span> <span class="toc-text">AngularJS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Python"><span class="toc-number">7.</span> <span class="toc-text">Python</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vim"><span class="toc-number">8.</span> <span class="toc-text">Vim</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git"><span class="toc-number">9.</span> <span class="toc-text">Git</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#REST-full"><span class="toc-number">10.</span> <span class="toc-text">REST-full</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MongoDB"><span class="toc-number">11.</span> <span class="toc-text">MongoDB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQLite"><span class="toc-number">12.</span> <span class="toc-text">SQLite</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NodeJS"><span class="toc-number">13.</span> <span class="toc-text">NodeJS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Shell"><span class="toc-number">14.</span> <span class="toc-text">Shell</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PowerShell"><span class="toc-number">14.1.</span> <span class="toc-text">PowerShell</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E5%AE%83"><span class="toc-number">15.</span> <span class="toc-text">其它</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E5%85%B7"><span class="toc-number">16.</span> <span class="toc-text">工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%9A%E5%AE%A2"><span class="toc-number">17.</span> <span class="toc-text">博客</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97"><span class="toc-number">18.</span> <span class="toc-text">更新日志</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2018-07-12-14-01-33"><span class="toc-number">18.1.</span> <span class="toc-text">2018-07-12 14:01:33</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2018-07-10-15-07-25"><span class="toc-number">18.2.</span> <span class="toc-text">2018-07-10 15:07:25</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        资源
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">polunzh</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2015-08-07T18:32:28.000Z" class="dt-published" itemprop="datePublished">2015-08-08</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/%E7%A7%AF%E7%B4%AF/" rel="tag">积累</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>这里是收集的不错的资源，包括 github 上的 repository 和一个觉得不错的博客:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://blog.polunzh.com/post/st3settings/">Sublime Text3 配置相关</a></li>
+</ul>
+<a id="more"></a>
+
+<h2 id="练级"><a href="#练级" class="headerlink" title="练级"></a>练级</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://blog.knownsec.com/Knownsec_RD_Checklist/">知道创宇研发技能表</a></li>
+</ul>
+<h2 id="C-Sharp"><a href="#C-Sharp" class="headerlink" title="C Sharp"></a>C Sharp</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://www.cnblogs.com/forerunner/p/csls5-1-introduction.html">C#语言规范</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/unruledboy/DotNetStack">.net 技术站</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/MarlabsInc/webapi-angularjs-spa">Asp.Net Web Api + AngularJS WebSite Demo</a></li>
+</ul>
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://www.crockford.com/">Douglas Crockford</a></li>
+<li><a target="_blank" rel="noopener" href="http://insights.thoughtworkers.org/functional-javascript/">函数式 JavaScript</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.nczonline.net/">JavaScript 高级编程作者</a></li>
+<li><a target="_blank" rel="noopener" href="http://hellobug.github.io/">Hello bug ~</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/lenville/understandinges6">理解 ES6</a></li>
+<li><a target="_blank" rel="noopener" href="http://babeljs.io/docs/learn-es2015/">Learn ES2015</a></li>
+<li><a target="_blank" rel="noopener" href="http://jimliu.net/">函数式 JavaScript 相关文章</a></li>
+</ul>
+<h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://web.jobbole.com/83317/">CSS 最核心的几个概念</a></li>
+</ul>
+<h2 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h2><ul>
+<li><code>淘宝</code><a target="_blank" rel="noopener" href="https://github.com/taobao/nginx-book">nginx-book</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.evanmiller.org/nginx-modules-guide.html">Emiller’s Guide To Nginx Module Development</a>|<a target="_blank" rel="noopener" href="https://code.google.com/archive/p/emillers-guide-to-nginx-module-chn/wikis/NginxModuleDevGuide_CHN.wiki">中文</a></li>
+</ul>
+<h2 id="AngularJS"><a href="#AngularJS" class="headerlink" title="AngularJS"></a>AngularJS</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://docs.angularjs.cn/api">文档</a></li>
+</ul>
+<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://www.programcreek.com/python/">Python Examples</a></li>
+<li><code>Python学习资料</code><a target="_blank" rel="noopener" href="http://www.fullstackpython.com/best-python-resources.html">Full Stack Python</a></li>
+<li><a target="_blank" rel="noopener" href="http://python.jobbole.com/81861/">Vagrant 搭建 Python 开发环境搭建</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/vinta/awesome-python">Awesome Python</a></li>
+<li><code>python</code><a target="_blank" rel="noopener" href="http://www.itdiffer.com/">老齐的技术博客</a></li>
+<li><code>python</code> <code>临时</code> <a target="_blank" rel="noopener" href="http://playbear.github.io/">个人技术博客</a></li>
+<li><code>书</code><a target="_blank" rel="noopener" href="https://automatetheboringstuff.com/">Automate the boring stuff with Python</a></li>
+<li><code>Site</code><a target="_blank" rel="noopener" href="http://docs.python-guide.org/en/latest/">Python Guide</a></li>
+<li><code>书</code><a target="_blank" rel="noopener" href="http://book.pythontips.com/en/latest/">Intermediate Python</a></li>
+<li><a target="_blank" rel="noopener" href="http://woodpecker.org.cn/abyteofpython_cn/chinese/">简明 Python 教程</a></li>
+<li>英文版<code>简明Python教程</code><a target="_blank" rel="noopener" href="http://www.swaroopch.com/notes/python/">A byte of Python</a></li>
+<li><a target="_blank" rel="noopener" href="http://learnpythonthehardway.org/book/">Learn Python The Hard Way</a></li>
+<li><a target="_blank" rel="noopener" href="http://woodpecker.org.cn/diveintopython/">深入 Python :Dive Into Python 中文版</a></li>
+<li><a target="_blank" rel="noopener" href="http://python.jobbole.com/81997/">用 python 爬虫抓站的一些技巧总结</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.wklken.me/">个人博客 0</a> 这里不只是有 python,还有其它技术,比如 vim</li>
+<li><a target="_blank" rel="noopener" href="http://inventwithpython.com/chapters/">Invent with Python</a></li>
+<li><a target="_blank" rel="noopener" href="https://pymotw.com/2/contents.html">Python Module of the Week</a></li>
+</ul>
+<h2 id="Vim"><a href="#Vim" class="headerlink" title="Vim"></a>Vim</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://vimcolors.com/">Vim theme</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/wsdjeg/vim-galore-zh_cn">https://github.com/wsdjeg/vim-galore-zh_cn</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/vim-china/issues">讨论区</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/vim-china/hello-vim">Vim 学习指南</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/wsdjeg/vim-galore-zh_cn">Vim 从入门到精通</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/vim-china/vim-script-style-guide">Vim 脚本语法规范</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/vim-china/reading-vimrc">Vimrc 读书会</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/lymslive/vimllearn">Vim脚本语法指北</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/skywind3000/awesome-cheatsheets/blob/master/editors/vim.txt">Vim 常用命令检索表</a></li>
+</ul>
+<h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://jingxuan.io/progit/">Pro Git(中文版)</a></li>
+<li><code>应该看</code><a target="_blank" rel="noopener" href="http://www.codeceo.com/article/git-learn-deeply.html">深入理解学习 Git 工作流</a></li>
+<li><code>应该看</code><a target="_blank" rel="noopener" href="https://www.atlassian.com/git/tutorials/syncing/">教程</a></li>
+<li><code>应该看</code><a target="_blank" rel="noopener" href="http://gitbook.liuhui998.com/index.html">Git Community Book</a></li>
+<li><code>应该看</code><a target="_blank" rel="noopener" href="http://github.phodal.com/">Github 漫游指南</a></li>
+</ul>
+<h2 id="REST-full"><a href="#REST-full" class="headerlink" title="REST-full"></a>REST-full</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://redrata.com/restful-uri-design/">REST-ful URI design</a></li>
+<li><a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzAwNjMxMTA5Mw==&mid=212973684&idx=1&sn=53927df736ec229f0903ed294107ae52&scene=5#rd">RESTful API 设计最佳实践</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.cnblogs.com/skylar/p/express-koa-restfull-api.html">Node.js 实现 RESTful api,express or koa?</a></li>
+</ul>
+<h2 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/justinyhuang/the-little-mongodb-book-cn">The-little-mongodb-book</a></li>
+</ul>
+<h2 id="SQLite"><a href="#SQLite" class="headerlink" title="SQLite"></a>SQLite</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://blog.jobbole.com/89949/">SQLite 这么娇小可爱，不多了解点都不行啊</a></li>
+</ul>
+<h2 id="NodeJS"><a href="#NodeJS" class="headerlink" title="NodeJS"></a>NodeJS</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://nodeschool.io/">NodeSchool</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/2353818/how-do-i-get-started-with-node-js">How do I get started with Node.js [closed]</a></li>
+</ul>
+<h2 id="Shell"><a href="#Shell" class="headerlink" title="Shell"></a>Shell</h2><h3 id="PowerShell"><a href="#PowerShell" class="headerlink" title="PowerShell"></a>PowerShell</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.secpulse.com/archives/55893.html">入门</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.pstips.net/">PowerShell 中文博客</a></li>
+</ul>
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://www.sitepoint.com/introduction-gulp-js/">An Introduction to Gulp.js</a></li>
+<li><a target="_blank" rel="noopener" href="http://f2er.club/">前端资料</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/unruledboy/WebFrontEndStack">Web 前端技术栈</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/bolasblack/http-api-guide">HTTP 接口设计指北</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/net-commons/common-logging.git">日志 common-logging</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/lisposter/frontend-books">前端书籍</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/AutoMapper/AutoMapper/wiki">AutoMapper wiki</a></li>
+<li><a target="_blank" rel="noopener" href="http://color.hailpixel.com/">配色</a></li>
+<li><a target="_blank" rel="noopener" href="http://algs4.cs.princeton.edu/home/">《算法》第四版</a></li>
+<li><a target="_blank" rel="noopener" href="http://jingxuan.io/markdown/">Markdown</a></li>
+<li><code>待读</code><a target="_blank" rel="noopener" href="http://blog.jobbole.com/75321/">什么是堆和栈</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.allitebooks.com/">电子书</a></li>
+<li><a target="_blank" rel="noopener" href="http://codepancake.com/">有意思的编程网站</a></li>
+<li><code>前端</code><a target="_blank" rel="noopener" href="https://github.com/qiu-deqing/FE-learning">前端入门方法</a></li>
+</ul>
+<h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/jkbrzt/httpie">httpie</a></li>
+</ul>
+<h2 id="博客"><a href="#博客" class="headerlink" title="博客"></a>博客</h2><ul>
+<li><code>喜欢</code><a target="_blank" rel="noopener" href="http://yanyiwu.com/">大厨的日常</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.trueeyu.com/">小鳄的笔记本</a></li>
+</ul>
+<h2 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h2><h3 id="2018-07-12-14-01-33"><a href="#2018-07-12-14-01-33" class="headerlink" title="2018-07-12 14:01:33"></a>2018-07-12 14:01:33</h3><p>更新<code>博客</code></p>
+<h3 id="2018-07-10-15-07-25"><a href="#2018-07-10-15-07-25" class="headerlink" title="2018-07-10 15:07:25"></a>2018-07-10 15:07:25</h3><ul>
+<li>更新了<code>VIM</code>部分</li>
+<li>调整了一些格式</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a href="/">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%83%E7%BA%A7"><span class="toc-number">1.</span> <span class="toc-text">练级</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-Sharp"><span class="toc-number">2.</span> <span class="toc-text">C Sharp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaScript"><span class="toc-number">3.</span> <span class="toc-text">JavaScript</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSS"><span class="toc-number">4.</span> <span class="toc-text">CSS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nginx"><span class="toc-number">5.</span> <span class="toc-text">Nginx</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AngularJS"><span class="toc-number">6.</span> <span class="toc-text">AngularJS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Python"><span class="toc-number">7.</span> <span class="toc-text">Python</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vim"><span class="toc-number">8.</span> <span class="toc-text">Vim</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git"><span class="toc-number">9.</span> <span class="toc-text">Git</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#REST-full"><span class="toc-number">10.</span> <span class="toc-text">REST-full</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MongoDB"><span class="toc-number">11.</span> <span class="toc-text">MongoDB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQLite"><span class="toc-number">12.</span> <span class="toc-text">SQLite</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NodeJS"><span class="toc-number">13.</span> <span class="toc-text">NodeJS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Shell"><span class="toc-number">14.</span> <span class="toc-text">Shell</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PowerShell"><span class="toc-number">14.1.</span> <span class="toc-text">PowerShell</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E5%AE%83"><span class="toc-number">15.</span> <span class="toc-text">其它</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E5%85%B7"><span class="toc-number">16.</span> <span class="toc-text">工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%9A%E5%AE%A2"><span class="toc-number">17.</span> <span class="toc-text">博客</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97"><span class="toc-number">18.</span> <span class="toc-text">更新日志</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2018-07-12-14-01-33"><span class="toc-number">18.1.</span> <span class="toc-text">2018-07-12 14:01:33</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2018-07-10-15-07-25"><span class="toc-number">18.2.</span> <span class="toc-text">2018-07-10 15:07:25</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://polunzh.com/post/good-resources/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://polunzh.com/post/good-resources/&text=资源"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://polunzh.com/post/good-resources/&title=资源"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://polunzh.com/post/good-resources/&is_video=false&description=资源"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=资源&body=Check out this article: http://polunzh.com/post/good-resources/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://polunzh.com/post/good-resources/&title=资源"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://polunzh.com/post/good-resources/&title=资源"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://polunzh.com/post/good-resources/&title=资源"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://polunzh.com/post/good-resources/&title=资源"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://polunzh.com/post/good-resources/&name=资源&description=&lt;p&gt;这里是收集的不错的资源，包括 github 上的 repository 和一个觉得不错的博客:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://blog.polunzh.com/post/st3settings/&#34;&gt;Sublime Text3 配置相关&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://polunzh.com/post/good-resources/&t=资源"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2015-2024
+    polunzh
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
