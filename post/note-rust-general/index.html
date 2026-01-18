@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="《Rust编程语言》笔记之一 关于cargo cargo run cargo build cargo check cargo new &amp;#123;project name&amp;#125; cargo doc --open: 构建本地及其依赖的文档  通用编程概念如果需要使用关键字作为变量名称，在变量前加r#，比如r#match">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rust 笔记 - 通用编程概念">
+<meta property="og:url" content="https://polunzh.com/post/note-rust-general/index.html">
+<meta property="og:site_name" content="Polunzh">
+<meta property="og:description" content="《Rust编程语言》笔记之一 关于cargo cargo run cargo build cargo check cargo new &amp;#123;project name&amp;#125; cargo doc --open: 构建本地及其依赖的文档  通用编程概念如果需要使用关键字作为变量名称，在变量前加r#，比如r#match">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://polunzh.com/images/og-default.png">
+<meta property="article:published_time" content="2019-06-07T04:04:33.000Z">
+<meta property="article:modified_time" content="2026-01-18T06:30:14.259Z">
+<meta property="article:author" content="polunzh">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="Rust">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://polunzh.com/images/og-default.png">
+    
+    
+      
+        
+          
+            <link rel="shortcut icon" href="https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d?s=48">
+          
+        
+      
+      
+        
+          
+            <link rel="icon" type="image/png" href="https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d?s=192" sizes="192x192">
+          
+        
+      
+      
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d?s=180">
+          
+        
+      
+    
+    <!-- title -->
+    <title>Rust 笔记 - 通用编程概念</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/atom.xml" title="Polunzh" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a href="/">项目</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/post/note-rust-enum-and-match/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/post/note-nodejs-event-loop/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://polunzh.com/post/note-rust-general/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://polunzh.com/post/note-rust-general/&text=Rust 笔记 - 通用编程概念"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://polunzh.com/post/note-rust-general/&title=Rust 笔记 - 通用编程概念"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://polunzh.com/post/note-rust-general/&is_video=false&description=Rust 笔记 - 通用编程概念"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Rust 笔记 - 通用编程概念&body=Check out this article: https://polunzh.com/post/note-rust-general/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://polunzh.com/post/note-rust-general/&title=Rust 笔记 - 通用编程概念"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://polunzh.com/post/note-rust-general/&title=Rust 笔记 - 通用编程概念"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://polunzh.com/post/note-rust-general/&title=Rust 笔记 - 通用编程概念"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://polunzh.com/post/note-rust-general/&title=Rust 笔记 - 通用编程概念"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://polunzh.com/post/note-rust-general/&name=Rust 笔记 - 通用编程概念&description=&lt;p&gt;&lt;em&gt;&lt;a href=&#34;https://rustlang-cn.org/office/rust/book/&#34;&gt;《Rust编程语言》&lt;/a&gt;笔记之一&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id=&#34;关于cargo&#34;&gt;&lt;a href=&#34;#关于cargo&#34; class=&#34;headerlink&#34; title=&#34;关于cargo&#34;&gt;&lt;/a&gt;关于cargo&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;cargo run&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cargo build&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cargo check&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cargo new &amp;#123;project name&amp;#125;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cargo doc --open&lt;/code&gt;: 构建本地及其依赖的文档&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;通用编程概念&#34;&gt;&lt;a href=&#34;#通用编程概念&#34; class=&#34;headerlink&#34; title=&#34;通用编程概念&#34;&gt;&lt;/a&gt;通用编程概念&lt;/h2&gt;&lt;p&gt;如果需要使用关键字作为变量名称，在变量前加&lt;code&gt;r#&lt;/code&gt;，比如&lt;code&gt;r#match&lt;/code&gt;&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://polunzh.com/post/note-rust-general/&t=Rust 笔记 - 通用编程概念"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8Ecargo"><span class="toc-number">1.</span> <span class="toc-text">关于cargo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E7%94%A8%E7%BC%96%E7%A8%8B%E6%A6%82%E5%BF%B5"><span class="toc-number">2.</span> <span class="toc-text">通用编程概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E4%B8%8E%E5%8F%AF%E5%8F%98%E6%80%A7"><span class="toc-number">2.1.</span> <span class="toc-text">变量与可变性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.2.</span> <span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%87%E9%87%8F%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.2.1.</span> <span class="toc-text">标量类型</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%95%B4%E5%9E%8B"><span class="toc-number">2.2.1.1.</span> <span class="toc-text">整型</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0"><span class="toc-number">2.2.1.2.</span> <span class="toc-text">浮点数</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%8D%E5%90%88%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.2.2.</span> <span class="toc-text">复合类型</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%83%E7%BB%84"><span class="toc-number">2.2.2.1.</span> <span class="toc-text">元组</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%95%B0%E7%BB%84"><span class="toc-number">2.2.2.2.</span> <span class="toc-text">数组</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0"><span class="toc-number">2.3.</span> <span class="toc-text">函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E6%B5%81"><span class="toc-number">2.4.</span> <span class="toc-text">控制流</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#if"><span class="toc-number">2.4.1.</span> <span class="toc-text">if</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF"><span class="toc-number">2.4.2.</span> <span class="toc-text">循环</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">2.5.</span> <span class="toc-text">小结</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        Rust 笔记 - 通用编程概念
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">polunzh</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-06-07T04:04:33.000Z" class="dt-published" itemprop="datePublished">2019-06-07</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/Rust/" rel="tag">Rust</a>, <a class="p-category" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p><em><a target="_blank" rel="noopener" href="https://rustlang-cn.org/office/rust/book/">《Rust编程语言》</a>笔记之一</em></p>
+<h2 id="关于cargo"><a href="#关于cargo" class="headerlink" title="关于cargo"></a>关于cargo</h2><ul>
+<li><code>cargo run</code></li>
+<li><code>cargo build</code></li>
+<li><code>cargo check</code></li>
+<li><code>cargo new &#123;project name&#125;</code></li>
+<li><code>cargo doc --open</code>: 构建本地及其依赖的文档</li>
+</ul>
+<h2 id="通用编程概念"><a href="#通用编程概念" class="headerlink" title="通用编程概念"></a>通用编程概念</h2><p>如果需要使用关键字作为变量名称，在变量前加<code>r#</code>，比如<code>r#match</code></p>
+<a id="more"></a>
+
+<h3 id="变量与可变性"><a href="#变量与可变性" class="headerlink" title="变量与可变性"></a>变量与可变性</h3><p>变量默认是不变的，可以使用<code>mut</code>关键字声明可变的变量:</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="keyword">mut</span> x = <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>const</code>声明常量，常量有几个特征：</p>
+<ol>
+<li>不能使用<code>mut</code>关键字</li>
+<li>必须声明类型</li>
+<li>习惯用大写字母加下划线命名</li>
+</ol>
+<p>可以使用<code>let</code>关键字对一个变量多次声明，这样后面声明的变量会将第一个声明的变量隐藏，这种行为叫做<code>隐藏(shadowing)</code>:</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> x = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">let</span> x = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">let</span> x = <span class="string">&quot;zhang&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><h4 id="标量类型"><a href="#标量类型" class="headerlink" title="标量类型"></a>标量类型</h4><h5 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h5><table>
+<thead>
+<tr>
+<th>长度</th>
+<th align="center">有符号</th>
+<th align="right">无符号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>8-bit</td>
+<td align="center">i8</td>
+<td align="right">u8</td>
+</tr>
+<tr>
+<td>16-bit</td>
+<td align="center">i16</td>
+<td align="right">u16</td>
+</tr>
+<tr>
+<td>32-bit</td>
+<td align="center">i32</td>
+<td align="right">u32</td>
+</tr>
+<tr>
+<td>64-bit</td>
+<td align="center">i64</td>
+<td align="right">u64</td>
+</tr>
+<tr>
+<td>arch</td>
+<td align="center">isize</td>
+<td align="right">usize</td>
+</tr>
+</tbody></table>
+<p><code>arch</code>依赖计算机的架构，如果是 64 位的架构上，是 64 位，如果是 32 架构，是 32 位。</p>
+<h5 id="浮点数"><a href="#浮点数" class="headerlink" title="浮点数"></a>浮点数</h5><p>有两种类型: <code>f32</code>,<code>f64</code></p>
+<h4 id="复合类型"><a href="#复合类型" class="headerlink" title="复合类型"></a>复合类型</h4><p><code>Rust</code>中有两种复合类型: <code>元组(tuple)</code>和<code>数组(array)</code></p>
+<h5 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h5><blockquote>
+<p>元组是一个将多个类型的值组合进一个复合类型的主要方式。</p>
+</blockquote>
+<ul>
+<li>元组中的数据类型不必相同</li>
+<li>元组可以使用<code>解构(destructing)</code>对元组赋值</li>
+<li>使用点号(<code>.</code>)和下标识访问元组成员</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">  <span class="keyword">let</span> tup: (<span class="built_in">i32</span>, <span class="built_in">f32</span>, <span class="built_in">i8</span>) = (<span class="number">32</span>, <span class="number">12.3</span>, <span class="number">8</span>);</span><br><span class="line">  <span class="keyword">let</span> (foo, bar, zoo) = tup;</span><br><span class="line">  <span class="built_in">println!</span>(<span class="string">&quot;foo: &#123;&#125;, bar: &#123;&#125;, zoo: &#123;&#125;&quot;</span>, foo, bar, zoo)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h5><ul>
+<li>数组是定长的，声明后不能再改变数组的长度</li>
+<li>数组中的元素的数据类型必须相同</li>
+<li>如果越界访问数组，编译会报错</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr: [<span class="built_in">i32</span>, <span class="number">5</span>] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br></pre></td></tr></table></figure>
+
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>在<code>rust</code>中，使用<code>snake case</code>规范风格: 小写字母加下划线。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">say_something</span></span>() &#123;</span><br><span class="line">  <span class="comment">// expressions</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Rust 是一门基于表达式(expression-based)的语言。 // 注: 不理解</p>
+</blockquote>
+<p>在 Rust 中，语句不返回值，因此不能把<code>let</code>语句复制给另外一个变量，如:</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> x = (<span class="keyword">let</span> y = <span class="number">10</span>); <span class="comment">// 报错: error: expected expression, found statement (`let`)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>函数调用是一个表达式，宏调用也是，<code>&#123;&#125;(代码块)</code>也是</li>
+<li>如果表达式后加分号，则是一个语句，如果不加，就是一个表达式，<strong>表达式是有返回值的</strong></li>
+<li>函数签名中必须声明每个变量的类型</li>
+<li><code>()</code>用来声明不返回值的函数</li>
+</ul>
+<h3 id="控制流"><a href="#控制流" class="headerlink" title="控制流"></a>控制流</h3><h4 id="if"><a href="#if" class="headerlink" title="if"></a>if</h4><ul>
+<li><code>if</code>中代码的条件必须是<code>bool</code>值</li>
+<li><code>if</code>是一个表达式，所以可以在<code>let</code>语句的右侧使用<code>if</code>，但是，各个分支中的表达式的结果必须相同的数据类型</li>
+</ul>
+<h4 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h4><p><code>Rust</code>中有三种循环: <code>loop</code>, <code>while</code>, <code>for</code></p>
+<ul>
+<li><code>loop</code>可以重复执行一段代码，直到遇到<code>Ctrl + C</code>或者<code>break</code>才会结束循环</li>
+</ul>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p><code>Rust</code>中的控制流和其它语言中的比较类似，唯一比较特殊的是表达式的概念，比如，<code>if</code>是一个表达式语句，可以直接赋值给<code>let</code>，这一点挺有意思的。</p>
+<p><em><a target="_blank" rel="noopener" href="https://github.com/polunzh/rust-demo">练习代码</a></em></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a href="/about/">关于</a></li>
+        
+          <li><a href="/archives/">归档</a></li>
+        
+          <li><a href="/">项目</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8Ecargo"><span class="toc-number">1.</span> <span class="toc-text">关于cargo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E7%94%A8%E7%BC%96%E7%A8%8B%E6%A6%82%E5%BF%B5"><span class="toc-number">2.</span> <span class="toc-text">通用编程概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E4%B8%8E%E5%8F%AF%E5%8F%98%E6%80%A7"><span class="toc-number">2.1.</span> <span class="toc-text">变量与可变性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.2.</span> <span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%87%E9%87%8F%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.2.1.</span> <span class="toc-text">标量类型</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%95%B4%E5%9E%8B"><span class="toc-number">2.2.1.1.</span> <span class="toc-text">整型</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0"><span class="toc-number">2.2.1.2.</span> <span class="toc-text">浮点数</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%8D%E5%90%88%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.2.2.</span> <span class="toc-text">复合类型</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%83%E7%BB%84"><span class="toc-number">2.2.2.1.</span> <span class="toc-text">元组</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%95%B0%E7%BB%84"><span class="toc-number">2.2.2.2.</span> <span class="toc-text">数组</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0"><span class="toc-number">2.3.</span> <span class="toc-text">函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E6%B5%81"><span class="toc-number">2.4.</span> <span class="toc-text">控制流</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#if"><span class="toc-number">2.4.1.</span> <span class="toc-text">if</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF"><span class="toc-number">2.4.2.</span> <span class="toc-text">循环</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">2.5.</span> <span class="toc-text">小结</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://polunzh.com/post/note-rust-general/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://polunzh.com/post/note-rust-general/&text=Rust 笔记 - 通用编程概念"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://polunzh.com/post/note-rust-general/&title=Rust 笔记 - 通用编程概念"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://polunzh.com/post/note-rust-general/&is_video=false&description=Rust 笔记 - 通用编程概念"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Rust 笔记 - 通用编程概念&body=Check out this article: https://polunzh.com/post/note-rust-general/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://polunzh.com/post/note-rust-general/&title=Rust 笔记 - 通用编程概念"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://polunzh.com/post/note-rust-general/&title=Rust 笔记 - 通用编程概念"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://polunzh.com/post/note-rust-general/&title=Rust 笔记 - 通用编程概念"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://polunzh.com/post/note-rust-general/&title=Rust 笔记 - 通用编程概念"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://polunzh.com/post/note-rust-general/&name=Rust 笔记 - 通用编程概念&description=&lt;p&gt;&lt;em&gt;&lt;a href=&#34;https://rustlang-cn.org/office/rust/book/&#34;&gt;《Rust编程语言》&lt;/a&gt;笔记之一&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id=&#34;关于cargo&#34;&gt;&lt;a href=&#34;#关于cargo&#34; class=&#34;headerlink&#34; title=&#34;关于cargo&#34;&gt;&lt;/a&gt;关于cargo&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;cargo run&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cargo build&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cargo check&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cargo new &amp;#123;project name&amp;#125;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cargo doc --open&lt;/code&gt;: 构建本地及其依赖的文档&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;通用编程概念&#34;&gt;&lt;a href=&#34;#通用编程概念&#34; class=&#34;headerlink&#34; title=&#34;通用编程概念&#34;&gt;&lt;/a&gt;通用编程概念&lt;/h2&gt;&lt;p&gt;如果需要使用关键字作为变量名称，在变量前加&lt;code&gt;r#&lt;/code&gt;，比如&lt;code&gt;r#match&lt;/code&gt;&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://polunzh.com/post/note-rust-general/&t=Rust 笔记 - 通用编程概念"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2015-2026
+    polunzh
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a href="/">项目</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

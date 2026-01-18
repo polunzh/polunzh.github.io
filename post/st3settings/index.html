@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="个人使用st3经常使用的配置和插件 插件 Emmet HtmlBeautify JsFormat Markdown Preview SideBarEnhancements">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SublimeText3 个人设置及常用插件">
+<meta property="og:url" content="https://polunzh.com/post/st3settings/index.html">
+<meta property="og:site_name" content="Polunzh">
+<meta property="og:description" content="个人使用st3经常使用的配置和插件 插件 Emmet HtmlBeautify JsFormat Markdown Preview SideBarEnhancements">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://polunzh.com/images/og-default.png">
+<meta property="article:published_time" content="2015-08-07T18:45:51.000Z">
+<meta property="article:modified_time" content="2026-01-18T06:30:14.259Z">
+<meta property="article:author" content="polunzh">
+<meta property="article:tag" content="SublimeText3">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://polunzh.com/images/og-default.png">
+    
+    
+      
+        
+          
+            <link rel="shortcut icon" href="https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d?s=48">
+          
+        
+      
+      
+        
+          
+            <link rel="icon" type="image/png" href="https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d?s=192" sizes="192x192">
+          
+        
+      
+      
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="https://www.gravatar.com/avatar/743709ae4470040275f08904e8f0d88d?s=180">
+          
+        
+      
+    
+    <!-- title -->
+    <title>SublimeText3 个人设置及常用插件</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/atom.xml" title="Polunzh" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a href="/">项目</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/post/vim-tips/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/post/good-resources/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://polunzh.com/post/st3settings/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://polunzh.com/post/st3settings/&text=SublimeText3 个人设置及常用插件"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://polunzh.com/post/st3settings/&title=SublimeText3 个人设置及常用插件"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://polunzh.com/post/st3settings/&is_video=false&description=SublimeText3 个人设置及常用插件"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=SublimeText3 个人设置及常用插件&body=Check out this article: https://polunzh.com/post/st3settings/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://polunzh.com/post/st3settings/&title=SublimeText3 个人设置及常用插件"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://polunzh.com/post/st3settings/&title=SublimeText3 个人设置及常用插件"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://polunzh.com/post/st3settings/&title=SublimeText3 个人设置及常用插件"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://polunzh.com/post/st3settings/&title=SublimeText3 个人设置及常用插件"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://polunzh.com/post/st3settings/&name=SublimeText3 个人设置及常用插件&description=&lt;p&gt;&lt;code&gt;个人使用st3经常使用的配置和插件&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;插件&#34;&gt;&lt;a href=&#34;#插件&#34; class=&#34;headerlink&#34; title=&#34;插件&#34;&gt;&lt;/a&gt;插件&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://packagecontrol.io/packages/Emmet&#34;&gt;Emmet&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://packagecontrol.io/packages/HTMLBeautify&#34;&gt;HtmlBeautify&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://packagecontrol.io/packages/JsFormat&#34;&gt;JsFormat&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://packagecontrol.io/packages/Markdown%20Preview&#34;&gt;Markdown Preview&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://packagecontrol.io/packages/SideBarEnhancements&#34;&gt;SideBarEnhancements&lt;/a&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://polunzh.com/post/st3settings/&t=SublimeText3 个人设置及常用插件"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E4%B8%BB%E9%A2%98%E7%BD%91%E7%AB%99"><span class="toc-number">3.</span> <span class="toc-text">一个主题网站</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AA%E4%BA%BA%E8%AE%BE%E7%BD%AE-Settings-User"><span class="toc-number">4.</span> <span class="toc-text">个人设置(Settings User)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6%E8%AE%BE%E7%BD%AE"><span class="toc-number">5.</span> <span class="toc-text">插件设置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#GitGutter"><span class="toc-number">5.1.</span> <span class="toc-text">GitGutter</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        SublimeText3 个人设置及常用插件
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">polunzh</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2015-08-07T18:45:51.000Z" class="dt-published" itemprop="datePublished">2015-08-08</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/SublimeText3/" rel="tag">SublimeText3</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p><code>个人使用st3经常使用的配置和插件</code></p>
+<h3 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://packagecontrol.io/packages/Emmet">Emmet</a></li>
+<li><a target="_blank" rel="noopener" href="https://packagecontrol.io/packages/HTMLBeautify">HtmlBeautify</a></li>
+<li><a target="_blank" rel="noopener" href="https://packagecontrol.io/packages/JsFormat">JsFormat</a></li>
+<li><a target="_blank" rel="noopener" href="https://packagecontrol.io/packages/Markdown%20Preview">Markdown Preview</a></li>
+<li><a target="_blank" rel="noopener" href="https://packagecontrol.io/packages/SideBarEnhancements">SideBarEnhancements</a><a id="more"></a></li>
+<li><a target="_blank" rel="noopener" href="https://packagecontrol.io/packages/SublimeTmpl">SublimeTmpl</a></li>
+<li><a target="_blank" rel="noopener" href="https://packagecontrol.io/packages/TrailingSpaces">Trailing Spaces</a></li>
+<li><a target="_blank" rel="noopener" href="https://packagecontrol.io/packages/AutoPEP8">AutoPeP8</a> 自动格式化Python代码</li>
+<li><a target="_blank" rel="noopener" href="https://packagecontrol.io/packages/SublimeCodeIntel">SublimeCodeIntel</a></li>
+<li><a target="_blank" rel="noopener" href="https://packagecontrol.io/packages/ConvertToUTF8">ConvertToUTF8</a></li>
+<li><a target="_blank" rel="noopener" href="https://packagecontrol.io/packages/SublimeREPL">Sublime​REPL</a></li>
+<li><a target="_blank" rel="noopener" href="https://packagecontrol.io/packages/IMESupport">IMESupport</a></li>
+<li><a target="_blank" rel="noopener" href="https://packagecontrol.io/packages/BracketHighlighter">Bracket​Highlighter</a></li>
+</ul>
+<h3 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://packagecontrol.io/packages/Theme%20-%20Flatland">Flatland</a></li>
+<li><a target="_blank" rel="noopener" href="https://packagecontrol.io/packages/Theme%20-%20Spacegray">Spacegray</a></li>
+<li><a target="_blank" rel="noopener" href="https://packagecontrol.io/packages/Material%20Theme">Material Theme</a></li>
+</ul>
+<h3 id="一个主题网站"><a href="#一个主题网站" class="headerlink" title="一个主题网站"></a>一个主题网站</h3><ul>
+<li><a target="_blank" rel="noopener" href="http://colorsublime.com/">colorsublime</a></li>
+</ul>
+<h3 id="个人设置-Settings-User"><a href="#个人设置-Settings-User" class="headerlink" title="个人设置(Settings User)"></a>个人设置(Settings User)</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">&quot;caret_style&quot;</span>: <span class="string">&quot;wide&quot;</span>,</span><br><span class="line">	<span class="comment">//&quot;theme&quot;: &quot;Material-Theme-Lighter.sublime-theme&quot;,</span></span><br><span class="line">	<span class="comment">//&quot;color_scheme&quot;: &quot;Packages/Material Theme/schemes/Material-Theme-Lighter.tmTheme&quot;,</span></span><br><span class="line">	<span class="attr">&quot;theme&quot;</span>: <span class="string">&quot;Material-Theme.sublime-theme&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;color_scheme&quot;</span>: <span class="string">&quot;Packages/Material Theme/schemes/Material-Theme.tmTheme&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;default_encoding&quot;</span>: <span class="string">&quot;UTF-8&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;overlay_scroll_bars&quot;</span>: <span class="string">&quot;enabled&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;line_padding_top&quot;</span>: <span class="number">2</span>,</span><br><span class="line">	<span class="attr">&quot;line_padding_bottom&quot;</span>: <span class="number">2</span>,</span><br><span class="line">	<span class="attr">&quot;always_show_minimap_viewport&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="attr">&quot;bold_folder_labels&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="attr">&quot;font_face&quot;</span>: <span class="string">&quot;Consolas&quot;</span>,</span><br><span class="line">	<span class="attr">&quot;font_size&quot;</span>: <span class="number">13</span>,</span><br><span class="line">	<span class="attr">&quot;ignored_packages&quot;</span>:</span><br><span class="line">	[</span><br><span class="line">	],</span><br><span class="line">	<span class="attr">&quot;match_brackets&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="attr">&quot;match_brackets_angle&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="attr">&quot;match_brackets_braces&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="attr">&quot;match_brackets_content&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="attr">&quot;match_brackets_square&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="attr">&quot;save_on_focus_lost&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="attr">&quot;soda_classic_tabs&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">	<span class="attr">&quot;tab_size&quot;</span>: <span class="number">4</span>,</span><br><span class="line">	<span class="attr">&quot;translate_tabs_to_spaces&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="插件设置"><a href="#插件设置" class="headerlink" title="插件设置"></a>插件设置</h3><h4 id="GitGutter"><a href="#GitGutter" class="headerlink" title="GitGutter"></a>GitGutter</h4><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;non_blocking&quot;</span> : <span class="string">&quot;true&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;live_mode&quot;</span> : <span class="string">&quot;false&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a href="/about/">关于</a></li>
+        
+          <li><a href="/archives/">归档</a></li>
+        
+          <li><a href="/">项目</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E4%B8%BB%E9%A2%98%E7%BD%91%E7%AB%99"><span class="toc-number">3.</span> <span class="toc-text">一个主题网站</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AA%E4%BA%BA%E8%AE%BE%E7%BD%AE-Settings-User"><span class="toc-number">4.</span> <span class="toc-text">个人设置(Settings User)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6%E8%AE%BE%E7%BD%AE"><span class="toc-number">5.</span> <span class="toc-text">插件设置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#GitGutter"><span class="toc-number">5.1.</span> <span class="toc-text">GitGutter</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://polunzh.com/post/st3settings/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://polunzh.com/post/st3settings/&text=SublimeText3 个人设置及常用插件"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://polunzh.com/post/st3settings/&title=SublimeText3 个人设置及常用插件"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://polunzh.com/post/st3settings/&is_video=false&description=SublimeText3 个人设置及常用插件"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=SublimeText3 个人设置及常用插件&body=Check out this article: https://polunzh.com/post/st3settings/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://polunzh.com/post/st3settings/&title=SublimeText3 个人设置及常用插件"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://polunzh.com/post/st3settings/&title=SublimeText3 个人设置及常用插件"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://polunzh.com/post/st3settings/&title=SublimeText3 个人设置及常用插件"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://polunzh.com/post/st3settings/&title=SublimeText3 个人设置及常用插件"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://polunzh.com/post/st3settings/&name=SublimeText3 个人设置及常用插件&description=&lt;p&gt;&lt;code&gt;个人使用st3经常使用的配置和插件&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;插件&#34;&gt;&lt;a href=&#34;#插件&#34; class=&#34;headerlink&#34; title=&#34;插件&#34;&gt;&lt;/a&gt;插件&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://packagecontrol.io/packages/Emmet&#34;&gt;Emmet&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://packagecontrol.io/packages/HTMLBeautify&#34;&gt;HtmlBeautify&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://packagecontrol.io/packages/JsFormat&#34;&gt;JsFormat&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://packagecontrol.io/packages/Markdown%20Preview&#34;&gt;Markdown Preview&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://packagecontrol.io/packages/SideBarEnhancements&#34;&gt;SideBarEnhancements&lt;/a&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://polunzh.com/post/st3settings/&t=SublimeText3 个人设置及常用插件"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2015-2026
+    polunzh
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a href="/">项目</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
