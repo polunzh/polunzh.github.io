@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 8.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico">
+  <link rel="mask-icon" href="/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha256-VHqXKFhhMxcpubYf9xiWdCiojEbY9NexQ4jh8AxbvcM=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"polunzh.com","root":"/","images":"/images","scheme":"Muse","darkmode":true,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"atom-one-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="JavaScript 数组操作 原文: https:&#x2F;&#x2F;gist.github.com&#x2F;ljharb&#x2F;58faf1cfcb4e6808f74aae4ef7944cff  forEach  callback回答: 给你一个值, 随便你对它做什么, 我不管 callback参数: item, index, list 最终返回值: 啥也没有, undefined 代码示例:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript常用数组迭代方法">
+<meta property="og:url" content="https://polunzh.com/post/js-array/index.html">
+<meta property="og:site_name" content="破仑的博客">
+<meta property="og:description" content="JavaScript 数组操作 原文: https:&#x2F;&#x2F;gist.github.com&#x2F;ljharb&#x2F;58faf1cfcb4e6808f74aae4ef7944cff  forEach  callback回答: 给你一个值, 随便你对它做什么, 我不管 callback参数: item, index, list 最终返回值: 啥也没有, undefined 代码示例:">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-02-08T07:17:30.000Z">
+<meta property="article:modified_time" content="2026-01-28T06:59:02.621Z">
+<meta property="article:author" content="破仑">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://polunzh.com/post/js-array/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://polunzh.com/post/js-array/","path":"post/js-array/","title":"JavaScript常用数组迭代方法"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>JavaScript常用数组迭代方法 | 破仑的博客</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="破仑的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">破仑的博客</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript-%E6%95%B0%E7%BB%84%E6%93%8D%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">JavaScript 数组操作</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">破仑</p>
+  <div class="site-description" itemprop="description">破仑的博客，记录生活，记录技术，记录思考。</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://polunzh.com/post/js-array/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="破仑">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="破仑的博客">
+      <meta itemprop="description" content="破仑的博客，记录生活，记录技术，记录思考。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="JavaScript常用数组迭代方法 | 破仑的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JavaScript常用数组迭代方法
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-02-08 15:17:30" itemprop="dateCreated datePublished" datetime="2017-02-08T15:17:30+08:00">2017-02-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2026-01-28 14:59:02" itemprop="dateModified" datetime="2026-01-28T14:59:02+08:00">2026-01-28</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="JavaScript-数组操作"><a href="#JavaScript-数组操作" class="headerlink" title="JavaScript 数组操作"></a>JavaScript 数组操作</h1><blockquote>
+<p>原文: <a target="_blank" rel="noopener" href="https://gist.github.com/ljharb/58faf1cfcb4e6808f74aae4ef7944cff">https://gist.github.com/ljharb/58faf1cfcb4e6808f74aae4ef7944cff</a></p>
+</blockquote>
+<p><code>forEach</code></p>
+<ul>
+<li><code>callback</code>回答: 给你一个值, 随便你对它做什么, 我不管</li>
+<li><code>callback</code>参数: <code>item</code>, <code>index</code>, <code>list</code></li>
+<li>最终返回值: 啥也没有, <code>undefined</code></li>
+<li>代码示例:</li>
+</ul>
+<span id="more"></span>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">&#x27;zhang&#x27;</span>, <span class="string">&#x27;zhen&#x27;</span>, <span class="string">&#x27;qiang&#x27;</span>].<span class="title function_">forEach</span>(<span class="function">(<span class="params">val, index, thisArg</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(index, val);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(thisArg);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><code>map</code>:</p>
+<ul>
+<li><em>callback回答</em>: here’s an item. what should i put in the new list in its place(翻译不好)？</li>
+<li><em>callback 有这些参数</em>: <code>item</code>, <code>index</code>, <code>list</code></li>
+<li><em>最终的返回值</em>: 新项的列表</li>
+<li><em>代码示例</em><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> objects = [&#123; <span class="attr">id</span>: <span class="string">&#x27;a&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;chengyaojin&#x27;</span> &#125;, &#123; <span class="attr">id</span>: <span class="string">&#x27;b&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;zhangjunhui&#x27;</span> &#125;, &#123; <span class="attr">id</span>: <span class="string">&#x27;c&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;zhangzhenqiang&#x27;</span> &#125;];</span><br><span class="line"><span class="keyword">const</span> res = objects.<span class="title function_">map</span>(<span class="function">(<span class="params">item, index, list</span>) =&gt;</span> &#123;</span><br><span class="line">    item[<span class="string">&#x27;ctime&#x27;</span>] = <span class="title class_">Date</span>.<span class="title function_">now</span>();</span><br><span class="line">    <span class="keyword">return</span> item;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(res);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><code>filter</code>:</p>
+<ul>
+<li><em>callback是个谓词</em> - 应该返回真值或假值</li>
+<li><em>callback回答</em>: 我应该保留这个值吗？</li>
+<li><em>callback有这些参数</em>: <code>item</code>, <code>index</code>, <code>list</code></li>
+<li><em>最终返回值</em>: 保留下来的值</li>
+<li><em>代码示例</em>:</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ints = [<span class="number">1</span>, <span class="number">2</span>];</span><br><span class="line"><span class="keyword">const</span> events = ints.<span class="title function_">filter</span>(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> item % <span class="number">2</span> === <span class="number">0</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(ints === events, events);</span><br></pre></td></tr></table></figure>
+
+<p><code>reduce</code>:</p>
+<ul>
+<li><code>callback</code> 回答(answers): 这是前一次迭代的返回结果，我应该继续下去吗？</li>
+<li><code>callback</code>的参数: <code>result</code>, <code>item</code>, <code>index</code>, <code>list</code></li>
+<li>最后的返回结果：上一次的迭代结果</li>
+<li>代码示例：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 注意：`reduce`和`reduceRight`在`callback`参数后都一个可选的`initalValue`参数,</span></span><br><span class="line"><span class="comment">// 如果忽略不填，则默认是第一项的值</span></span><br><span class="line"><span class="keyword">const</span> sum = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].<span class="title function_">reduce</span>(<span class="function">(<span class="params">result, item</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> result += item;</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(sum);</span><br></pre></td></tr></table></figure>
+
+<p><code>reduceRight</code>: 和<code>reduce</code>相同，只不过遍历的方向是相反的方向</p>
+<p><code>some</code>:</p>
+<ul>
+<li><code>callback</code>是个谓词(<code>predicate</code>) - 应该返回真值或假值</li>
+<li><code>callback</code>回答(<code>answers</code>): 这个值满足需求吗？</li>
+<li><code>callback</code>的参数: <code>item</code>, <code>index</code>, <code>list</code></li>
+<li>最终返回值: 如果找到满足需求的值则返回<code>true</code>,否则返回<code>false</code></li>
+<li><code>注意</code>: 如果<code>callback</code>返回<code>true</code>则会停止迭代</li>
+<li>代码示例:</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> hasNegativeNumbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, -<span class="number">1</span>, <span class="number">4</span>].<span class="title function_">some</span>(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> item &lt; <span class="number">0</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(hasNegativeNumbers);</span><br></pre></td></tr></table></figure>
+
+<p><code>every</code>:</p>
+<ul>
+<li><code>callback</code> 是个谓词 - 返回真值(truthy)或假值(falsy)</li>
+<li><code>callback</code>回答(<code>answers</code>): 这个值满足需求吗？</li>
+<li><code>callback</code>的参数: <code>item</code>, <code>index</code>, <code>list</code></li>
+<li>最终返回值: 如果找到满足需求的值则返回<code>true</code>,否则返回<code>false</code></li>
+<li><code>注意</code>: 如果<code>callback</code>返回<code>false</code>则会停止迭代</li>
+<li>代码示例:</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> allPositiveNumbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, -<span class="number">1</span>, <span class="number">4</span>].<span class="title function_">every</span>(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> item &gt; <span class="number">0</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(allPositiveNumbers);</span><br></pre></td></tr></table></figure>
+
+<p><code>find</code>:</p>
+<ul>
+<li><code>callback</code> 是个谓词 - 返回真值(truthy)或假值(falsy)</li>
+<li><code>callback</code> 回答：这是你要找的值吗？</li>
+<li><code>callback</code>的参数: <code>item</code>, <code>index</code>, <code>list</code></li>
+<li>最终返回值：如果能找到，则返回该项，否则返回<code>undefined</code></li>
+<li><strong>注意</strong>: 一旦<code>callback</code>函数返回真值，迭代就会停止</li>
+<li>代码示例:</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> objects = [&#123; <span class="attr">id</span>: <span class="string">&#x27;a&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;chengyaojin&#x27;</span> &#125;, &#123; <span class="attr">id</span>: <span class="string">&#x27;b&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;zhangjunhui&#x27;</span> &#125;, &#123; <span class="attr">id</span>: <span class="string">&#x27;c&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;zhangzhenqiang&#x27;</span> &#125;];</span><br><span class="line"><span class="keyword">const</span> res = objects.<span class="title function_">find</span>(<span class="function">(<span class="params">item, index, list</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> item.<span class="property">id</span> === <span class="string">&#x27;c&#x27;</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(res);</span><br></pre></td></tr></table></figure>
+
+<p><code>findIndex</code>:</p>
+<ul>
+<li><code>callback</code> 是个谓词 - 返回真值(truthy)或假值(falsy)</li>
+<li><code>callback</code> 回答：这是你要找的值吗？</li>
+<li><code>callback</code>的参数: <code>item</code>, <code>index</code>, <code>list</code></li>
+<li>最终返回值：如果能找到，则返回该项的索引，否则返回<code>-1</code></li>
+<li><strong>注意</strong>: 一旦<code>callback</code>函数返回真值，迭代就会停止</li>
+<li>代码示例:</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> objects = [&#123; <span class="attr">id</span>: <span class="string">&#x27;a&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;chengyaojin&#x27;</span> &#125;, &#123; <span class="attr">id</span>: <span class="string">&#x27;b&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;zhangjunhui&#x27;</span> &#125;, &#123; <span class="attr">id</span>: <span class="string">&#x27;c&#x27;</span>, <span class="attr">name</span>: <span class="string">&#x27;zhangzhenqiang&#x27;</span> &#125;];</span><br><span class="line"><span class="keyword">const</span> res = objects.<span class="title function_">findIndex</span>(<span class="function">(<span class="params">item, index, list</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> item.<span class="property">id</span> === <span class="string">&#x27;c&#x27;</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(res);</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/fu-npm-package/" rel="prev" title="常用npm包">
+                  <i class="fa fa-angle-left"></i> 常用npm包
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/git-note/" rel="next" title="Git备忘">
+                  Git备忘 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2026</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">破仑</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

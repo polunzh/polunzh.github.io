@@ -1,0 +1,40 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#1a1a1a"/>
+
+  <!-- Pixel grid pattern -->
+  <defs>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <rect width="20" height="20" fill="none" stroke="#333" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+
+  <!-- Pixel-style border -->
+  <rect x="60" y="60" width="1080" height="510" fill="none" stroke="#00ff00" stroke-width="4"/>
+  <rect x="70" y="70" width="1060" height="490" fill="none" stroke="#00ff00" stroke-width="2"/>
+
+  <!-- Main text -->
+  <text x="600" y="280" font-family="monospace" font-size="80" fill="#00ff00" text-anchor="middle" font-weight="bold">
+    Polunzh
+  </text>
+
+  <!-- Subtitle -->
+  <text x="600" y="360" font-family="monospace" font-size="36" fill="#888" text-anchor="middle">
+    破仑的博客
+  </text>
+
+  <!-- Pixel decorations -->
+  <rect x="450" y="400" width="20" height="20" fill="#00ff00"/>
+  <rect x="480" y="400" width="20" height="20" fill="#00ff00"/>
+  <rect x="510" y="400" width="20" height="20" fill="#00ff00"/>
+  <rect x="690" y="400" width="20" height="20" fill="#00ff00"/>
+  <rect x="720" y="400" width="20" height="20" fill="#00ff00"/>
+  <rect x="750" y="400" width="20" height="20" fill="#00ff00"/>
+
+  <!-- Corner pixels -->
+  <rect x="80" y="80" width="15" height="15" fill="#00ff00"/>
+  <rect x="1105" y="80" width="15" height="15" fill="#00ff00"/>
+  <rect x="80" y="535" width="15" height="15" fill="#00ff00"/>
+  <rect x="1105" y="535" width="15" height="15" fill="#00ff00"/>
+</svg>
